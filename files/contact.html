@@ -246,49 +246,79 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="blog-contact-boxarea">
-                    <h3>Schedule an Appointment</h3>
-                    <div class="space4"></div>
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="input-area">
-                                <input type="text" placeholder="First Name">
+                <div class="contact-inner-section-area sp1">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="contact-inner-header heading2">
+                    <div class="space50 d-lg-block d-none"></div>
+                    <div class="space50 d-lg-none d-block"></div>
+                    <h5><img src="assets/img/icons/logo-icon1.svg" alt="">CONTACT</h5>
+                    <div class="space16"></div>
+                    <h2>Connect with Local Brokers</h2>
+                    <div class="space16"></div>
+                    <p>Couldn't find what you're looking for? Send your property requirements to our network of trusted brokers in your desired area. Our broker network will help you find your dream property.</p>
+                    <div class="space24"></div>
+                    <div class="contact-form">
+                        <div class="input-area">
+                            <input type="text" id="fullName" placeholder="Your Name" required>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <input type="email" id="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <input type="tel" id="phone" placeholder="Phone Number" required>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <select id="propertyType" class="nice-select">
+                                <option value="" selected disabled>Property Type</option>
+                                <option value="residential">Residential</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="apartment">Apartment</option>
+                                <option value="office">Office</option>
+                                <option value="shop">Shop</option>
+                            </select>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <select id="propertyStatus" class="nice-select">
+                                <option value="" selected disabled>Property Status</option>
+                                <option value="rent">For Rent</option>
+                                <option value="sale">For Sale</option>
+                            </select>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <select id="location" class="nice-select">
+                                <option value="" selected disabled>Preferred Location</option>
+                                <option value="newyork">New York</option>
+                                <option value="losangeles">Los Angeles</option>
+                                <option value="chicago">Chicago</option>
+                                <option value="miami">Miami</option>
+                                <option value="sanfrancisco">San Francisco</option>
+                            </select>
+                        </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <input type="number" id="minPrice" placeholder="Min Price ($)" min="0" step="1000">
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="number" id="maxPrice" placeholder="Max Price ($)" min="0" step="1000">
+                                </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="input-area">
-                                <input type="text" placeholder="Last Name">
-                            </div>
+                        <div class="space16"></div>
+                        <div class="input-area">
+                            <textarea id="requirements" cols="30" rows="5" placeholder="Additional Requirements (bedrooms, bathrooms, specific features, etc.)"></textarea>
                         </div>
-
-                        <div class="col-lg-6">
-                            <div class="input-area">
-                                <input type="email" placeholder="Email">
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-6">
-                            <div class="input-area">
-                                <input type="number" placeholder="Phone">
-                            </div>
-                        </div>
-                        
-                        <div class="col-lg-12">
-                            <div class="input-area">
-                                <input type="text" placeholder="Subject">
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="input-area">
-                                <textarea placeholder="Message"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-12">
-                            <div class="input-area">
-                                <button type="submit" class="header-btn1">Send Now <img src="assets/img/icons/arrow1.svg" alt=""></button>
-                            </div>
+                        <div class="space24"></div>
+                        <div class="input-area">
+                           <button id="sendToBrokers" class="header-btn1" type="submit">Send to Brokers <img src="assets/img/icons/arrow1.svg" alt=""></button>
                         </div>
                     </div>
                 </div>
