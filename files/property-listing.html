@@ -319,61 +319,57 @@
            <div class="row">
             <div class="col-lg-6">
               <div class="listing-input">
-                <select name="country"  class="nice-select">
-                  <option value="1" data-display="Max Price">Min Price</option>
-                  <option value="">$600</option>
-                  <option value="">$700</option>
-                  <option value="">$800</option>
-                  <option value="">$900</option>
-                  <option value="">$1000</option>
-                </select>
+                <input  type="number"
+                        name="min_price"
+                        class="nice-select"   
+                        placeholder="Min Price (EGP)"
+                        min="0"              
+                        step="1000"           
+                        inputmode="numeric">             
               </div>
-              <div class="space24"></div>
+            <div class="space24"></div>
             </div>
-
+            
             <div class="col-lg-6">
               <div class="listing-input">
-                <select name="country"  class="nice-select">
-                  <option value="1" data-display="Max Price">Max Price</option>
-                  <option value="">$1100</option>
-                  <option value="">$1200</option>
-                  <option value="">$1300</option>
-                  <option value="">$1400</option>
-                  <option value="">$1500</option>
-                </select>
+                <input  type="number"
+                        name="max_price"
+                        class="nice-select"   
+                        placeholder="Max Price (EGP)"
+                        min="0"              
+                        step="1000"           
+                        inputmode="numeric">             
               </div>
-              <div class="space24"></div>
+            <div class="space24"></div>
             </div>
-           </div>
-        </div>
-
-        <div class="col-lg-4">
-          <div class="row">
-           <div class="col-lg-6">
-             <div class="listing-input">
-               <select name="country"  class="nice-select">
-                 <option value="1" data-display="Min Size">Min Size</option>
-                 <option value="">600 Sqft</option>
-                 <option value="">700 Sqft</option>
-                 <option value="">800 Sqft</option>
-                 <option value="">900 Sqft</option>
-                 <option value="">1000 Sqft</option>
-               </select>
-             </div>
-             <div class="space24"></div>
-           </div>
-
-           <div class="col-lg-6">
-             <div class="listing-input">
-               <select name="country"  class="nice-select">
-                 <option value="1" data-display="Max Size">Max Size</option>
-                 <option value="">1100 Sqft</option>
-                 <option value="">1200 Sqft</option>
-                 <option value="">1300 Sqft</option>
-                 <option value="">1400 Sqft</option>
-                 <option value="">1500 Sqft</option>
-               </select>
-             </div>
+            </div>
+            </div>
+            
+            <div class="col-lg-4">
+            <div class="row">
+            <div class="col-lg-6">
+              <div class="listing-input">
+                <input  type="number"
+                        name="min_size"
+                        class="nice-select"   
+                        placeholder="Min Size (m²)"
+                        min="0"              
+                        step="1"           
+                        inputmode="numeric">             
+              </div>
+            <div class="space24"></div>
+            </div>
+            
+            <div class="col-lg-6">
+              <div class="listing-input">
+                <input  type="number"
+                        name="max_size"
+                        class="nice-select"   
+                        placeholder="Max Size (m²)"
+                        min="0"              
+                        step="1"           
+                        inputmode="numeric">             
+              </div>
              <div class="space24"></div>
            </div>
           </div>
@@ -509,30 +505,28 @@
 <div class="col-lg-4">
 <div class="row">
 <div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
-  <option value="1" data-display="Max Price">Min Price</option>
-  <option value="">$600</option>
-  <option value="">$700</option>
-  <option value="">$800</option>
-  <option value="">$900</option>
-  <option value="">$1000</option>
-</select>
-</div>
+  <div class="listing-input">
+    <input  type="number"
+            name="min_price"
+            class="nice-select"   
+            placeholder="Min Price (EGP)"
+            min="0"              
+            step="1000"           
+            inputmode="numeric">             
+  </div>
 <div class="space24"></div>
 </div>
 
 <div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
-  <option value="1" data-display="Max Price">Max Price</option>
-  <option value="">$1100</option>
-  <option value="">$1200</option>
-  <option value="">$1300</option>
-  <option value="">$1400</option>
-  <option value="">$1500</option>
-</select>
-</div>
+  <div class="listing-input">
+    <input  type="number"
+            name="max_price"
+            class="nice-select"   
+            placeholder="Max Price (EGP)"
+            min="0"              
+            step="1000"           
+            inputmode="numeric">             
+  </div>
 <div class="space24"></div>
 </div>
 </div>
@@ -541,16 +535,15 @@
 <div class="col-lg-4">
 <div class="row">
 <div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
- <option value="1" data-display="Min Size">Min Size</option>
- <option value="">600 Sqft</option>
- <option value="">700 Sqft</option>
- <option value="">800 Sqft</option>
- <option value="">900 Sqft</option>
- <option value="">1000 Sqft</option>
-</select>
-</div>
+  <div class="listing-input">
+    <input  type="number"
+            name="min_size"
+            class="nice-select"   
+            placeholder="Min Size (m²)"
+            min="0"              
+            step="1"           
+            inputmode="numeric">             
+  </div>
 <div class="space24"></div>
 </div>
 
@@ -559,11 +552,10 @@
     <input  type="number"
             name="max_size"
             class="nice-select"   
-            placeholder="Max Size (Sq ft)"
+            placeholder="Max Size (m²)"
             min="0"              
-            step="100"           
-            inputmode="numeric"  
-            required>             
+            step="1"           
+            inputmode="numeric">             
   </div>
 <div class="space24"></div>
 </div>
