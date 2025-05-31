@@ -255,7 +255,7 @@
                   <div class="row">
                     <div class="col-lg-4">
                       <div class="listing-input">
-                          <select name="city" class="nice-select">
+                          <select name="city-rent" class="city-select nice-select">
                               <option value="" selected disabled>City</option>
                               <option value="cairo">Cairo</option>
                               <option value="giza">Giza</option>
@@ -265,14 +265,74 @@
                   </div>                  
                     <div class="col-lg-4">
                         <div class="listing-input">
-                          <select name="country"  class="nice-select">
-                            <option value="1" data-display="All Types">All Types</option>
-                            <option value="">Commarcial</option>
-                            <option value="">Office</option>
-                            <option value="">Shop</option>
-                            <option value="">Residential</option>
-                            <option value="">Apartment</option>
-                          </select>
+                          <select id="area-rent" name="area" class="area-select nice-select">
+                            <option value="" disabled selected>Area</option>
+                    
+                            <!-- CAIRO -->
+                            <option value="downtown"          data-city="cairo">Downtown</option>
+                            <option value="abdeen"            data-city="cairo">Abdeen</option>
+                            <option value="azbakeya"          data-city="cairo">Azbakeya</option>
+                            <option value="bab-el-shaariya"   data-city="cairo">Bab El Shaariya</option>
+                            <option value="boulaq"            data-city="cairo">Boulaq</option>
+                            <option value="gamaleya"          data-city="cairo">Gamaleya</option>
+                            <option value="manshiyat-naser"   data-city="cairo">Manshiyat Naser</option>
+                            <option value="sayeda-zeinab"     data-city="cairo">Sayeda Zeinab</option>
+                            <option value="khalifa"           data-city="cairo">El-Khalifa</option>
+                            <option value="old-cairo"         data-city="cairo">Old Cairo (Masr El-Qadima)</option>
+                            <option value="mokattam"          data-city="cairo">Mokattam</option>
+                            <option value="maadi"             data-city="cairo">Maadi</option>
+                            <option value="tora"              data-city="cairo">Tora</option>
+                            <option value="helwan"            data-city="cairo">Helwan</option>
+                            <option value="basatin"           data-city="cairo">El Basatin</option>
+                            <option value="dar-el-salam"      data-city="cairo">Dar El Salam</option>
+                            <option value="nasr-city"         data-city="cairo">Nasr City</option>
+                            <option value="heliopolis"        data-city="cairo">Heliopolis (Masr El Gedida)</option>
+                            <option value="nozha"             data-city="cairo">El Nozha</option>
+                            <option value="salam"             data-city="cairo">El Salam</option>
+                            <option value="matareya"          data-city="cairo">El Matareya</option>
+                            <option value="zeitoun"           data-city="cairo">El Zeitoun</option>
+                            <option value="ain-shams"         data-city="cairo">Ain Shams</option>
+                            <option value="marg"              data-city="cairo">El Marg</option>
+                            <option value="shubra"            data-city="cairo">Shubra</option>
+                            <option value="sahel"             data-city="cairo">El Sahel</option>
+                            <option value="rod-el-farag"      data-city="cairo">Rod El Farag</option>
+                            <!-- المدن الجديدة التابعة للقاهرة -->
+                            <option value="new-cairo"         data-city="cairo">New Cairo</option>
+                            <option value="fifth-settlement"  data-city="cairo">Fifth Settlement</option>
+                            <option value="rehab"             data-city="cairo">El Rehab</option>
+                            <option value="shorouk"           data-city="cairo">El Shorouk</option>
+                            <option value="madinaty"          data-city="cairo">Madinaty</option>
+                            <option value="badr-city"         data-city="cairo">Badr City</option>
+                            <option value="obour-city"        data-city="cairo">Obour City</option>
+                            <option value="15-may"            data-city="cairo">15th of May City</option>
+
+                            <!-- ===================== GIZA ===================== -->
+                            <option value="dokki"             data-city="giza">Dokki</option>
+                            <option value="mohandessin"       data-city="giza">Mohandessin</option>
+                            <option value="agouza"            data-city="giza">Agouza</option>
+                            <option value="imbaba"            data-city="giza">Imbaba</option>
+                            <option value="warraq"            data-city="giza">Warraq</option>
+                            <option value="boulaq-eldakrour"  data-city="giza">Boulaq El-Dakrour</option>
+                            <option value="giza-square"       data-city="giza">Giza Square</option>
+                            <option value="faisal"            data-city="giza">Faisal</option>
+                            <option value="haram"             data-city="giza">El Haram</option>
+                            <option value="omraneya"          data-city="giza">Omraneya</option>
+                            <option value="talbiya"           data-city="giza">Talbiya</option>
+                            <option value="kerdasa"           data-city="giza">Kerdasa</option>
+                            <option value="mansoureya"        data-city="giza">Mansoureya</option>
+                            <option value="maryouteya"        data-city="giza">Maryouteya</option>
+                            <option value="baragil"           data-city="giza">El Baragil</option>
+                            <option value="badrashein"        data-city="giza">Badrashein</option>
+                            <option value="hawamdeyya"        data-city="giza">Hawamdeyya</option>
+                            <option value="ayyat"             data-city="giza">El Ayyat</option>
+                            <option value="saf"               data-city="giza">El Saf</option>
+                            <option value="atfih"             data-city="giza">Atfih</option>
+                            <!-- المدن الجديدة التابعة للجيزة -->
+                            <option value="6october"          data-city="giza">6th of October City</option>
+                            <option value="sheikh-zayed"      data-city="giza">Sheikh Zayed City</option>
+                            <option value="new-giza"          data-city="giza">New Giza</option>
+                            <option value="abu-rawash"        data-city="giza">Abu Rawash</option>
+                        </select>
                         </div>
                         <div class="space24"></div>
                     </div>
@@ -457,28 +517,201 @@
   <div class="row">
     <div class="col-lg-4">
       <div class="listing-input">
-          <select name="city" class="nice-select">
-              <option value="" selected disabled>City</option>
-              <option value="cairo">Cairo</option>
-              <option value="giza">Giza</option>
-          </select>
+        <select id="city-sale" name="city" class="city-select nice-select">
+          <option value="" disabled selected>City</option>
+          <option value="cairo">Cairo</option>
+          <option value="giza">Giza</option>
+      </select>
       </div>
       <div class="space24"></div>
     </div> 
 
     <div class="col-lg-4">
         <div class="listing-input">
-          <select name="country"  class="nice-select">
-            <option value="1" data-display="All Types">All Types</option>
-            <option value="">Belgium City</option>
-            <option value="">Brezil City</option>
-            <option value="">Argentina City</option>
-            <option value="">Bangladesh City</option>
-            <option value="">Germany City</option>
-          </select>
+          <select id="area-sale" name="area" class="area-select nice-select">
+            <option value="" disabled selected>Area</option>
+    
+            <!-- CAIRO -->
+            <option value="downtown"          data-city="cairo">Downtown</option>
+            <option value="abdeen"            data-city="cairo">Abdeen</option>
+            <option value="azbakeya"          data-city="cairo">Azbakeya</option>
+            <option value="bab-el-shaariya"   data-city="cairo">Bab El Shaariya</option>
+            <option value="boulaq"            data-city="cairo">Boulaq</option>
+            <option value="gamaleya"          data-city="cairo">Gamaleya</option>
+            <option value="manshiyat-naser"   data-city="cairo">Manshiyat Naser</option>
+            <option value="sayeda-zeinab"     data-city="cairo">Sayeda Zeinab</option>
+            <option value="khalifa"           data-city="cairo">El-Khalifa</option>
+            <option value="old-cairo"         data-city="cairo">Old Cairo (Masr El-Qadima)</option>
+            <option value="mokattam"          data-city="cairo">Mokattam</option>
+            <option value="maadi"             data-city="cairo">Maadi</option>
+            <option value="tora"              data-city="cairo">Tora</option>
+            <option value="helwan"            data-city="cairo">Helwan</option>
+            <option value="basatin"           data-city="cairo">El Basatin</option>
+            <option value="dar-el-salam"      data-city="cairo">Dar El Salam</option>
+            <option value="nasr-city"         data-city="cairo">Nasr City</option>
+            <option value="heliopolis"        data-city="cairo">Heliopolis (Masr El Gedida)</option>
+            <option value="nozha"             data-city="cairo">El Nozha</option>
+            <option value="salam"             data-city="cairo">El Salam</option>
+            <option value="matareya"          data-city="cairo">El Matareya</option>
+            <option value="zeitoun"           data-city="cairo">El Zeitoun</option>
+            <option value="ain-shams"         data-city="cairo">Ain Shams</option>
+            <option value="marg"              data-city="cairo">El Marg</option>
+            <option value="shubra"            data-city="cairo">Shubra</option>
+            <option value="sahel"             data-city="cairo">El Sahel</option>
+            <option value="rod-el-farag"      data-city="cairo">Rod El Farag</option>
+            <!-- المدن الجديدة التابعة للقاهرة -->
+            <option value="new-cairo"         data-city="cairo">New Cairo</option>
+            <option value="fifth-settlement"  data-city="cairo">Fifth Settlement</option>
+            <option value="rehab"             data-city="cairo">El Rehab</option>
+            <option value="shorouk"           data-city="cairo">El Shorouk</option>
+            <option value="madinaty"          data-city="cairo">Madinaty</option>
+            <option value="badr-city"         data-city="cairo">Badr City</option>
+            <option value="obour-city"        data-city="cairo">Obour City</option>
+            <option value="15-may"            data-city="cairo">15th of May City</option>
+
+            <!-- ===================== GIZA ===================== -->
+            <option value="dokki"             data-city="giza">Dokki</option>
+            <option value="mohandessin"       data-city="giza">Mohandessin</option>
+            <option value="agouza"            data-city="giza">Agouza</option>
+            <option value="imbaba"            data-city="giza">Imbaba</option>
+            <option value="warraq"            data-city="giza">Warraq</option>
+            <option value="boulaq-eldakrour"  data-city="giza">Boulaq El-Dakrour</option>
+            <option value="giza-square"       data-city="giza">Giza Square</option>
+            <option value="faisal"            data-city="giza">Faisal</option>
+            <option value="haram"             data-city="giza">El Haram</option>
+            <option value="omraneya"          data-city="giza">Omraneya</option>
+            <option value="talbiya"           data-city="giza">Talbiya</option>
+            <option value="kerdasa"           data-city="giza">Kerdasa</option>
+            <option value="mansoureya"        data-city="giza">Mansoureya</option>
+            <option value="maryouteya"        data-city="giza">Maryouteya</option>
+            <option value="baragil"           data-city="giza">El Baragil</option>
+            <option value="badrashein"        data-city="giza">Badrashein</option>
+            <option value="hawamdeyya"        data-city="giza">Hawamdeyya</option>
+            <option value="ayyat"             data-city="giza">El Ayyat</option>
+            <option value="saf"               data-city="giza">El Saf</option>
+            <option value="atfih"             data-city="giza">Atfih</option>
+            <!-- المدن الجديدة التابعة للجيزة -->
+            <option value="6october"          data-city="giza">6th of October City</option>
+            <option value="sheikh-zayed"      data-city="giza">Sheikh Zayed City</option>
+            <option value="new-giza"          data-city="giza">New Giza</option>
+            <option value="abu-rawash"        data-city="giza">Abu Rawash</option>
+        </select>
         </div>
         <div class="space24"></div>
     </div>
+
+    <div class="col-lg-4">
+      <div class="listing-input">
+        <!-- ▸ القائمة الثالثة: District -->
+        <select id="district-sale" name="district" class="nice-select">
+          <option value="" disabled selected>District</option>
+
+          <!-- =============== GIZA =============== -->
+
+          <!-- 6th of October City -->
+          <option data-city="giza" data-area="6october" value="oct-1">1st District</option>
+          <option data-city="giza" data-area="6october" value="oct-2">2nd District</option>
+          <option data-city="giza" data-area="6october" value="oct-3">3rd District</option>
+          <option data-city="giza" data-area="6october" value="oct-4">4th District</option>
+          <option data-city="giza" data-area="6october" value="oct-5">5th District</option>
+          <option data-city="giza" data-area="6october" value="oct-6">6th District</option>
+          <option data-city="giza" data-area="6october" value="oct-7">7th District</option>
+          <option data-city="giza" data-area="6october" value="oct-8">8th District</option>
+          <option data-city="giza" data-area="6october" value="oct-9">9th District</option>
+          <option data-city="giza" data-area="6october" value="oct-10">10th District</option>
+          <option data-city="giza" data-area="6october" value="oct-11">11th District</option>
+          <option data-city="giza" data-area="6october" value="oct-12">12th District</option>
+          <option data-city="giza" data-area="6october" value="north-exp">Northern Expansions</option>
+          <option data-city="giza" data-area="6october" value="south-exp">Southern Expansions</option>
+          <option data-city="giza" data-area="6october" value="west-sumid">West Sumid</option>
+          <option data-city="giza" data-area="6october" value="east-sumid">East Sumid</option>
+
+          <!-- Sheikh Zayed City (17 حيّ) -->
+          <!-- Districts 1-17 -->
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-1">District 1</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-2">District 2</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-3">District 3</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-4">District 4</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-5">District 5</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-6">District 6</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-7">District 7</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-8">District 8</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-9">District 9</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-10">District 10</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-11">District 11</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-12">District 12</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-13">District 13</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-14">District 14</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-15">District 15</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-16">District 16</option>
+          <option data-city="giza" data-area="sheikh-zayed" value="zayed-17">District 17</option>
+
+          <!-- بقية مناطق الجيزة التقليديّة (الدقي، المهندسين…) تُعَدّ «District» بذاتها -->
+          <option data-city="giza" data-area="dokki"            value="dokki">Dokki</option>
+          <option data-city="giza" data-area="mohandessin"      value="mohandessin">Mohandessin</option>
+          <option data-city="giza" data-area="agouza"           value="agouza">Agouza</option>
+          <option data-city="giza" data-area="haram"            value="haram">El Haram</option>
+          <!-- …أضف ما يلزم  -->
+
+          <!-- =============== CAIRO =============== -->
+
+          <!-- Nasr City -->
+          <option data-city="cairo" data-area="nasr-city" value="nasr-1">1st District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-2">2nd District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-3">3rd District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-4">4th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-5">5th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-6">6th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-7">7th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-8">8th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-9">9th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-10">10th District</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-waha">El Waha (11)</option>
+          <option data-city="cairo" data-area="nasr-city" value="nasr-zahraa">Zahraa Nasr City (12)</option>
+
+          <!-- New Cairo – First + Third + Fifth Settlements -->
+          <option data-city="cairo" data-area="fifth-settlement"  value="narges-1">Al Narges 1</option>
+          <option data-city="cairo" data-area="fifth-settlement"  value="narges-2">Al Narges 2</option>
+          <option data-city="cairo" data-area="fifth-settlement"  value="yasmine-1">Al Yasmine 1</option>
+          <option data-city="cairo" data-area="fifth-settlement"  value="lotus-north">Lotus North</option>
+          <option data-city="cairo" data-area="first-settlement"  value="elshoifat">El Shoifat</option>
+          <option data-city="cairo" data-area="third-settlement"  value="youth-housing">Youth Housing</option>
+          <!-- …يمكنك إضافة باقى مجاورات New Cairo حسب الحاجة -->
+
+          <!-- El Shorouk City (1→12) -->
+          <option data-city="cairo" data-area="shorouk" value="shorouk-1">District 1</option>
+          <option data-city="cairo" data-area="shorouk" value="shorouk-2">District 2</option>
+          <option data-city="cairo" data-area="shorouk" value="shorouk-3">District 3</option>
+          <!-- …إلى District 12  -->
+
+          <!-- Obour City (1→10) -->
+          <option data-city="cairo" data-area="obour-city" value="obour-1">District 1</option>
+          <!-- …إلى District 10 -->
+
+          <!-- Badr City (1→15) -->
+          <option data-city="cairo" data-area="badr-city" value="badr-1">District 1</option>
+          <!-- …إلى District 15 -->
+
+          <!-- 15 May City -->
+          <option data-city="cairo" data-area="15-may" value="may-1">Neighbourhood 1</option>
+          <option data-city="cairo" data-area="15-may" value="may-2">Neighbourhood 2</option>
+          <!-- …إلى Neighbourhood 5 -->
+
+          <!-- Heliopolis & Maadi – أحياء معروفة -->
+          <option data-city="cairo" data-area="heliopolis" value="korba">Korba</option>
+          <option data-city="cairo" data-area="heliopolis" value="almazah">Al Maza</option>
+          <option data-city="cairo" data-area="maadi" value="old-maadi">Old Maadi</option>
+          <option data-city="cairo" data-area="maadi" value="degla">Degla</option>
+
+          <!-- باقى مناطق القاهرة التاريخية تُعتبر district بذاتها -->
+          <option data-city="cairo" data-area="downtown" value="downtown">Downtown</option>
+          <option data-city="cairo" data-area="shubra"   value="shubra">Shubra</option>
+          <option data-city="cairo" data-area="heliopolis" value="heliopolis-general">Heliopolis General</option>
+          <!-- …أضف ما ينقصك بنفس الطريقة -->
+        </select>
+      </div>
+      <div class="space24"></div>
+    </div> 
 
     <div class="col-lg-4">
       <div class="listing-input">
@@ -1380,7 +1613,6 @@
 <script src="assets/js/plugins/magnific-popup.js"></script>
 <script src="assets/js/plugins/mobilemenu.js"></script>
 <script src="assets/js/plugins/owlcarousel.min.js"></script>
-<script src="assets/js/plugins/nice-select.js"></script>
 <script src="assets/js/plugins/waypoints.js"></script>
 <script src="assets/js/plugins/slick-slider.js"></script>
 <script src="assets/js/plugins/circle-progress.js"></script>
@@ -1388,6 +1620,92 @@
 <script src="assets/js/plugins/ScrollTrigger.min.js"></script>
 <script src="assets/js/plugins/Splitetext.js"></script>
 <script src="assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="assets/js/plugins/nice-select.js"></script>
+
+
+<script>
+  $(function () {
+    // Initialize nice-select for all select elements
+    $('select.nice-select').niceSelect();
+    
+    // Store all area options for each dropdown
+    const allAreaOptions = {};
+    
+    // Function to store original options
+    function storeOriginalOptions(areaSelector) {
+        const $area = $(areaSelector);
+        allAreaOptions[areaSelector] = [];
+        
+        $area.find('option').each(function() {
+            const $option = $(this);
+            allAreaOptions[areaSelector].push({
+                value: $option.val(),
+                text: $option.text(),
+                city: $option.data('city'),
+                disabled: $option.prop('disabled'),
+                selected: $option.prop('selected')
+            });
+        });
+    }
+    
+    // Function to link city and area dropdowns
+    function linkCityAreaDropdowns(citySelector, areaSelector) {
+        const $city = $(citySelector);
+        const $area = $(areaSelector);
+        
+        // Store original options
+        storeOriginalOptions(areaSelector);
+        
+        function filterAreasByCity() {
+            const selectedCity = $city.val();
+            
+            // Clear current options
+            $area.empty();
+            
+            // Add back filtered options
+            allAreaOptions[areaSelector].forEach(function(option) {
+                // Add option if it has no city data (default option) or matches selected city
+                if (!option.city || option.city === selectedCity) {
+                    const $newOption = $('<option>', {
+                        value: option.value,
+                        text: option.text,
+                        disabled: option.disabled && !option.city, // Keep default option disabled
+                        selected: false // Reset selection
+                    });
+                    
+                    if (option.city) {
+                        $newOption.data('city', option.city);
+                    }
+                    
+                    $area.append($newOption);
+                }
+            });
+            
+            // Reset to default selection
+            $area.val('');
+            
+            // Destroy and recreate nice-select
+            $area.niceSelect('destroy');
+            $area.niceSelect();
+        }
+        
+        // Initial filtering when page loads
+        filterAreasByCity();
+        
+        // Filter when city selection changes
+        $city.on('change', filterAreasByCity);
+    }
+    
+    // For RENT tab - link city-rent and area-rent
+    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+    
+    // For SALE tab - link city-sale and area-sale (when you add them)
+    // linkCityAreaDropdowns('#city-sale', '#area-sale');
+});
+
+  </script>
 
 </body>
+
 </html>
