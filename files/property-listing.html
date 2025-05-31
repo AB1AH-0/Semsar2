@@ -555,16 +555,16 @@
 </div>
 
 <div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
- <option value="1" data-display="Max Size">Max Size</option>
- <option value="">1100 Sqft</option>
- <option value="">1200 Sqft</option>
- <option value="">1300 Sqft</option>
- <option value="">1400 Sqft</option>
- <option value="">1500 Sqft</option>
-</select>
-</div>
+  <div class="listing-input">
+    <input  type="number"
+            name="max_size"
+            class="nice-select"   
+            placeholder="Max Size (Sq ft)"
+            min="0"              
+            step="100"           
+            inputmode="numeric"  
+            required>             
+  </div>
 <div class="space24"></div>
 </div>
 </div>
