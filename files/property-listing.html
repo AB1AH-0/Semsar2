@@ -286,8 +286,15 @@
 
                   <div class="col-lg-4">
                     <div class="listing-input">
-                        <input type="email" placeholder="Address">
-                    </div>
+                      <select name="Type" class="nice-select">
+                          <option value="" selected disabled>Type</option>
+                          <option value="Apartment">Apartment</option>
+                          <option value="Duplex">Duplex</option>
+                          <option value="Penthouse">Penthouse</option>
+                          <option value="Studio">Studio</option>
+                          <option value="Roof">Roof</option>
+                      </select>
+                  </div>
                     <div class="space24"></div>
                 </div>
 
@@ -482,8 +489,15 @@
 
   <div class="col-lg-4">
     <div class="listing-input">
-        <input type="email" placeholder="Address">
-    </div>
+      <select name="Type" class="nice-select">
+          <option value="" selected disabled>Type</option>
+          <option value="Apartment">Apartment</option>
+          <option value="Duplex">Duplex</option>
+          <option value="Penthouse">Penthouse</option>
+          <option value="Studio">Studio</option>
+          <option value="Roof">Roof</option>
+      </select>
+  </div>
     <div class="space24"></div>
 </div>
 
@@ -495,21 +509,26 @@
 </div>
 
 <div class="col-lg-4">
-<div class="listing-input">
-    <input type="text" placeholder="Any Bedrooms">
-</div>
-<div class="space24"></div>
+  <div class="listing-input">
+    <input  type="number"
+            name="bathrooms"
+            class="nice-select"   
+            placeholder="Bathrooms"
+            min="0"              
+            step="1"           
+            inputmode="numeric">             
+  </div>
+  <div class="space24"></div>
 </div>
 <div class="col-lg-4">
 <div class="listing-input">
-<select name="country"  class="nice-select">
-  <option value="1" data-display="Any Bedrooms">Any Bedrooms</option>
-  <option value="">Belgium City</option>
-  <option value="">Brezil City</option>
-  <option value="">Argentina City</option>
-  <option value="">Bangladesh City</option>
-  <option value="">Germany City</option>
-</select>
+  <input  type="number"
+          name="bedrooms"
+          class="nice-select"   
+          placeholder="Bedrooms"
+          min="0"              
+          step="1"           
+          inputmode="numeric">             
 </div>
 <div class="space24"></div>
 </div>
