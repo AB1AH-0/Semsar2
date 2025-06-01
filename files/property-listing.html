@@ -233,7 +233,6 @@
                         <div class="listing-input">
                           <select id="area-rent" name="area" class="area-select nice-select">
                             <option value="" disabled selected>Area</option>
-                    
                             <!-- CAIRO -->
                             <option value="downtown"          data-city="cairo">Downtown</option>
                             <option value="abdeen"            data-city="cairo">Abdeen</option>
@@ -302,14 +301,16 @@
                         </div>
                         <div class="space24"></div>
                     </div>
-                
                     <div class="col-lg-4">
                       <div class="listing-input">
-                          <input type="text" placeholder="Title">
+                        <select name="property_type" class="form-select nice-select" aria-label="Property Type">
+                          <option value="" selected disabled>Select Type</option>
+                          <option value="rent">For Rent</option>
+                          <option value="sale">For Sale</option>
+                        </select>
                       </div>
                       <div class="space24"></div>
-                  </div>
-
+                    </div>
                   <div class="col-lg-4">
                     <div class="listing-input">
                       <select name="Type-rent" class="nice-select">
