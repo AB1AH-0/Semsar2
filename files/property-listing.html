@@ -346,7 +346,7 @@
 
                   <div class="col-lg-4">
                     <div class="listing-input">
-                      <select name="Type" class="nice-select">
+                      <select name="Type-rent" class="nice-select">
                           <option value="" selected disabled>Type</option>
                           <option value="Apartment">Apartment</option>
                           <option value="Duplex">Duplex</option>
@@ -368,7 +368,7 @@
               <div class="col-lg-4">
                 <div class="listing-input">
                   <input  type="number"
-                          name="bathrooms"
+                          name="bathrooms-rent"
                           class="nice-select"   
                           placeholder="Bathrooms"
                           min="0"              
@@ -380,7 +380,7 @@
             <div class="col-lg-4">
               <div class="listing-input">
                 <input  type="number"
-                        name="bedrooms"
+                        name="bedrooms-rent"
                         class="nice-select"   
                         placeholder="Bedrooms"
                         min="0"              
@@ -395,7 +395,7 @@
             <div class="col-lg-6">
               <div class="listing-input">
                 <input  type="number"
-                        name="min_price"
+                        name="min_price-rent"
                         class="nice-select"   
                         placeholder="Min Price (EGP)"
                         min="0"              
@@ -408,7 +408,7 @@
             <div class="col-lg-6">
               <div class="listing-input">
                 <input  type="number"
-                        name="max_price"
+                        name="max_price-rent"
                         class="nice-select"   
                         placeholder="Max Price (EGP)"
                         min="0"              
@@ -425,7 +425,7 @@
             <div class="col-lg-6">
               <div class="listing-input">
                 <input  type="number"
-                        name="min_size"
+                        name="min_size-rent"
                         class="nice-select"   
                         placeholder="Min Size (m²)"
                         min="0"              
@@ -438,7 +438,7 @@
             <div class="col-lg-6">
               <div class="listing-input">
                 <input  type="number"
-                        name="max_size"
+                        name="max_size-rent"
                         class="nice-select"   
                         placeholder="Max Size (m²)"
                         min="0"              
@@ -715,14 +715,7 @@
 
     <div class="col-lg-4">
       <div class="listing-input">
-          <input type="text" placeholder="Title">
-      </div>
-      <div class="space24"></div>
-  </div>
-
-  <div class="col-lg-4">
-    <div class="listing-input">
-      <select name="Type" class="nice-select">
+        <select name="Type-sale" class="nice-select">
           <option value="" selected disabled>Type</option>
           <option value="Apartment">Apartment</option>
           <option value="Duplex">Duplex</option>
@@ -730,6 +723,13 @@
           <option value="Studio">Studio</option>
           <option value="Roof">Roof</option>
       </select>
+      </div>
+      <div class="space24"></div>
+  </div>
+
+  <div class="col-lg-4">
+    <div class="listing-input">
+      
   </div>
     <div class="space24"></div>
 </div>
@@ -744,7 +744,7 @@
 <div class="col-lg-4">
   <div class="listing-input">
     <input  type="number"
-            name="bathrooms"
+            name="bathrooms-sale"
             class="nice-select"   
             placeholder="Bathrooms"
             min="0"              
@@ -756,7 +756,7 @@
 <div class="col-lg-4">
 <div class="listing-input">
   <input  type="number"
-          name="bedrooms"
+          name="bedrooms-sale"
           class="nice-select"   
           placeholder="Bedrooms"
           min="0"              
@@ -771,7 +771,7 @@
 <div class="col-lg-6">
   <div class="listing-input">
     <input  type="number"
-            name="min_price"
+            name="min_price-sale"
             class="nice-select"   
             placeholder="Min Price (EGP)"
             min="0"              
@@ -784,7 +784,7 @@
 <div class="col-lg-6">
   <div class="listing-input">
     <input  type="number"
-            name="max_price"
+            name="max_price-sale"
             class="nice-select"   
             placeholder="Max Price (EGP)"
             min="0"              
@@ -801,7 +801,7 @@
 <div class="col-lg-6">
   <div class="listing-input">
     <input  type="number"
-            name="min_size"
+            name="min_size-sale"
             class="nice-select"   
             placeholder="Min Size (m²)"
             min="0"              
@@ -814,7 +814,7 @@
 <div class="col-lg-6">
   <div class="listing-input">
     <input  type="number"
-            name="max_size"
+            name="max_size-sale"
             class="nice-select"   
             placeholder="Max Size (m²)"
             min="0"              
