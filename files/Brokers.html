@@ -305,31 +305,17 @@
                 
                     <div class="col-lg-4">
                       <div class="listing-input">
-                          <input type="text" placeholder="Title">
-                      </div>
+                        <select name="Type-rent" class="nice-select">
+                            <option value="" selected disabled>Type</option>
+                            <option value="Apartment">Apartment</option>
+                            <option value="Duplex">Duplex</option>
+                            <option value="Penthouse">Penthouse</option>
+                            <option value="Studio">Studio</option>
+                            <option value="Roof">Roof</option>
+                        </select>
+                    </div>
                       <div class="space24"></div>
                   </div>
-
-                  <div class="col-lg-4">
-                    <div class="listing-input">
-                      <select name="Type-rent" class="nice-select">
-                          <option value="" selected disabled>Type</option>
-                          <option value="Apartment">Apartment</option>
-                          <option value="Duplex">Duplex</option>
-                          <option value="Penthouse">Penthouse</option>
-                          <option value="Studio">Studio</option>
-                          <option value="Roof">Roof</option>
-                      </select>
-                  </div>
-                    <div class="space24"></div>
-                </div>
-
-                <div class="col-lg-4">
-                  <div class="listing-input">
-                      <input type="text" placeholder="All Cities">
-                  </div>
-                  <div class="space24"></div>
-              </div>
 
               <div class="col-lg-4">
                 <div class="listing-input">
@@ -413,61 +399,30 @@
               </div>
              <div class="space24"></div>
            </div>
+
+                <div class="col-lg-6">                 
+                    <label>
+                      <input type="checkbox" name="Furnished" value="yes">
+                      Furnished
+                    </label>                              
+                  <div class="space24"></div>
+              </div>
           </div>
        </div>
 
        <div class="col-lg-4">
         <div class="row">
-         <div class="col-lg-6">
-           <div class="listing-input">
-             <select name="country"  class="nice-select">
-               <option value="1" data-display="Min Land Area">Min Land Area</option>
-               <option value="">Belgium City</option>
-               <option value="">Brezil City</option>
-               <option value="">Argentina City</option>
-               <option value="">Bangladesh City</option>
-               <option value="">Germany City</option>
-             </select>
-           </div>
-           <div class="space24"></div>
-         </div>
 
-         <div class="col-lg-6">
-           <div class="listing-input">
-             <select name="country"  class="nice-select">
-               <option value="1" data-display="Max Land Area">Max Land Area</option>
-               <option value="">Belgium City</option>
-               <option value="">Brezil City</option>
-               <option value="">Argentina City</option>
-               <option value="">Bangladesh City</option>
-               <option value="">Germany City</option>
-             </select>
-           </div>
-           <div class="space24"></div>
-         </div>
         </div>
      </div>
 
      <div class="col-lg-4">
       <div class="listing-input">
-        <select name="country"  class="nice-select">
-          <option value="1" data-display="Any Garages">Any Garages</option>
-          <option value="">01</option>
-          <option value="">02</option>
-          <option value="">03</option>
-          <option value="">04</option>
-          <option value="">05</option>
-        </select>
+
       </div>
       <div class="space24"></div>
   </div>
 
-  <div class="col-lg-4">
-    <div class="listing-input">
-        <input type="text" placeholder="Property ID">
-    </div>
-    <div class="space24"></div>
-</div>
 <div class="col-lg-4">
   <div class="space24"></div>
 
@@ -564,118 +519,6 @@
         <div class="space24"></div>
     </div>
 
-    <div class="col-lg-4">
-      <div class="listing-input">
-        <!-- ▸ القائمة الثالثة: District -->
-        <select id="district-sale" name="district" class="nice-select">
-          <option value="" disabled selected>District</option>
-
-          <!-- =============== GIZA =============== -->
-
-          <!-- 6th of October City -->
-          <option data-city="giza" data-area="6october" value="oct-1">1st District</option>
-          <option data-city="giza" data-area="6october" value="oct-2">2nd District</option>
-          <option data-city="giza" data-area="6october" value="oct-3">3rd District</option>
-          <option data-city="giza" data-area="6october" value="oct-4">4th District</option>
-          <option data-city="giza" data-area="6october" value="oct-5">5th District</option>
-          <option data-city="giza" data-area="6october" value="oct-6">6th District</option>
-          <option data-city="giza" data-area="6october" value="oct-7">7th District</option>
-          <option data-city="giza" data-area="6october" value="oct-8">8th District</option>
-          <option data-city="giza" data-area="6october" value="oct-9">9th District</option>
-          <option data-city="giza" data-area="6october" value="oct-10">10th District</option>
-          <option data-city="giza" data-area="6october" value="oct-11">11th District</option>
-          <option data-city="giza" data-area="6october" value="oct-12">12th District</option>
-          <option data-city="giza" data-area="6october" value="north-exp">Northern Expansions</option>
-          <option data-city="giza" data-area="6october" value="south-exp">Southern Expansions</option>
-          <option data-city="giza" data-area="6october" value="west-sumid">West Sumid</option>
-          <option data-city="giza" data-area="6october" value="east-sumid">East Sumid</option>
-
-          <!-- Sheikh Zayed City (17 حيّ) -->
-          <!-- Districts 1-17 -->
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-1">District 1</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-2">District 2</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-3">District 3</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-4">District 4</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-5">District 5</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-6">District 6</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-7">District 7</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-8">District 8</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-9">District 9</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-10">District 10</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-11">District 11</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-12">District 12</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-13">District 13</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-14">District 14</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-15">District 15</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-16">District 16</option>
-          <option data-city="giza" data-area="sheikh-zayed" value="zayed-17">District 17</option>
-
-          <!-- بقية مناطق الجيزة التقليديّة (الدقي، المهندسين…) تُعَدّ «District» بذاتها -->
-          <option data-city="giza" data-area="dokki"            value="dokki">Dokki</option>
-          <option data-city="giza" data-area="mohandessin"      value="mohandessin">Mohandessin</option>
-          <option data-city="giza" data-area="agouza"           value="agouza">Agouza</option>
-          <option data-city="giza" data-area="haram"            value="haram">El Haram</option>
-          <!-- …أضف ما يلزم  -->
-
-          <!-- =============== CAIRO =============== -->
-
-          <!-- Nasr City -->
-          <option data-city="cairo" data-area="nasr-city" value="nasr-1">1st District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-2">2nd District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-3">3rd District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-4">4th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-5">5th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-6">6th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-7">7th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-8">8th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-9">9th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-10">10th District</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-waha">El Waha (11)</option>
-          <option data-city="cairo" data-area="nasr-city" value="nasr-zahraa">Zahraa Nasr City (12)</option>
-
-          <!-- New Cairo – First + Third + Fifth Settlements -->
-          <option data-city="cairo" data-area="fifth-settlement"  value="narges-1">Al Narges 1</option>
-          <option data-city="cairo" data-area="fifth-settlement"  value="narges-2">Al Narges 2</option>
-          <option data-city="cairo" data-area="fifth-settlement"  value="yasmine-1">Al Yasmine 1</option>
-          <option data-city="cairo" data-area="fifth-settlement"  value="lotus-north">Lotus North</option>
-          <option data-city="cairo" data-area="first-settlement"  value="elshoifat">El Shoifat</option>
-          <option data-city="cairo" data-area="third-settlement"  value="youth-housing">Youth Housing</option>
-          <!-- …يمكنك إضافة باقى مجاورات New Cairo حسب الحاجة -->
-
-          <!-- El Shorouk City (1→12) -->
-          <option data-city="cairo" data-area="shorouk" value="shorouk-1">District 1</option>
-          <option data-city="cairo" data-area="shorouk" value="shorouk-2">District 2</option>
-          <option data-city="cairo" data-area="shorouk" value="shorouk-3">District 3</option>
-          <!-- …إلى District 12  -->
-
-          <!-- Obour City (1→10) -->
-          <option data-city="cairo" data-area="obour-city" value="obour-1">District 1</option>
-          <!-- …إلى District 10 -->
-
-          <!-- Badr City (1→15) -->
-          <option data-city="cairo" data-area="badr-city" value="badr-1">District 1</option>
-          <!-- …إلى District 15 -->
-
-          <!-- 15 May City -->
-          <option data-city="cairo" data-area="15-may" value="may-1">Neighbourhood 1</option>
-          <option data-city="cairo" data-area="15-may" value="may-2">Neighbourhood 2</option>
-          <!-- …إلى Neighbourhood 5 -->
-
-          <!-- Heliopolis & Maadi – أحياء معروفة -->
-          <option data-city="cairo" data-area="heliopolis" value="korba">Korba</option>
-          <option data-city="cairo" data-area="heliopolis" value="almazah">Al Maza</option>
-          <option data-city="cairo" data-area="maadi" value="old-maadi">Old Maadi</option>
-          <option data-city="cairo" data-area="maadi" value="degla">Degla</option>
-
-          <!-- باقى مناطق القاهرة التاريخية تُعتبر district بذاتها -->
-          <option data-city="cairo" data-area="downtown" value="downtown">Downtown</option>
-          <option data-city="cairo" data-area="shubra"   value="shubra">Shubra</option>
-          <option data-city="cairo" data-area="heliopolis" value="heliopolis-general">Heliopolis General</option>
-          <!-- …أضف ما ينقصك بنفس الطريقة -->
-        </select>
-      </div>
-      <div class="space24"></div>
-    </div> 
 
     <div class="col-lg-4">
       <div class="listing-input">
@@ -691,12 +534,6 @@
       <div class="space24"></div>
   </div>
 
-  <div class="col-lg-4">
-    <div class="listing-input">
-      
-  </div>
-    <div class="space24"></div>
-</div>
 
 
 <div class="col-lg-4">
@@ -787,59 +624,22 @@
 <div class="col-lg-4">
 <div class="row">
 <div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
-<option value="1" data-display="Min Land Area">Min Land Area</option>
-<option value="">Belgium City</option>
-<option value="">Brezil City</option>
-<option value="">Argentina City</option>
-<option value="">Bangladesh City</option>
-<option value="">Germany City</option>
-</select>
-</div>
+  <label>
+    <input type="checkbox" name="furnished" value="yes">
+    Furnished
+  </label>
 <div class="space24"></div>
 </div>
 
-<div class="col-lg-6">
-<div class="listing-input">
-<select name="country"  class="nice-select">
-<option value="1" data-display="Max Land Area">Max Land Area</option>
-<option value="">Belgium City</option>
-<option value="">Brezil City</option>
-<option value="">Argentina City</option>
-<option value="">Bangladesh City</option>
-<option value="">Germany City</option>
-</select>
-</div>
-<div class="space24"></div>
-</div>
-</div>
-</div>
 
 <div class="col-lg-4">
 <div class="listing-input">
-<select name="country"  class="nice-select">
-<option value="1" data-display="Any Garages">Any Garages</option>
-<option value="">Belgium City</option>
-<option value="">Brezil City</option>
-<option value="">Argentina City</option>
-<option value="">Bangladesh City</option>
-<option value="">Germany City</option>
-</select>
-</div>
-<div class="space24"></div>
-</div>
 
-<div class="col-lg-4">
-<div class="listing-input">
-<input type="text" placeholder="Property ID">
 </div>
 <div class="space24"></div>
 </div>
 <div class="col-lg-4">
 <div class="space24"></div>
-<div class="btn-area1">
-<button class="header-btn1" type="submit"><img src="assets/img/icons/search2.svg" alt=""> Search Your Room</button>
 <div class="btn-area1">
   <button class="header-btn1" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
 </div>
