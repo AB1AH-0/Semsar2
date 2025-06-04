@@ -191,9 +191,9 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="index.html">Home <i class="fa-solid fa-angle-right"></i> <span> Send To Brokers </span></a>
+                    <a href="index.html">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
                     <div class="space20"></div>
-                    <h2>Send To Brokers</h2>
+                    <h2>Brokers</h2>
                 </div>
             </div>
         </div>
@@ -522,100 +522,68 @@
 
     <div class="col-lg-4">
       <div class="listing-input">
-        <select name="Type-sale" class="nice-select">
-          <option value="" selected disabled>Type</option>
-          <option value="Apartment">Apartment</option>
-          <option value="Duplex">Duplex</option>
-          <option value="Penthouse">Penthouse</option>
-          <option value="Studio">Studio</option>
-          <option value="Roof">Roof</option>
-      </select>
-      </div>
+        <select name="Type-rent" class="nice-select">
+            <option value="" selected disabled>Type</option>
+            <option value="Apartment">Apartment</option>
+            <option value="Duplex">Duplex</option>
+            <option value="Penthouse">Penthouse</option>
+            <option value="Studio">Studio</option>
+            <option value="Roof">Roof</option>
+        </select>
+    </div>
       <div class="space24"></div>
   </div>
 
-
-
-<div class="col-lg-4">
-  <div class="listing-input">
-    <input  type="number"
-            name="bathrooms-sale"
-            class="nice-select"   
-            placeholder="Bathrooms"
-            min="0"              
-            step="1"           
-            inputmode="numeric">             
-  </div>
-  <div class="space24"></div>
-</div>
 <div class="col-lg-4">
 <div class="listing-input">
   <input  type="number"
-          name="bedrooms-sale"
+          name="bathrooms-rent"
           class="nice-select"   
-          placeholder="Bedrooms"
+          placeholder="Bathrooms"
           min="0"              
           step="1"           
           inputmode="numeric">             
 </div>
 <div class="space24"></div>
 </div>
-
 <div class="col-lg-4">
-<div class="row">
-<div class="col-lg-6">
-  <div class="listing-input">
-    <input  type="number"
-            name="min_price-sale"
-            class="nice-select"   
-            placeholder="Min Price (EGP)"
-            min="0"              
-            step="1000"           
-            inputmode="numeric">             
-  </div>
+<div class="listing-input">
+<input  type="number"
+        name="bedrooms-rent"
+        class="nice-select"   
+        placeholder="Bedrooms"
+        min="0"              
+        step="1"           
+        inputmode="numeric">             
+</div>
 <div class="space24"></div>
-</div>
-
-<div class="col-lg-6">
-  <div class="listing-input">
-    <input  type="number"
-            name="max_price-sale"
-            class="nice-select"   
-            placeholder="Max Price (EGP)"
-            min="0"              
-            step="1000"           
-            inputmode="numeric">             
-  </div>
-<div class="space24"></div>
-</div>
-</div>
 </div>
 
 <div class="col-lg-4">
 <div class="row">
 <div class="col-lg-6">
-  <div class="listing-input">
-    <input  type="number"
-            name="min_size-sale"
-            class="nice-select"   
-            placeholder="Min Size (m²)"
-            min="0"              
-            step="1"           
-            inputmode="numeric">             
-  </div>
+<div class="listing-input">
+<input  type="number"
+        name="min_price-rent"
+        class="nice-select"   
+        placeholder="Min Price (EGP)"
+        min="0"              
+        step="1000"           
+        inputmode="numeric">             
+</div>
 <div class="space24"></div>
 </div>
 
 <div class="col-lg-6">
-  <div class="listing-input">
-    <input  type="number"
-            name="max_size-sale"
-            class="nice-select"   
-            placeholder="Max Size (m²)"
-            min="0"              
-            step="1"           
-            inputmode="numeric">             
-  </div>
+<div class="listing-input">
+<input  type="number"
+        name="max_price-rent"
+        class="nice-select"   
+        placeholder="Max Price (EGP)"
+        min="0"              
+        step="1000"           
+        inputmode="numeric">             
+</div>
 <div class="space24"></div>
 </div>
 </div>
@@ -624,13 +592,46 @@
 <div class="col-lg-4">
 <div class="row">
 <div class="col-lg-6">
-  <label>
-    <input type="checkbox" name="furnished" value="yes">
-    Furnished
-  </label>
+<div class="listing-input">
+<input  type="number"
+        name="min_size-rent"
+        class="nice-select"   
+        placeholder="Min Size (m²)"
+        min="0"              
+        step="1"           
+        inputmode="numeric">             
+</div>
 <div class="space24"></div>
 </div>
 
+<div class="col-lg-6">
+<div class="listing-input">
+<input  type="number"
+        name="max_size-rent"
+        class="nice-select"   
+        placeholder="Max Size (m²)"
+        min="0"              
+        step="1"           
+        inputmode="numeric">             
+</div>
+<div class="space24"></div>
+</div>
+
+<div class="col-lg-6">                 
+    <label>
+      <input type="checkbox" name="Furnished" value="yes">
+      Furnished
+    </label>                              
+  <div class="space24"></div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-4">
+<div class="row">
+
+</div>
+</div>
 
 <div class="col-lg-4">
 <div class="listing-input">
@@ -638,6 +639,7 @@
 </div>
 <div class="space24"></div>
 </div>
+
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
