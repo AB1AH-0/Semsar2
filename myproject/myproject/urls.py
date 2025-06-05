@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from inquiries import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/inquiries/', views.create_inquiry, name='create-inquiry'),  # رابط الـ API الخاص بإنشاء الاستفسارات
 ]
