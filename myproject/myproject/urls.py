@@ -15,11 +15,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from inquiries import views
+from django.urls import path, include
+from django.views.generic import TemplateView
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
-    path('Brokers/', views.new_page, name='Brokers'),
     path('admin/', admin.site.urls),
-    path('api/inquiries/', views.create_inquiry, name='create-inquiry'),  # رابط الـ API الخاص بإنشاء الاستفسارات
+
+    # API endpoint for inquiries
+    path('inquiries/', include('inquiries.urls')),
+
+    # Front-end pages (if you’re just serving home.html and index.html as static templates)
+    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    path('Brokers/', TemplateView.as_view(template_name='Brokers.html'), name='Brokers'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
