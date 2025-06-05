@@ -173,7 +173,7 @@
       </div>
      </div>
   </div>
-</div>
+</div> 
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
@@ -182,19 +182,82 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="index5.html">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
+                    <a href="index5.html">Home <i class="fa-solid fa-angle-right"></i> <span>Customers </span></a>
                     <div class="space20"></div>
-                    <h2>Brokers</h2>
+                    <h2>Customers</h2>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!--===== HERO AREA ENDS =======-->
-
+<div class="container my-5">
+    <h1 class="mb-4">Customer Inquiries</h1>
+    <table id="inquiry-table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>City</th>
+                <th>Area</th>
+                <th>Type</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="modal fade" id="acceptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="offer-form">
+                <div class="modal-header">
+                    <h5 class="modal-title">Send Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="inquiry_id" id="offer-inquiry-id">
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" id="offer-price" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" id="offer-location" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <input type="text" class="form-control" id="offer-type" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Size</label>
+                    <input type="number" class="form-control" id="offer-size" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bathrooms</label>
+                    <input type="number" class="form-control" id="offer-bathrooms" required>
+                </div>
+            <div class="mb-3">
+                <label class="form-label">Bedrooms</label>
+                <input type="number" class="form-control" id="offer-bedrooms" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" id="offer-notes"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>
+</div>
+</div>
 
 <!--===== FOOTER AREA STARTS =======-->
-<div class="footer1-section-area">
+<div class="footer1-section-area" style="margin-top: 30%;">
   <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-6">
