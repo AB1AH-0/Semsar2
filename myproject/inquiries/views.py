@@ -15,6 +15,7 @@ def create_inquiry(request):
 
     data = json.loads(request.body.decode() or '{}')
     inquiry = Inquiry.objects.create(
+        transaction_type=data.get('transaction_type'),
         city=data.get('city-rent') or data.get('city-sale') or '',
         area=data.get('area-rent') or data.get('area-sale') or '',
         property_type=data.get('Type-rent') or data.get('Type-sale') or '',

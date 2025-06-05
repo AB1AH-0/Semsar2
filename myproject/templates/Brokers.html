@@ -777,6 +777,15 @@ $(function(){
     const $panel = $button.closest('.tab-pane');
     const $tabContent = $panel.closest('.tab-content');
     const data = {};
+
+    // Determine transaction_type based on the active panel's ID
+    let transaction_type = '';
+    if ($panel.attr('id') === 'pills-home') {
+      transaction_type = 'rent';
+    } else if ($panel.attr('id') === 'pills-profile') {
+      transaction_type = 'sale';
+    }
+    data['transaction_type'] = transaction_type;
     $panel.find('input, select').each(function(){
       const $el = $(this);
       const name = $el.attr('name');
