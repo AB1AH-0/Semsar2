@@ -5,7 +5,7 @@ from django.shortcuts import render
 from .models import Inquiry
 
 def new_page(request):
-    return render(request, 'Brokers.html')
+    return render(request, 'brokers.html')
 
 
 @csrf_exempt
