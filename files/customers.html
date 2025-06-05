@@ -1,88 +1,80 @@
-(cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
-diff --git a//dev/null b/files/customers.html
-index 0000000000000000000000000000000000000000..85d0ff487a3b33d88e7826b2f8542879a7b52ace 100644
---- a//dev/null
-+++ b/files/customers.html
-@@ -0,0 +1,140 @@
-+<!DOCTYPE html>
-+<html lang="en">
-+<head>
-+    <meta charset="UTF-8">
-+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-+    <title>Customers</title>
-+    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-+    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
-+</head>
-+<body>
-+<div class="container my-5">
-+    <h1 class="mb-4">Customer Inquiries</h1>
-+    <table id="inquiry-table" class="table table-bordered">
-+        <thead>
-+            <tr>
-+                <th>ID</th>
-+                <th>City</th>
-+                <th>Area</th>
-+                <th>Type</th>
-+                <th>Bedrooms</th>
-+                <th>Bathrooms</th>
-+                <th>Actions</th>
-+            </tr>
-+        </thead>
-+        <tbody></tbody>
-+    </table>
-+</div>
-+
-+<div class="modal fade" id="acceptModal" tabindex="-1" aria-hidden="true">
-+  <div class="modal-dialog">
-+    <div class="modal-content">
-+      <form id="offer-form">
-+        <div class="modal-header">
-+          <h5 class="modal-title">Send Offer</h5>
-+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-+        </div>
-+        <div class="modal-body">
-+            <input type="hidden" name="inquiry_id" id="offer-inquiry-id">
-+            <div class="mb-3">
-+                <label class="form-label">Price</label>
-+                <input type="number" class="form-control" id="offer-price" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Location</label>
-+                <input type="text" class="form-control" id="offer-location" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Type</label>
-+                <input type="text" class="form-control" id="offer-type" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Size</label>
-+                <input type="number" class="form-control" id="offer-size" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Bathrooms</label>
-+                <input type="number" class="form-control" id="offer-bathrooms" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Bedrooms</label>
-+                <input type="number" class="form-control" id="offer-bedrooms" required>
-+            </div>
-+            <div class="mb-3">
-+                <label class="form-label">Notes</label>
-+                <textarea class="form-control" id="offer-notes"></textarea>
-+            </div>
-+        </div>
-+        <div class="modal-footer">
-+          <button type="submit" class="btn btn-primary">Send</button>
-+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-+        </div>
-+      </form>
-+    </div>
-+  </div>
-+</div>
-+
-+<script>
-+function loadInquiries(){
-+    $.get('/api/inquiries/', function(data){
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customers</title>
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
+</head>
+<body>
+<div class="container my-5">
+    <h1 class="mb-4">Customer Inquiries</h1>
+    <table id="inquiry-table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>City</th>
+                <th>Area</th>
+                <th>Type</th>
+                <th>Bedrooms</th>
+                <th>Bathrooms</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+<div class="modal fade" id="acceptModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="offer-form">
+                <div class="modal-header">
+                    <h5 class="modal-title">Send Offer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="inquiry_id" id="offer-inquiry-id">
+                    <div class="mb-3">
+                        <label class="form-label">Price</label>
+                        <input type="number" class="form-control" id="offer-price" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" id="offer-location" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Type</label>
+                    <input type="text" class="form-control" id="offer-type" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Size</label>
+                    <input type="number" class="form-control" id="offer-size" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Bathrooms</label>
+                    <input type="number" class="form-control" id="offer-bathrooms" required>
+                </div>
+            <div class="mb-3">
+                <label class="form-label">Bedrooms</label>
+                <input type="number" class="form-control" id="offer-bedrooms" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Notes</label>
+                <textarea class="form-control" id="offer-notes"></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+function loadInquiries(){
+    $.get('/api/inquiries/', function(data){
         var tbody = $('#inquiry-table tbody').empty();
         data.inquiries.forEach(function(i){
             var row = $('<tr>');
@@ -143,7 +135,4 @@ $(function(){
 </script>
 <script src="assets/js/plugins/bootstrap.min.js"></script>
 </body>
-</html>
- 
-EOF
-)
+</html>   
