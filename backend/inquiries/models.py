@@ -15,3 +15,18 @@ class Inquiry(models.Model):
 
     def __str__(self):
         return f"{self.city} - {self.area}"
+
+
+class Offer(models.Model):
+    inquiry = models.ForeignKey(Inquiry, related_name="offers", on_delete=models.CASCADE)
+    price = models.PositiveIntegerField()
+    location = models.CharField(max_length=200)
+    property_type = models.CharField(max_length=50)
+    size = models.PositiveIntegerField()
+    bathrooms = models.PositiveIntegerField()
+    bedrooms = models.PositiveIntegerField()
+    notes = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Offer for {self.inquiry_id} - {self.price}"

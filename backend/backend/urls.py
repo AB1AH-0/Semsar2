@@ -17,9 +17,10 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from inquiries.views import create_inquiry
+from inquiries.views import create_inquiry, inquiry_detail
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/inquiries/", create_inquiry, name="create_inquiry"),
+    path("api/inquiries/<int:pk>/", inquiry_detail, name="inquiry_detail"),
 ]
