@@ -1,8 +1,12 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-
+from django.shortcuts import render
 from .models import Inquiry
+
+def new_page(request):
+    return render(request, 'Brokers.html')
+
 
 @csrf_exempt
 def create_inquiry(request):
