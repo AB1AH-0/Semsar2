@@ -83,67 +83,67 @@ index 0000000000000000000000000000000000000000..85d0ff487a3b33d88e7826b2f8542879
 +<script>
 +function loadInquiries(){
 +    $.get('/api/inquiries/', function(data){
-+        var tbody = $('#inquiry-table tbody').empty();
-+        data.inquiries.forEach(function(i){
-+            var row = $('<tr>');
-+            row.append($('<td>').text(i.id));
-+            row.append($('<td>').text(i.city));
-+            row.append($('<td>').text(i.area));
-+            row.append($('<td>').text(i.property_type));
-+            row.append($('<td>').text(i.bedrooms || ''));
-+            row.append($('<td>').text(i.bathrooms || ''));
-+            var actions = $('<td>');
-+            actions.append('<button class="btn btn-success btn-sm me-2 btn-accept" data-id="'+i.id+'">Accept</button>');
-+            actions.append('<button class="btn btn-danger btn-sm btn-reject" data-id="'+i.id+'">Reject</button>');
-+            row.append(actions);
-+            tbody.append(row);
-+        });
-+    });
-+}
-+
-+$(function(){
-+    loadInquiries();
-+    $('#inquiry-table').on('click', '.btn-reject', function(){
-+        var id = $(this).data('id');
-+        if(confirm('Reject this inquiry?')){
-+            $.ajax({url:'/api/inquiries/'+id+'/', method:'DELETE', success:loadInquiries});
-+        }
-+    });
-+
-+    $('#inquiry-table').on('click', '.btn-accept', function(){
-+        var id = $(this).data('id');
-+        $('#offer-inquiry-id').val(id);
-+        $('#acceptModal').modal('show');
-+    });
-+
-+    $('#offer-form').on('submit', function(e){
-+        e.preventDefault();
-+        var id = $('#offer-inquiry-id').val();
-+        var data = {
-+            price: $('#offer-price').val(),
-+            location: $('#offer-location').val(),
-+            property_type: $('#offer-type').val(),
-+            size: $('#offer-size').val(),
-+            bathrooms: $('#offer-bathrooms').val(),
-+            bedrooms: $('#offer-bedrooms').val(),
-+            notes: $('#offer-notes').val()
-+        };
-+        $.ajax({
-+            url:'/api/inquiries/'+id+'/',
-+            method:'POST',
-+            contentType:'application/json',
-+            data: JSON.stringify(data),
-+            success:function(){
-+                $('#acceptModal').modal('hide');
-+                loadInquiries();
-+            }
-+        });
-+    });
-+});
-+</script>
-+<script src="assets/js/plugins/bootstrap.min.js"></script>
-+</body>
-+</html>
+        var tbody = $('#inquiry-table tbody').empty();
+        data.inquiries.forEach(function(i){
+            var row = $('<tr>');
+            row.append($('<td>').text(i.id));
+            row.append($('<td>').text(i.city));
+            row.append($('<td>').text(i.area));
+            row.append($('<td>').text(i.property_type));
+            row.append($('<td>').text(i.bedrooms || ''));
+            row.append($('<td>').text(i.bathrooms || ''));
+            var actions = $('<td>');
+            actions.append('<button class="btn btn-success btn-sm me-2 btn-accept" data-id="'+i.id+'">Accept</button>');
+            actions.append('<button class="btn btn-danger btn-sm btn-reject" data-id="'+i.id+'">Reject</button>');
+            row.append(actions);
+            tbody.append(row);
+        });
+    });
+}
+
+$(function(){
+    loadInquiries();
+    $('#inquiry-table').on('click', '.btn-reject', function(){
+        var id = $(this).data('id');
+        if(confirm('Reject this inquiry?')){
+            $.ajax({url:'/api/inquiries/'+id+'/', method:'DELETE', success:loadInquiries});
+        }
+    });
+
+    $('#inquiry-table').on('click', '.btn-accept', function(){
+        var id = $(this).data('id');
+        $('#offer-inquiry-id').val(id);
+        $('#acceptModal').modal('show');
+    });
+
+    $('#offer-form').on('submit', function(e){
+        e.preventDefault();
+        var id = $('#offer-inquiry-id').val();
+        var data = {
+            price: $('#offer-price').val(),
+            location: $('#offer-location').val(),
+            property_type: $('#offer-type').val(),
+            size: $('#offer-size').val(),
+            bathrooms: $('#offer-bathrooms').val(),
+            bedrooms: $('#offer-bedrooms').val(),
+            notes: $('#offer-notes').val()
+        };
+            $.ajax({
+                url:'/api/inquiries/'+id+'/',
+                method:'POST',
+                contentType:'application/json',
+                data: JSON.stringify(data),
+                success:function(){
+                    $('#acceptModal').modal('hide');
+                    loadInquiries();
+                }
+            });
+    });
+            });
+</script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+</body>
+</html>
  
 EOF
 )
