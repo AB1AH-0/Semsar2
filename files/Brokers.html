@@ -427,7 +427,7 @@
   <div class="space24"></div>
 
   <div class="btn-area1">
-    <button class="header-btn1" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
   </div>
 </div>
 </div>
@@ -647,9 +647,10 @@
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
-  <button class="header-btn1" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
 </div>
 </div>
+<div id="inquiry-list" class="space24"></div>
 </div>
 </div>
 </div>
@@ -838,10 +839,56 @@
     }
     
     // For RENT tab - link city-rent and area-rent
-    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
-    
-    // For SALE tab - link city-sale and area-sale (when you add them)
-    // linkCityAreaDropdowns('#city-sale', '#area-sale');
+  linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+
+  // For SALE tab - link city-sale and area-sale (when you add them)
+  // linkCityAreaDropdowns('#city-sale', '#area-sale');
+});
+
+// Capture search data and send to backend
+$(function(){
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
+
+  $('.send-to-brokers').on('click', function(e){
+    e.preventDefault();
+    const $panel = $(this).closest('.tab-pane');
+    const data = {};
+    $panel.find('input, select').each(function(){
+      const $el = $(this);
+      const name = $el.attr('name');
+      if(!name) return;
+      if($el.attr('type') === 'checkbox'){
+        data[name] = $el.is(':checked');
+      } else {
+        data[name] = $el.val();
+      }
+    });
+    fetch('/api/inquiries/', {
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify(data)
+    }).then(r => r.json()).then(function(resp){
+      console.log('saved', resp);
+    }).catch(function(err){
+      console.error('error', err);
+    });
+  });
 });
 
   </script>
