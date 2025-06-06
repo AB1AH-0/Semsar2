@@ -1,0 +1,15 @@
+Post Register info to database with validation
+Validate Login info to database
+Logout
+Post Search for Broker Info to database (Brokers.html)
+Display Inquiry to customer (Brokers.html)
+Display Request to Broker (Customers.html)
+When inquiry rejected by broker it gets deleted from his page (Customers.html)
+When inquiry accepted Post conditon with broker, property ,commission info to database (Customers.html)
+Display All Broker And Property info to customer (Brokers.html)
+When Broker offer is rejected by customer it gets deleted from his page (Brokers.html)
+When Broker offer is accepted by customer Display Broker ,Property ,Commission info to customer (Brokers.html)
+
+
+Post Property to database with validation -to be made page (add-property.html)-
+Display Property info and broker info that listed it to all customers (Property.html)
