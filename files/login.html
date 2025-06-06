@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login </title>
+    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/aos.css">
+    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
+    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body, html {
+      height: 100vh;
+      background:linear-gradient(rgba(0, 0, 0, 0.103),rgba(4, 10, 30, 0.201)), url('https://images.unsplash.com/photo-1522156373667-4c7234bbd804?fit=crop&w=1050&q=80') no-repeat center center;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      display: flex;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(2px);
+      border-radius: 12px;
+      margin-right: 150px;
+    }
+
+    .left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2rem;
+      padding: 40px;
+    }
+
+    .right {
+      flex: 1;
+      background: white;
+      border-radius: 0 12px 12px 0;
+      padding: 40px;
+    }
+
+    .right h2 {
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .login-btn, .google-btn {
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+    }
+
+    .login-btn {
+      background-color: #3f51b5;
+      color: white;
+    }
+
+    .google-btn {
+      background-color: white;
+      border: 1px solid #ccc;
+    }
+
+    .extra {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .register-link {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+    }
+
+    a {
+      color: #3f51b5;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+
+      .left, .right {
+        border-radius: 0;
+      }
+
+      .right {
+        border-radius: 0 0 12px 12px;
+      }
+    }
+  </style>
+<style>
+   .social-icons-container {
+            display: flex; /* هنا التعديل عشان يبقوا كلهم جنب بعض */
+            flex-direction: row; /* التأكيد على أنهم في صف واحد */
+            gap: 30px; /* مسافة بين الأيقونات */
+            flex-wrap: wrap; /* عشان لو الشاشة صغرت ينزلوا سطر جديد */
+            justify-content: center; /* توسيط الأيقونات لو فيه سطر جديد */
+        }
+ 
+        .icon-circle {
+            width: 30px;
+            height: 30px;
+            background-color: #ffffff;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+ 
+        .icon-circle:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+ 
+        .icon-circle a {
+            color: #333;
+            font-size: 30px;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+ 
+        /* ألوان مخصصة لكل أيقونة */
+        .icon-circle .fa-facebook-f { color: #3b5998; }
+        .icon-circle .fa-instagram { color: #E1306C; }
+        .icon-circle .fa-linkedin-in { color: #0077b5; }
+        .icon-circle .fa-youtube { color: #FF0000; }
+ 
+        /* تعديلات للمسافات في الأجهزة الصغيرة */
+        @media (max-width: 600px) {
+            .social-icons-container {
+                flex-direction: column; /* الأيقونات تكون فوق بعض في الأجهزة الصغيرة */
+                gap: 20px; /* مسافة بين الأيقونات في العمود */
+            }
+        }
+</style>
+</head>
+<body>
+
+
+
+  <div class="container">
+    <div class="left">
+      
+    </div>
+    <div class="right">
+      <div class="site-logo">
+                <a href="index.html"><img src="assets/img/logo/logo1.png" alt=""></a>
+              </div>
+      
+      <p>Welcome back! Please log in to your account.</p>
+      <br>
+      <form>
+        <input type="email" placeholder="Your Email" required>
+        <input type="password" placeholder="Your Password" required>
+        <div class="extra">
+          <label><input type="checkbox"> Remember Me</label>
+          <a href="#">Forgot Password?</a>
+        </div>
+        <button type="submit" class="login-btn" onclick="window.location.href='index2.html'">Login</button>
+        
+        <div class="register-link">
+          Don’t have an account? <a href="./reg 1.html">Register now</a>
+        </div>
+       <div class="social-icons-container">
+<div class="icon-circle">
+<a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+<i class="fab fa-facebook-f"></i>
+</a>
+</div>
+<div class="icon-circle">
+<a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+<i class="fab fa-instagram"></i>
+</a>
+</div>
+<div class="icon-circle">
+<a href="https://www.linkedin.com" target="_blank" aria-label="LinkedIn">
+<i class="fab fa-linkedin-in"></i>
+</a>
+</div>
+<div class="icon-circle">
+<a href="http://youtube.com" target="_blank" aria-label="YouTube">
+<i class="fab fa-youtube"></i>
+</a>
+</div>
+</div>
+      
+      </form>
+    </div>
+  </div>
+ 
+</body>
+</html>

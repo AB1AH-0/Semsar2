@@ -12,6 +12,30 @@
     $(".header-area").addClass("sticky");
     }
     });
+
+ const areas = {
+    cairo: ["Nasr City", "Maadi", "Heliopolis", "New Cairo", "Helwan"],
+    giza: ["Dokki", "Mohandessin", "Faisal", "Haram", "Agouza"]
+  };
+
+  $("#governorate").on("change", function () {
+    const selected = $(this).val();
+    const $areaSelect = $("#area");
+    $areaSelect.empty(); // تفريغ القديم
+
+    if (areas[selected]) {
+      areas[selected].forEach(function (area) {
+        $areaSelect.append($("<option></option>").val(area).text(area));
+      });
+    } else {
+      $areaSelect.append('<option value="">Select Area</option>');
+    }
+
+    // إعادة تهيئة Nice Select عشان يشوف القيم الجديدة
+    $areaSelect.niceSelect('update');
+  });
+
+
   }
   //========== HEADER ACTIVE ENDS ============= //
   
@@ -101,7 +125,7 @@
       animateIn: 'fadeIn',
       active:true,
       smartSpeed:2000,
-      autoplayTimeout:4000,
+      autoplayTimeout:8000,
       autoplayHoverPause:false,
       responsiveClass:true,
       responsive:{
@@ -127,7 +151,7 @@
     items:10,
     autoplay:true,
     smartSpeed:2000,
-    autoplayTimeout:3000,
+    autoplayTimeout:7000,
     responsiveClass:true,
     responsive:{
         0:{

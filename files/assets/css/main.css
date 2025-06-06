@@ -1082,7 +1082,7 @@ Location:
   font-size: var(--ztc-font-size-font-s16);
   line-height: var(--ztc-font-size-font-s16);
   font-weight: var(--ztc-weight-bold);
-  background: var(--ztc-bg-bg-6);
+  background:#193B33;
   color: var(--ztc-text-text-1);
   padding: 16px;
   border-radius: 8px;
@@ -1110,11 +1110,11 @@ Location:
   font-size: var(--ztc-font-size-font-s16);
   line-height: var(--ztc-font-size-font-s16);
   font-weight: var(--ztc-weight-bold);
-  background: var(--ztc-bg-bg-7);
+  background: var(--ztc-bg-bg-2);
   color: var(--ztc-text-text-1);
-  padding: 6px 8px 6px 16px;
-  border-radius: 25px;
+  padding: 16px;
   transition: all 0.4s;
+  border-radius: 8px;
   position: relative;
   z-index: 1;
 }
@@ -1134,9 +1134,9 @@ Location:
   transition: all 0.4s;
 }
 .header-btn4:hover {
-  background: var(--ztc-text-text-10);
+  background: var(--ztc-text-text-3);
   transition: all 0.4s;
-  color: var(--ztc-text-text-1);
+  color: var(--ztc-bg-bg-1);
   transform: translateY(-5px);
 }
 .header-btn4:hover img {
@@ -1597,8 +1597,7 @@ Location:
 }
 
 .about4-section-area .about-all-images .images .img1 img {
-  height: 100%;
-  width: 100%;
+ 
   -o-object-fit: cover;
      object-fit: cover;
   border-radius: 8px;
@@ -3682,7 +3681,7 @@ Location:
   top: 50%;
   margin: 0 auto;
   text-align: center;
-  left: 100px;
+  left: 20px;
   transform: rotate(-90deg);
 }
 @media (max-width: 767px) {
@@ -7353,6 +7352,7 @@ Location:
   justify-content: space-between;
   position: relative;
   transition: all 0.4s;
+  border-radius: 42px;
 }
 .homepage1-body .header-area.homepage1 .header-elements .main-menu {
   position: relative;
@@ -7618,6 +7618,9 @@ Location:
   z-index: 9;
   padding: 24px 0 0 0;
   transition: all 0.4s;
+  padding-top: 20px;
+  
+ 
 }
 .homepage2-body .header-area.homepage2 nav#navbar-example2 {
   display: block !important;
@@ -7636,8 +7639,10 @@ Location:
   justify-content: space-between;
   position: relative;
   transition: all 0.4s;
-  padding: 20px 24px;
+  padding: 20px 20px;
   background: var(--ztc-bg-bg-1);
+  border-radius: 42px;
+  
 }
 .homepage2-body .header-area.homepage2 .header-elements .main-menu {
   position: relative;
@@ -8508,8 +8513,11 @@ Location:
   position: absolute;
   width: 100%;
   z-index: 9;
-  padding: 16px 0 0 0;
+  padding: 16px 0 16px 0;
   transition: all 0.4s;
+  background-color:white;
+  
+  
 }
 .homepage5-body .header-area.homepage5 nav#navbar-example2 {
   display: block !important;
@@ -8774,10 +8782,12 @@ Location:
 
 .header-area.homepage1.inner-menu {
   padding: 0;
+  
 }
 .header-area.homepage1.inner-menu .header-elements {
-  padding: 16px 0;
+  padding: 10px 15px 10px 15px;  
   border-bottom: 1px solid #467179;
+  background-color:#164D59;
 }
 .header-area.homepage1.inner-menu .header-elements .main-menu ul li:hover > a {
   color: var(--ztc-bg-bg-1) !important;
@@ -8813,9 +8823,13 @@ Location:
 
 .header-area.homepage1.inner-menu.sticky {
   background: var(--ztc-text-text-2) !important;
+  border-bottom: 1px solid #467179;
+  
 }
 .header-area.homepage1.inner-menu.sticky .header-elements {
   border: none;
+  
+  
 }
 
 /*============= HEADER CSS AREA ENDS ===============*/
@@ -13130,6 +13144,9 @@ Location:
   margin-left: 4px;
   transform: rotate(-45deg);
 }
+.location2{
+  fill: var(--ztc-bg-bg-7);
+}
 
 .location2-section-area .location-header {
   margin-bottom: 60px;
@@ -13871,6 +13888,12 @@ Location:
   background: var(--ztc-bg-bg-1);
   transition: all 0.4s;
   margin-bottom: 30px;
+
+   display: flex;
+  flex-direction: column;
+  height: 70%;
+
+  
 }
 .properties2-section-area .tab-content .tab-pane .property-boxarea:hover {
   box-shadow: 0px 4px 30px 0px rgba(38, 39, 49, 0.08);
@@ -13899,6 +13922,7 @@ Location:
   position: relative;
   overflow: hidden;
   transition: all 0.4s;
+
 }
 .properties2-section-area .tab-content .tab-pane .property-boxarea .img1::after {
   position: absolute;
@@ -13916,6 +13940,7 @@ Location:
   width: 100%;
   transition: all 0.4s;
   border-radius: 0;
+  
 }
 .properties2-section-area .tab-content .tab-pane .property-boxarea .sell-point {
   position: absolute;
@@ -14133,7 +14158,7 @@ Location:
   border-radius: 8px;
 }
 .properties3-section-area .property-slider-area .property-boxarea .content-area {
-  background: var(--ztc-bg-bg-6);
+  background-color:#164d59ad;
   position: relative;
   border-radius: 8px;
   display: inline-block;
@@ -14792,6 +14817,49 @@ Location:
 .property-inner-area .property-list-area .nice-select1 .nice-select ul {
   width: 100%;
 }
+
+.property-boxarea1 {
+  height: 600px;/* أو الارتفاع اللي يناسب التصميم العام */
+  overflow: hidden;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+}
+
+.img11 {
+  width: 350px; /* عرض الصورة */
+  height: 370px;
+  object-fit: cover; /* عشان الصورة متتمددش بشكل غير طبيعي */
+}
+
+.content-area1 {
+  flex: 1;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+
+.content-area1 a {
+  font-size: 16px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.3;
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.content-area1 p {
+  font-size: 14px;
+  color: #555;
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
+}
 .property-inner-area .property-boxarea {
   position: relative;
   z-index: 1;
@@ -14799,6 +14867,12 @@ Location:
   transition: all 0.4s;
   margin-bottom: 30px;
   border-radius: 8px;
+   height: 600px;/* أو الارتفاع اللي يناسب التصميم العام */
+  overflow: hidden;
+  border: 1px solid #eee;
+  display: flex;
+  flex-direction: column;
+
 }
 .property-inner-area .property-boxarea:hover {
   transition: all 0.4s;
@@ -14826,6 +14900,7 @@ Location:
   overflow: hidden;
   transition: all 0.4s;
   border-radius: 8px 8px 0 0;
+    
 }
 .property-inner-area .property-boxarea .img1::after {
   position: absolute;
@@ -14839,10 +14914,11 @@ Location:
   opacity: 0.7;
 }
 .property-inner-area .property-boxarea .img1 img {
-  height: 100%;
-  width: 100%;
-  transition: all 0.4s;
-  border-radius: 8px 8px 0 0;
+  
+
+   width: 450%; /* عرض الصورة */
+  height: 270%;
+  object-fit:cover ;
 }
 .property-inner-area .property-boxarea .sell-point {
   position: absolute;
@@ -14868,8 +14944,14 @@ Location:
   transition: all 0.4s;
 }
 .property-inner-area .property-boxarea .content-area {
-  padding: 24px 16px;
+  padding:16px;
+   flex: 1;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
+
 .property-inner-area .property-boxarea .content-area a {
   color: var(--ztc-text-text-3);
   font-family: var(--ztc-family-font1);
@@ -14879,6 +14961,15 @@ Location:
   line-height: 24px;
   display: inline-block;
   transition: all 0.4s;
+  
+
+  
+  display: block;
+  margin-bottom: 8px;
+  
+  height: 50px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .property-inner-area .property-boxarea .content-area a:hover {
   color: var(--ztc-text-text-2);
@@ -14892,6 +14983,13 @@ Location:
   font-weight: var(--ztc-weight-regular);
   line-height: 16px;
   margin-top: 16px;
+
+    
+  
+  height: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 10px;
 }
 .property-inner-area .property-boxarea .content-area ul {
   margin-top: 24px;
@@ -16743,6 +16841,7 @@ Location:
   top: 0;
   z-index: 1;
 }
+
 .property-sidebar-section-area .property-boxarea {
   position: relative;
   z-index: 1;
