@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +7,22 @@
      <title>About Us</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/aos.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
-    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
-    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
+    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 
     <style>
       .social-links-mobile-menu ul {
@@ -102,13 +103,13 @@
           <div class="col-lg-12">
             <div class="header-elements" style="display: flex;align-items: center;justify-content: center; position: relative;transition: all 0.4s;border-radius: 42px;padding: 0 20px;">
               <div class="site-logo" style=" flex: 1;text-align: left;">
-                <a href=""><img src="assets/img/logo/logo2.png" alt=""></a>
+                <a href=""><img src="{% static 'assets/img/logo/logo2.png' %}" alt="Semsar Logo"></a>
               </div>
               <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
                  <div class="header-right">
                 <ul>
-                  <li><a href="./home.html">Home </a></li>
-                  <li><a href="about2.html">About</a></li>
+                  <li><a href="home.html">Home </a></li>
+                  <li><a href="about.html">About</a></li>
                   <li><a href="login.html">Login</a></li>
                   </ul>
                   </div>
@@ -129,7 +130,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href=""><img src="assets/img/logo/logo2.png" alt=""></a>
+          <a href=""><img src="{% static 'assets/img/logo/logo2.png' %}" alt="Semsar Mobile Logo"></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -142,7 +143,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href=""><img src="assets/img/logo/logo1.png" alt=""></a>
+        <a href=""><img src="{% static 'assets/img/logo/logo1.png' %}" alt="Semsar Logo"></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -150,14 +151,9 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home.html" >Home </a>
-       
-          </li>
-        
-      <li><a href="about2.html">About</a></li>
-      <li><a href="./login.html">Login</a></li>
-    
-      
+      <li><a href="home.html" >Home </a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="login.html">Login</a></li>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -209,7 +205,7 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="index.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="home.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                      <div class="space16"></div>
@@ -231,14 +227,14 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="images image-anime reveal">
-                    <img src="assets/img/all-images/business-agreement-handshake.jpg" alt=""  >
+                    <img src="{% static 'assets/img/all-images/business-agreement-handshake.jpg' %}" alt="Business Agreement Handshake"  >
                 </div>
             </div>
 
             <div class="col-lg-9">
                 <div class="other-area">
                     <div class="img1 image-anime reveal">
-                        <img src="assets/img/all-images/FutureOfRealEstateTeams.jpg" alt="" style="filter: brightness(87%);">
+                        <img src="{% static 'assets/img/all-images/FutureOfRealEstateTeams.jpg' %}" alt="Future of Real Estate Teams" style="filter: brightness(87%);">
                     </div>
                     
             </div>
@@ -258,11 +254,11 @@
             <div class="col-lg-6 col-md-6">
               <div class="images">
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/broker.jpg" alt="" style="height: 200px;; width: 270px;" >
+                  <img src="{% static 'assets/img/all-images/broker.jpg' %}" alt="Broker Image" style="height: 200px;; width: 270px;" >
                 </div>
                 <div class="space20"></div>
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/real estate.jpg" alt="" style="height: 270px;; width: 320px;">
+                  <img src="{% static 'assets/img/all-images/real estate.jpg' %}" alt="Real Estate Image" style="height: 270px;; width: 320px;">
                 </div>
               </div>
             </div>
@@ -270,11 +266,11 @@
             <div class="col-lg-6 col-md-6">
               <div class="images">
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/photo-about.jpg" alt="" style="height: 270px;; width: 320px;" >
+                  <img src="{% static 'assets/img/all-images/photo-about.jpg' %}" alt="Photo About" style="height: 270px;; width: 320px;" >
                 </div>
                 <div class="space20"></div>
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/real.jpg" alt="" style="height: 200px;; width: 270px;">
+                  <img src="{% static 'assets/img/all-images/real.jpg' %}" alt="Real Image" style="height: 200px;; width: 270px;">
                 </div>
               </div>
             </div>
@@ -284,7 +280,7 @@
 
       <div class="col-lg-6">
         <div class="about4-header heading8">
-          <h5 class="text-anim"><img src="assets/img/icons/logo-icon3.svg" alt="">About Real Estate Agency</h5>
+          <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon3.svg' %}" alt="Logo Icon">About Real Estate Agency</h5>
           <h2 class="text-anime-style-3">The Story Of Semsar And The Team Behind Your Next Home</h2>
           <div class="space24"></div>
           <p class="text-anim">At Semsar Real, is to transform dreams into reality by connecting people with their perfect homes. We are committed to providing exceptional service, unparalleled market expertise, and personalized solutions that cater to each client's unique needs, we transform the way you experience real estate. Our platform is powered by passion, integrity, and unmatched expertise, designed to guide you effortlessly through every step of your property journey. Whether you're searching for your dream home or seeking the perfect investment, we deliver unparalleled service and results. Trust us to turn your ambitions into achievements </p>
@@ -308,21 +304,20 @@
                 <div class="row align-items-center">
                   <div class="col-lg-6">
                       <div class="mission-content heading2">
-                          <h5><img src="assets/img/icons/logo-icon1.svg" alt="">Our Mission</h5>
+                          <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="Logo Icon">Our Mission</h5>
                           <h2>Our Mission</h2>
                           <div class="space24"></div>
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">Request a Broker <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                            <a href="login.html" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
                   </div>
   
                   <div class="col-lg-6">
-                  
-                      <img src="assets/img/all-images/our mission.jpg" alt="" style="height: 400px;; width: 500px;">
+                      <img src="{% static 'assets/img/all-images/our mission.jpg' %}" alt="Our Mission Image" style="height: 400px;; width: 500px;">
                   </div>
               </div>
               </div>
@@ -335,19 +330,19 @@
                 <div class="row align-items-center">
                   <div class="col-lg-6">
                     <div class="images image-anime reveal">
-                        <img src="assets/img/all-images/are.jpg" alt="">
+                        <img src="{% static 'assets/img/all-images/are.jpg' %}" alt="Who We Are Image">
                     </div>
                 </div>
                   <div class="col-lg-6">
                     <div class="space30 d-lg-none d-block"></div>
                       <div class="mission-content heading2">
-                          <h5><img src="assets/img/icons/logo-icon1.svg" alt="">Who We Are</h5>
+                          <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="Logo Icon">Who We Are</h5>
                           <h2>Who We Are</h2>
                           <div class="space24"></div>
                           <p>We are a team of experienced and passionate real estate professionals who are committed to making your real estate journey smooth and successful. Our deep understanding of the local market, combined with our innovative strategies, ensures that you receive the best possible service and list of our featured Properties.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">View Our Properties <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                            <a href="login.html" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                   </div>
@@ -363,7 +358,7 @@
     <div class="row">
       <div class="col-lg-7  m-auto">
         <div class="service4-header text-center heading2">
-          <h5><img src="assets/img/icons/logo-icon1.svg" alt="">What We Offer</h5>
+          <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="Logo Icon">What We Offer</h5>
           <h2>Upgrade To a Smarter Living <br class="d-lg-block d-none"> Experience With Home Automation</h2>
         </div>
       </div>
@@ -372,7 +367,7 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="img1 reveal image-anime">
-          <img src="assets/img/all-images/home5.jpg" alt="" style="height: 380px;; width: 370px;">
+          <img src="{% static 'assets/img/all-images/home5.jpg' %}" alt="Home Automation Image" style="height: 380px;; width: 370px;">
         </div>
       </div>
       <div class="col-lg-8">
@@ -381,7 +376,7 @@
             <div class="col-lg-6 col-md-6">
               <div class="service-author-box">
                 <div class="icons">
-                  <img src="assets/img/icons/service-icon5.svg" alt="">
+                  <img src="{% static 'assets/img/icons/service-icon5.svg' %}" alt="Service Icon">
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
@@ -396,7 +391,7 @@
             <div class="col-lg-6 col-md-6">
               <div class="service-author-box">
                 <div class="icons">
-                  <img src="assets/img/icons/service-icon5.svg" alt="">
+                  <img src="{% static 'assets/img/icons/service-icon5.svg' %}" alt="Service Icon">
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
@@ -425,7 +420,7 @@
     <div class="row">
       <div class="col-lg-7 m-auto">
         <div class="visit-header text-center heading2">
-          <h5><img src="assets/img/icons/logo-icon1.svg" alt="">Visit Our Office</h5>
+          <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="Logo Icon">Visit Our Office</h5>
           <h2>Come and Visit our Office </h2>
         </div>
       </div>
@@ -437,7 +432,7 @@
           <div class="row align-items-center">
             <div class="col-lg-6">
               <div class="images image-anime reveal">
-                <img src="assets/img/all-images/office3.jpg" alt="" style="height: 400px;; width: 850px;">
+                <img src="{% static 'assets/img/all-images/office3.jpg' %}" alt="Office Image" style="height: 400px;; width: 850px;">
               </div>
             </div>
             <div class="col-lg-6">
@@ -449,7 +444,7 @@
     
                   <div class="icons-flex-area">
                     <div class="icons">
-                      <img src="assets/img/icons/location2.svg" alt="">
+                      <img src="{% static 'assets/img/icons/location2.svg' %}" alt="Location Icon">
                     </div>
                     <div class="text">
                       <a href="#">57th Street, Al-Bashaer District, <br class="d-lg-block d-none"> 6th october, Egypt.</a>
@@ -458,7 +453,7 @@
     
                   <div class="icons-flex-area">
                     <div class="icons">
-                      <img src="assets/img/icons/call2.svg" alt="">
+                      <img src="{% static 'assets/img/icons/call2.svg' %}" alt="Call Icon">
                     </div>
                     <div class="text">
                       <a href="tel:(925)683-1469">+0201020017477</a>
@@ -491,8 +486,8 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4">
         <div class="cta-btn-area">
-          <a href="login.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
-          <a href="login.html" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+          <a href="login.html" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+          <a href="login.html" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
         </div>
       </div>
     </div>
@@ -506,7 +501,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="assets/img/logo/logo1.png" alt="">
+          <img src="{% static 'assets/img/logo/logo1.png' %}" alt="Semsar Footer Logo">
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
@@ -525,8 +520,8 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="about2.html">About Us</a></li>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
             <li><a href="login.html">Login</a></li>
             
 
@@ -539,8 +534,8 @@
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
-            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
-            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
+            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt="Location Icon"></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt="Call Icon"></span><a href="tel:(925)683-1469">+0201020017477</a></li>
             
           </ul>
         </div>
@@ -563,22 +558,22 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/fontawesome.js"></script>
-<script src="assets/js/plugins/aos.js"></script>
-<script src="assets/js/plugins/counter.js"></script>
-<script src="assets/js/plugins/sidebar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/mobilemenu.js"></script>
-<script src="assets/js/plugins/owlcarousel.min.js"></script>
-<script src="assets/js/plugins/nice-select.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/slick-slider.js"></script>
-<script src="assets/js/plugins/circle-progress.js"></script>
-<script src="assets/js/plugins/gsap.min.js"></script>
-<script src="assets/js/plugins/ScrollTrigger.min.js"></script>
-<script src="assets/js/plugins/Splitetext.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
+<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
+<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
+<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
+<script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
+<script src="{% static 'assets/js/plugins/owlcarousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
+<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
+<script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
+<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
+<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 </html>

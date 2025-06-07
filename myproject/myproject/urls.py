@@ -16,20 +16,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings # Add this import
+from django.conf.urls.static import static # Add this import
 from django.views.generic import TemplateView
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # API endpoint for inquiries
+    # your inquiries API
     path('inquiries/', include('inquiries.urls')),
 
-    # Front-end pages (if you’re just serving home.html and index.html as static templates)
-    path('', TemplateView.as_view(template_name='index.html'), name='index'),
+    # front-end
+    path('', TemplateView.as_view(template_name='home.html'),       name='home'),
+    path('about/',  TemplateView.as_view(template_name='about.html'), name='about'),
+    path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
+    path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
     path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
 ]
 
+# Serve static files during development when DEBUG is True
 if settings.DEBUG:
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
+    # This uses the STATICFILES_DIRS setting from your settings.py
+    # and serves files from the STATIC_URL path.
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT)
