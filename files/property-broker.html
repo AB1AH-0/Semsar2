@@ -245,10 +245,11 @@
             <div class="tab-content" id="pills-tabContent">
               <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                 <div class="row">
+                  <div class="row" style="justify-content: center;">
                   <div class="col-lg-4">
                     <div class="listing-input">
                         <select id="broker-city-rent" name="broker-city-rent" class="city-select nice-select">
-                            <option value="" selected disabled>City</option>
+                            <option value="" selected disabled>Governorate</option>
                             <option value="cairo">Cairo</option>
                             <option value="giza">Giza</option>
                         </select>
@@ -285,6 +286,7 @@
                       </select>
                       </div>
                       <div class="space24"></div>
+                  </div>
                   </div>
               
                   <div class="col-lg-4">
@@ -339,89 +341,78 @@
             </div>
           <div class="space24"></div>
           </div>
-          
+          <div class="col-lg-8">
+            <div class="listing-input">
+              <label for="property_media_rent">Add Media (1-15 photos):</label>
+              <input type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
+            </div>
+            <div class="space24"></div>
+        </div>
           </div>
           </div>
           
           <div class="col-lg-4">
-          <div class="row">
-          <div class="col-lg-12">
-            <div class="listing-input">
-              <input  type="number"
-                      name="broker-size-rent"
-                      class="nice-select"   
-                      placeholder="Size (m²)"
-                      min="0"              
-                      step="1"           
-                      inputmode="numeric">             
-            </div>
-          <div class="space24"></div>
-          </div>
-
-
-              <div class="col-lg-6">                 
-                  <label>
-                    <input type="checkbox" name="broker-Furnished-rent" value="yes">
-                    Furnished
-                  </label>                              
-                <div class="space24"></div>
-            </div>
-            <div class="col-lg-8">
+            <div class="col-lg-12">
               <div class="listing-input">
-                <label for="property_media_rent">Add Media (1-15 photos):</label>
-                <input type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
+                <input  type="number"
+                name="broker-size-rent"
+                class="nice-select"   
+                placeholder="Size (m²)"
+                min="0"              
+                step="1"           
+                inputmode="numeric">             
               </div>
               <div class="space24"></div>
             </div>
-        </div>
-     </div>
+            
+         </div>
 
      <div class="col-lg-4">
       <div class="row">
-
+        <div class="col-lg-6">                 
+          <label>
+            <input type="checkbox" name="broker-Furnished-rent" value="yes">
+            Furnished
+          </label>                              
+        <div class="space24"></div>
+    </div>
       </div>
    </div>
 
-   <div class="col-lg-4">
-    <div class="listing-input">
 
-    </div>
-    <div class="space24"></div>
-</div>
 
 <div class="col-lg-4">
-<div class="space24"></div>
-
 <div class="btn-area1">
   <button class="header-btn1 send-to-brokers" name="list-property-rent" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> List Property</button>
+  <div class="space24"></div>
 </div>
 </div>
 </div>
 </div>
 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
 <div class="row">
+  <div class="row" style="justify-content: center;">
   <div class="col-lg-4">
     <div class="listing-input">
-      <select id="broker-city-sale" name="broker-city-sale" class="city-select nice-select">
-        <option value="" disabled selected>City</option>
-        <option value="cairo">Cairo</option>
-        <option value="giza">Giza</option>
-    </select>
+        <select id="broker-city-sale" name="broker-city-sale" class="city-select nice-select">
+            <option value="" selected disabled>Governorate</option>
+            <option value="cairo">Cairo</option>
+            <option value="giza">Giza</option>
+        </select>
     </div>
     <div class="space24"></div>
-  </div> 
-
+</div>                  
   <div class="col-lg-4">
       <div class="listing-input">
         <select id="broker-area-sale" name="broker-area-sale" class="area-select nice-select">
           <option value="" disabled selected>Area</option>
-  
+
           <!-- CAIRO -->
           
           <option value="shubra"          data-city="cairo">Shubra</option>
           <option value="elmarg"          data-city="cairo">El Marg</option>
-          <option value="dar-el-salam"    data-city="cairo">Dokki</option>
-          <option value="maadi"           data-city="cairo">Manshiyat Naser</option>
+          <option value="dar-el-salam"    data-city="cairo">Dar El Salam</option>
+          <option value="maadi"           data-city="cairo">Maadi</option>
           <option value="nasr-city"       data-city="cairo">Nasr City</option>
           <option value="mokattam"        data-city="cairo">Mokattam</option>
           <option value="new-cairo"       data-city="cairo">New Cairo</option>
@@ -442,7 +433,7 @@
       </div>
       <div class="space24"></div>
   </div>
-
+  </div>
 
   <div class="col-lg-4">
     <div class="listing-input">
@@ -452,7 +443,7 @@
           <option value="Apartment">Apartment</option>
           <option value="Duplex">Duplex</option>
           <option value="Villa">Villa</option>
-        </select>
+      </select>
   </div>
     <div class="space24"></div>
 </div>
@@ -484,7 +475,7 @@
 
 <div class="col-lg-4">
 <div class="row">
-<div class="col-lg-6">
+<div class="col-lg-12">
 <div class="listing-input">
 <input  type="number"
       name="broker-price-sale"
@@ -496,74 +487,58 @@
 </div>
 <div class="space24"></div>
 </div>
-
+<div class="col-lg-8">
+<div class="listing-input">
+<label for="property_media_sale">Add Media (1-15 photos):</label>
+<input type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
 </div>
+<div class="space24"></div>
+</div>
+</div>
+</div>
+
+<div class="col-lg-4">
+<div class="col-lg-12">
+<div class="listing-input">
+<input  type="number"
+name="broker-size-sale"
+class="nice-select"   
+placeholder="Size (m²)"
+min="0"              
+step="1"           
+inputmode="numeric">             
+</div>
+<div class="space24"></div>
+</div>
+<div class="col-lg-6">                 
+  <label class="form-check-label">
+  <input  class="form-check-input" type="checkbox" name="broker-Furnished-sale">
+  Furnished
+  </label>                              
+  <div class="space24"></div>
+  </div>
 </div>
 
 <div class="col-lg-4">
 <div class="row">
-<div class="col-lg-12">
-<div class="listing-input">
-<input  type="number"
-      name="broker-size-sale"
-      class="nice-select"   
-      placeholder="Size (m²)"
-      min="0"              
-      step="1"           
-      inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-
-<div class="col-lg-6">                 
-  <label>
-    <input type="checkbox" name="Furnished" value="yes">
-    Furnished
-  </label>                              
-<div class="space24"></div>
-</div>
-<div class="col-lg-8">
-  <div class="listing-input">
-    <label for="property_media_sale">Add Media (1-15 photos):</label>
-    <input type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
-  </div>
-  <div class="space24"></div>
+  <div class="col-lg-12">
+    <div class="listing-input">
+      <select name="Finish" class="nice-select">
+        <option value="" selected disabled>Finish</option>
+        <option value="Finished">Finished</option>
+        <option value="Unfinished">Unfinished</option>
+        <option value="Semi-Finished">Semi-Finished</option>
+    </select>
+    </div>
+    <div class="space24"></div>
+    </div>
 </div>
 </div>
-</div>
-
-
-
 
 <div class="col-lg-4">
-<div class="listing-input">
-<select name="Finish" class="nice-select">
-  <option value="" selected disabled>Finish</option>
-  <option value="Finished">Finished</option>
-  <option value="Unfinished">Unfinished</option>
-  <option value="Semi-Finished">Semi-Finished</option>
-</select>
-</div>
-<div class="space24"></div>
-</div>
-
-
-
-<div class="col-lg-4">                                        
-<div class="space24"></div>
-</div>
-
-
-<div class="col-lg-4">
-<div class="space24"></div>
 <div class="btn-area1">
 <button class="header-btn1 send-to-brokers" name="list-property-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> List Property</button>
-</div>
-</div>
-<div id="inquiry-list" class="space24"></div>
-</div>
-</div>
+<div class="space24"></div>
 </div>
 </div>
 </div>
@@ -574,26 +549,6 @@
 
 <!--===== PROPERTY AREA ENDS =======-->
 
-<!--===== CTA AREA STARTS =======-->
-<div class="cta1-section-area sp1">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-5">
-        <div class="cta-header heading1">
-          <h2 >We’re Here To Find Your New Home Project.</h2>
-        </div>
-      </div>
-      <div class="col-lg-3"></div>
-      <div class="col-lg-4">
-        <div class="cta-btn-area">
-          <a href="contact.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
-          <a href="#" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--===== CTA AREA ENDS =======-->
 
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area">
