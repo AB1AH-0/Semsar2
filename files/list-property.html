@@ -219,18 +219,20 @@
       <div class="row">
         <div class="col-lg-12">
             <div class="listing-tabs-area">
-              <ul class="nav nav-pills" id="pills-tab" role="tablist">
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">For Rent</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                  <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">For Sale</button>
-                </li>
-              </ul>
               <div class="space24"></div>
               <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                   <div class="row">
+                    <div class="col-lg-4">                 
+                        <div class="listing-input">
+                        <select id="purpose" name="purpose" required>
+                        <option value="" selected disabled>Rent or Sale</option>
+                        <option value="rent">Rent</option>
+                        <option value="sale">Sale</option>
+                        </select>
+                        </div>                          
+                    <div class="space24"></div>
+                    </div>
                     <div class="col-lg-4">
                       <div class="listing-input">
                           <select id="city-rent" name="city-rent" class="city-select nice-select">
@@ -401,184 +403,7 @@
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
-  <div class="row">
-    <div class="col-lg-4">
-      <div class="listing-input">
-        <select id="city-sale" name="city-sale" class="city-select nice-select">
-          <option value="" disabled selected>City</option>
-          <option value="cairo">Cairo</option>
-          <option value="giza">Giza</option>
-      </select>
-      </div>
-      <div class="space24"></div>
-    </div> 
 
-    <div class="col-lg-4">
-        <div class="listing-input">
-          <select id="area-sale" name="area-sale" class="area-select nice-select">
-            <option value="" disabled selected>Area</option>
-    
-            <!-- CAIRO -->
-            
-            <option value="shubra"          data-city="cairo">Shubra</option>
-            <option value="elmarg"          data-city="cairo">El Marg</option>
-            <option value="dar-el-salam"    data-city="cairo">Dokki</option>
-            <option value="maadi"           data-city="cairo">Manshiyat Naser</option>
-            <option value="nasr-city"       data-city="cairo">Nasr City</option>
-            <option value="mokattam"        data-city="cairo">Mokattam</option>
-            <option value="new-cairo"       data-city="cairo">New Cairo</option>
-            <option value="garden-city"     data-city="cairo">Garden City</option>
-            <option value="al-rehab-city"   data-city="cairo">Al Rehab City</option>
-
-            <!-- ===================== GIZA ===================== -->
-            <option value="imbaba"            data-city="giza">Imbaba</option>
-            <option value="boulaq-eldakrour"  data-city="giza">Boulaq El-Dakrour</option>
-            <option value="elmarg"            data-city="giza">El Marg</option>
-            <option value="mohandessin"       data-city="giza">Mohandessin</option>
-            <option value="dokki"             data-city="giza">Dokki</option>
-            <option value="agouza"            data-city="giza">Agouza</option>
-            <option value="beverly-hills"     data-city="giza">Beverly Hills</option>
-            <option value="dream-land"        data-city="giza">Dream Land</option>
-            <option value="sheikh-zayed"      data-city="giza">Sheikh Zayed</option>
-        </select>
-        </div>
-        <div class="space24"></div>
-    </div>
-
-
-    <div class="col-lg-4">
-      <div class="listing-input">
-        <select name="Type-rent" class="nice-select">
-            <option value="" selected disabled>Type</option>
-            <option value="Roof">Roof</option>
-            <option value="Apartment">Apartment</option>
-            <option value="Duplex">Duplex</option>
-            <option value="Villa">Villa</option>
-          </select>
-    </div>
-      <div class="space24"></div>
-  </div>
-
-<div class="col-lg-4">
-<div class="listing-input">
-  <input  type="number"
-          name="bathrooms-rent"
-          class="nice-select"   
-          placeholder="Bathrooms"
-          min="0"              
-          step="1"           
-          inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-<div class="col-lg-4">
-<div class="listing-input">
-<input  type="number"
-        name="bedrooms-rent"
-        class="nice-select"   
-        placeholder="Bedrooms"
-        min="0"              
-        step="1"           
-        inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-4">
-<div class="row">
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-        name="min_price-rent"
-        class="nice-select"   
-        placeholder="Min Price (EGP)"
-        min="0"              
-        step="1000"           
-        inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-        name="max_price-rent"
-        class="nice-select"   
-        placeholder="Max Price (EGP)"
-        min="0"              
-        step="1000"           
-        inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-</div>
-</div>
-
-<div class="col-lg-4">
-<div class="row">
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-        name="min_size-rent"
-        class="nice-select"   
-        placeholder="Min Size (m²)"
-        min="0"              
-        step="1"           
-        inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-        name="max_size-rent"
-        class="nice-select"   
-        placeholder="Max Size (m²)"
-        min="0"              
-        step="1"           
-        inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-6">                 
-    <label>
-      <input type="checkbox" name="Furnished" value="yes">
-      Furnished
-    </label>                              
-  <div class="space24"></div>
-</div>
-</div>
-</div>
-
-
-<div class="col-lg-4">
-<div class="listing-input">
-  <select name="Finish" class="nice-select">
-    <option value="" selected disabled>Finish</option>
-    <option value="Finished">Finished</option>
-    <option value="Unfinished">Unfinished</option>
-    <option value="Semi-Finished">Semi-Finished</option>
-</select>
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-4">                                        
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-4">
-<div class="space24"></div>
-<div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
-</div>
-</div>
-<div id="inquiry-list" class="space24"></div>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -670,139 +495,6 @@
 <script src="assets/js/main.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="assets/js/plugins/nice-select.js"></script>
-
-
-<script>
-  $(function () {
-    // Initialize nice-select for all select elements
-    $('select.nice-select').niceSelect();
-    
-    // Store all area options for each dropdown
-    const allAreaOptions = {};
-    
-    // Function to store original options
-    function storeOriginalOptions(areaSelector) {
-        const $area = $(areaSelector);
-        allAreaOptions[areaSelector] = [];
-        
-        $area.find('option').each(function() {
-            const $option = $(this);
-            allAreaOptions[areaSelector].push({
-                value: $option.val(),
-                text: $option.text(),
-                city: $option.data('city'),
-                disabled: $option.prop('disabled'),
-                selected: $option.prop('selected')
-            });
-        });
-    }
-    
-    // Function to link city and area dropdowns
-    function linkCityAreaDropdowns(citySelector, areaSelector) {
-        const $city = $(citySelector);
-        const $area = $(areaSelector);
-        
-        // Store original options
-        storeOriginalOptions(areaSelector);
-        
-        function filterAreasByCity() {
-            const selectedCity = $city.val();
-            
-            // Clear current options
-            $area.empty();
-            
-            // Add back filtered options
-            allAreaOptions[areaSelector].forEach(function(option) {
-                // Add option if it has no city data (default option) or matches selected city
-                if (!option.city || option.city === selectedCity) {
-                    const $newOption = $('<option>', {
-                        value: option.value,
-                        text: option.text,
-                        disabled: option.disabled && !option.city, // Keep default option disabled
-                        selected: false // Reset selection
-                    });
-                    
-                    if (option.city) {
-                        $newOption.data('city', option.city);
-                    }
-                    
-                    $area.append($newOption);
-                }
-            });
-            
-            // Reset to default selection
-            $area.val('');
-            
-            // Destroy and recreate nice-select
-            $area.niceSelect('destroy');
-            $area.niceSelect();
-        }
-        
-        // Initial filtering when page loads
-        filterAreasByCity();
-        
-        // Filter when city selection changes
-        $city.on('change', filterAreasByCity);
-    }
-    
-    // For RENT tab - link city-rent and area-rent
-    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
-    
-    // For SALE tab - link city-sale and area-sale (when you add them)
-    // linkCityAreaDropdowns('#city-sale', '#area-sale');
-  linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
-
-  // For SALE tab - link city-sale and area-sale (when you add them)
-  // linkCityAreaDropdowns('#city-sale', '#area-sale');
-});
-
-// Capture search data and send to backend
-$(function(){
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-  }
-
-  $('.send-to-brokers').on('click', function(e){
-    e.preventDefault();
-    const $panel = $(this).closest('.tab-pane');
-    const data = {};
-    $panel.find('input, select').each(function(){
-      const $el = $(this);
-      const name = $el.attr('name');
-      if(!name) return;
-      if($el.attr('type') === 'checkbox'){
-        data[name] = $el.is(':checked');
-      } else {
-        data[name] = $el.val();
-      }
-    });
-    fetch('/api/inquiries/', {
-      method: 'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      },
-      body: JSON.stringify(data)
-    }).then(r => r.json()).then(function(resp){
-      console.log('saved', resp);
-    }).catch(function(err){
-      console.error('error', err);
-    });
-  });
-});
-
-  </script>
 
 </body>
 
