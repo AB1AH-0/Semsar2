@@ -341,13 +341,7 @@
             </div>
           <div class="space24"></div>
           </div>
-          <div class="col-lg-8">
-            <div class="listing-input">
-              <label for="property_media_rent">Add Media (1-15 photos):</label>
-              <input type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
-            </div>
-            <div class="space24"></div>
-        </div>
+          
           </div>
           </div>
           
@@ -364,16 +358,24 @@
               </div>
               <div class="space24"></div>
             </div>
-            
+            <div class="col-lg-12">
+              <div class="listing-input">
+                <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
+              </div>
+              <div class="space24"></div>
+          </div>
          </div>
 
      <div class="col-lg-4">
       <div class="row">
-        <div class="col-lg-6">                 
-          <label>
-            <input type="checkbox" name="broker-Furnished-rent" value="yes">
-            Furnished
-          </label>                              
+        <div class="col-lg-12">                 
+          <div class="listing-input">
+            <select name="broker-Furnished-sale" class="nice-select">
+                <option value="" selected disabled>Furnish</option>
+                <option value="Furnished">Furnished</option>
+                <option value="Not-Furnished">Not Furnished</option>
+            </select>
+        </div>
         <div class="space24"></div>
     </div>
       </div>
@@ -487,12 +489,16 @@
 </div>
 <div class="space24"></div>
 </div>
-<div class="col-lg-8">
-<div class="listing-input">
-<label for="property_media_sale">Add Media (1-15 photos):</label>
-<input type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
-</div>
-<div class="space24"></div>
+<div class="col-lg-12">
+  <div class="listing-input">
+    <select name="broker-Finish-sale" class="nice-select">
+      <option value="" selected disabled>Finish</option>
+      <option value="Finished">Finished</option>
+      <option value="Unfinished">Unfinished</option>
+      <option value="Semi-Finished">Semi-Finished</option>
+  </select>
+  </div>
+  <div class="space24"></div>
 </div>
 </div>
 </div>
@@ -510,11 +516,10 @@ inputmode="numeric">
 </div>
 <div class="space24"></div>
 </div>
-<div class="col-lg-6">                 
-  <label class="form-check-label">
-  <input  class="form-check-input" type="checkbox" name="broker-Furnished-sale">
-  Furnished
-  </label>                              
+<div class="col-lg-12">
+  <div class="listing-input">
+  <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
+  </div>
   <div class="space24"></div>
   </div>
 </div>
@@ -523,13 +528,12 @@ inputmode="numeric">
 <div class="row">
   <div class="col-lg-12">
     <div class="listing-input">
-      <select name="Finish" class="nice-select">
-        <option value="" selected disabled>Finish</option>
-        <option value="Finished">Finished</option>
-        <option value="Unfinished">Unfinished</option>
-        <option value="Semi-Finished">Semi-Finished</option>
-    </select>
-    </div>
+      <select name="broker-Furnished-sale" class="nice-select">
+          <option value="" selected disabled>Furnish</option>
+          <option value="Furnished">Furnished</option>
+          <option value="Not-Furnished">Not Furnished</option>
+      </select>
+  </div>
     <div class="space24"></div>
     </div>
 </div>
