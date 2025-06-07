@@ -1,7 +1,37 @@
 import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from .models import UserProfile
+
+def register_user(request):
+    if request.method == 'POST':
+        user_type = request.POST.get('usertype')
+        full_name = request.POST.get('full_name')
+        email = request.POST.get('email')
+        national_id = request.POST.get('national_id')
+        phone = request.POST.get('phone')
+        password = request.POST.get('password')
+        license_image = request.FILES.get('license_image') if user_type == 'broker' else None
+
+        # Create new UserProfile
+        UserProfile.objects.create(
+            user_type=user_type,
+            full_name=full_name,
+            email=email,
+            national_id=national_id,
+            phone=phone,
+            password=password,
+            license_image=license_image
+        )
+        
+        messages.success(request, 'Registration successful!')
+        return redirect('login')  # Redirect to login page after registration
+
+    return render(request, 'reg1.html')
+
+
 from .models import Inquiry
 
 def new_page(request):

@@ -283,31 +283,30 @@
                 </div>
             </div>
 
-            <form id="register-form">
+            <form id="register-form" action="{% url 'register-user' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
                 <div id="user-fields" class="form-section active">
-                    <input type="hidden" name="usertype" id="userType" value="buyer">
-                    <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="text" placeholder="National ID" required>
-                <input type="number" placeholder="Phone Number" required>
-                <input type="password" placeholder="Password" required>
-                <input type="password" placeholder="Confirm Password" required>
-                                 <button type="submit" class="register-btn" onclick="window.location.href='login.html'">Register</button>
-
+                    <input type="hidden" name="usertype" id="userType" value="user">
+                    <input type="text" name="full_name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="number" name="national_id" placeholder="National ID" required>
+                    <input type="number" name="phone" placeholder="Phone Number" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <button type="submit" class="register-btn">Register</button>
                 </div>
 
                 <div id="broker-fields" class="form-section">
-                     <input type="hidden" name="usertype" id="userType" value="broker">
-                     <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <input type="text" placeholder="National ID" required>
-                <input type="text" placeholder="Phone Number" required>
-<input type="file" name="licenseImage" accept="image/*" required placeholder="Upload License Image">
-<small style="color: rgb(128, 128, 128); font-weight: bold;">* Please upload a clear image of your license in JPG or PNG format</small>
-                    <input type="password" placeholder="Password" required>
-                    <input type="password" placeholder="Confirm Password" required>
-                                     <button type="submit" class="register-btn" onclick="window.location.href='visa.html'">Register</button>
-
+                    <input type="hidden" name="broker" id="brokerType" value="broker">
+                    <input type="text" name="full_name" placeholder="Full Name" required>
+                    <input type="email" name="email" placeholder="Your Email" required>
+                    <input type="number" name="national_id" placeholder="National ID" required>
+                    <input type="number" name="phone" placeholder="Phone Number" required>
+                    <input type="file" name="license_image" accept="image/*" required>
+                    <small style="color: rgb(128, 128, 128); font-weight: bold;">* Please upload a clear image of your license in JPG or PNG format</small>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                    <button type="submit" class="register-btn">Register</button>
                 </div>
                 
                 
@@ -351,7 +350,23 @@
             const userFields = document.getElementById('user-fields');
             const brokerFields = document.getElementById('broker-fields');
 
-            // وظيفة لتغيير عرض الحقول
+            // Function to toggle required attribute based on visibility
+            function toggleRequiredFields() {
+                const activeFields = document.querySelector('.form-section.active');
+                const hiddenFields = document.querySelector('.form-section:not(.active)');
+                
+                // Add required to visible fields
+                activeFields.querySelectorAll('input[required]').forEach(input => {
+                    input.required = true;
+                });
+                
+                // Remove required from hidden fields
+                hiddenFields.querySelectorAll('input[required]').forEach(input => {
+                    input.required = false;
+                });
+            }
+
+            // Function to show fields based on selected role
             function showFields(role) {
                 userFields.classList.remove('active');
                 brokerFields.classList.remove('active');
@@ -365,9 +380,12 @@
                     brokerRole.classList.add('selected');
                     userRole.classList.remove('selected');
                 }
+                
+                // Update required fields after showing
+                toggleRequiredFields();
             }
 
-            // الاستماع لأحداث الضغط على أيقونات الأدوار
+            // Event listeners for role selection
             brokerRole.addEventListener('click', function() {
                 showFields('broker');
             });
@@ -376,7 +394,7 @@
                 showFields('user');
             });
 
-            // تعيين الدور الافتراضي عند تحميل الصفحة (هنا، المستخدم هو الافتراضي)
+            // Initialize with user fields active
             showFields('user');
         });
     </script>

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Inquiry
+from .models import Inquiry, UserProfile
 
 # Register your models here.
 class InquiryAdmin(admin.ModelAdmin):
@@ -21,3 +21,4 @@ class InquiryAdmin(admin.ModelAdmin):
     )
 
 admin.site.register(Inquiry, InquiryAdmin)
+admin.site.register(UserProfile)
