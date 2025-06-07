@@ -3,7 +3,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Our Properties </title>
+     <title>Your Properties </title>
 
      <!--=====FAB ICON=======-->
     <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
@@ -106,10 +106,10 @@
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="./home-user.html">Home </a>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="property.html">Property</a></li>
-                  <li><a href="Brokers.html">Brokers</a></li>
+                  <li><a href="./home-broker.html">Home </a>
+                  <li><a href="about-broker.html">About</a></li>
+                  <li><a href="property-broker.html">Your Properties</a></li>
+                  <li><a href="Customers.html">Customers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
@@ -219,7 +219,7 @@
         <div class="col-lg-4 m-auto">
           <div class="property-header text-center heading6">
             <h5 class="text-anim"><img src="assets/img/icons/logo-icon2.svg" alt="">Properties</h5>
-            <h2 class="text-anime-style-3">List Your Property</h2>
+            <h2 class="text-anime-style-3">Manage Your Properties</h2>
           </div>
         </div>
       </div>
@@ -247,7 +247,7 @@
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="listing-input">
-                        <select id="city-rent" name="city-rent" class="city-select nice-select">
+                        <select id="broker-city-rent" name="broker-city-rent" class="city-select nice-select">
                             <option value="" selected disabled>City</option>
                             <option value="cairo">Cairo</option>
                             <option value="giza">Giza</option>
@@ -257,7 +257,7 @@
                 </div>                  
                   <div class="col-lg-4">
                       <div class="listing-input">
-                        <select id="area-rent" name="area-rent" class="area-select nice-select">
+                        <select id="broker-area-rent" name="broker-area-rent" class="area-select nice-select">
                           <option value="" disabled selected>Area</option>
   
                           <!-- CAIRO -->
@@ -289,7 +289,7 @@
               
                   <div class="col-lg-4">
                     <div class="listing-input">
-                      <select name="Type-rent" class="nice-select">
+                      <select name="broker-Type-rent" class="nice-select">
                           <option value="" selected disabled>Type</option>
                           <option value="Roof">Roof</option>
                           <option value="Apartment">Apartment</option>
@@ -303,7 +303,7 @@
             <div class="col-lg-4">
               <div class="listing-input">
                 <input  type="number"
-                        name="bathrooms-rent"
+                        name="broker-bathrooms-rent"
                         class="nice-select"   
                         placeholder="Bathrooms"
                         min="0"              
@@ -315,7 +315,7 @@
           <div class="col-lg-4">
             <div class="listing-input">
               <input  type="number"
-                      name="bedrooms-rent"
+                      name="broker-bedrooms-rent"
                       class="nice-select"   
                       placeholder="Bedrooms"
                       min="0"              
@@ -327,12 +327,12 @@
 
         <div class="col-lg-4">
          <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="listing-input">
               <input  type="number"
-                      name="min_price-rent"
+                      name="broker-price-rent"
                       class="nice-select"   
-                      placeholder="Min Price (EGP)"
+                      placeholder="Price (EGP)"
                       min="0"              
                       step="1000"           
                       inputmode="numeric">             
@@ -340,52 +340,28 @@
           <div class="space24"></div>
           </div>
           
-          <div class="col-lg-6">
-            <div class="listing-input">
-              <input  type="number"
-                      name="max_price-rent"
-                      class="nice-select"   
-                      placeholder="Max Price (EGP)"
-                      min="0"              
-                      step="1000"           
-                      inputmode="numeric">             
-            </div>
-          <div class="space24"></div>
-          </div>
           </div>
           </div>
           
           <div class="col-lg-4">
           <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="listing-input">
               <input  type="number"
-                      name="min_size-rent"
+                      name="broker-size-rent"
                       class="nice-select"   
-                      placeholder="Min Size (m²)"
+                      placeholder="Size (m²)"
                       min="0"              
                       step="1"           
                       inputmode="numeric">             
             </div>
           <div class="space24"></div>
           </div>
-          
-          <div class="col-lg-6">
-            <div class="listing-input">
-              <input  type="number"
-                      name="max_size-rent"
-                      class="nice-select"   
-                      placeholder="Max Size (m²)"
-                      min="0"              
-                      step="1"           
-                      inputmode="numeric">             
-            </div>
-           <div class="space24"></div>
-         </div>
+
 
               <div class="col-lg-6">                 
                   <label>
-                    <input type="checkbox" name="Furnished" value="yes">
+                    <input type="checkbox" name="broker-Furnished-rent" value="yes">
                     Furnished
                   </label>                              
                 <div class="space24"></div>
@@ -426,7 +402,7 @@
 <div class="row">
   <div class="col-lg-4">
     <div class="listing-input">
-      <select id="city-sale" name="city-sale" class="city-select nice-select">
+      <select id="broker-city-sale" name="broker-city-sale" class="city-select nice-select">
         <option value="" disabled selected>City</option>
         <option value="cairo">Cairo</option>
         <option value="giza">Giza</option>
@@ -437,7 +413,7 @@
 
   <div class="col-lg-4">
       <div class="listing-input">
-        <select id="area-sale" name="area-sale" class="area-select nice-select">
+        <select id="broker-area-sale" name="broker-area-sale" class="area-select nice-select">
           <option value="" disabled selected>Area</option>
   
           <!-- CAIRO -->
@@ -470,7 +446,7 @@
 
   <div class="col-lg-4">
     <div class="listing-input">
-      <select name="Type-rent" class="nice-select">
+      <select name="broker-Type-sale" class="nice-select">
           <option value="" selected disabled>Type</option>
           <option value="Roof">Roof</option>
           <option value="Apartment">Apartment</option>
@@ -484,7 +460,7 @@
 <div class="col-lg-4">
 <div class="listing-input">
 <input  type="number"
-        name="bathrooms-rent"
+        name="broker-bathrooms-sale"
         class="nice-select"   
         placeholder="Bathrooms"
         min="0"              
@@ -496,7 +472,7 @@
 <div class="col-lg-4">
 <div class="listing-input">
 <input  type="number"
-      name="bedrooms-rent"
+      name="broker-bedrooms-sale"
       class="nice-select"   
       placeholder="Bedrooms"
       min="0"              
@@ -511,9 +487,9 @@
 <div class="col-lg-6">
 <div class="listing-input">
 <input  type="number"
-      name="min_price-rent"
+      name="broker-price-sale"
       class="nice-select"   
-      placeholder="Min Price (EGP)"
+      placeholder="Price (EGP)"
       min="0"              
       step="1000"           
       inputmode="numeric">             
@@ -521,29 +497,17 @@
 <div class="space24"></div>
 </div>
 
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-      name="max_price-rent"
-      class="nice-select"   
-      placeholder="Max Price (EGP)"
-      min="0"              
-      step="1000"           
-      inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
 </div>
 </div>
 
 <div class="col-lg-4">
 <div class="row">
-<div class="col-lg-6">
+<div class="col-lg-12">
 <div class="listing-input">
 <input  type="number"
-      name="min_size-rent"
+      name="broker-size-sale"
       class="nice-select"   
-      placeholder="Min Size (m²)"
+      placeholder="Size (m²)"
       min="0"              
       step="1"           
       inputmode="numeric">             
@@ -551,18 +515,6 @@
 <div class="space24"></div>
 </div>
 
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-      name="max_size-rent"
-      class="nice-select"   
-      placeholder="Max Size (m²)"
-      min="0"              
-      step="1"           
-      inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
 
 <div class="col-lg-6">                 
   <label>
@@ -668,10 +620,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./home-user.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="property.html">Properties</a></li>
-            <li><a href="Brokers.html">Brokers</a></li>
+            <li><a href="home-broker.html">Home</a></li>
+            <li><a href="about-broker.html">About Us</a></li>
+            <li><a href="property-broker.html">Your Properties</a></li>
+            <li><a href="Customers.html">Customers</a></li>
           </ul>
         </div>
       </div>
@@ -750,8 +702,8 @@
 
     // Call storeOriginalOptions for all relevant area dropdowns ONCE here
     // Assuming same IDs/names as property-user.html for 'For Rent' tab
-    if ($('#area-rent').length) {
-        storeOriginalOptions('#area-rent');
+    if ($('#broker-area-rent').length) {
+        storeOriginalOptions('#broker-area-rent');
     }
     // Example for 'For Sale' tab - uncomment and adjust selector if it exists
     // if ($('#area-sale').length) {
@@ -799,8 +751,8 @@
     }
     
     // Setup for RENT tab
-    if ($('select[name="city-rent"]').length && $('#area-rent').length) {
-        linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+    if ($('select[name="broker-city-rent"]').length && $('#broker-area-rent').length) {
+        linkCityAreaDropdowns('select[name="broker-city-rent"]', '#broker-area-rent');
     }
     
     // Setup for SALE tab (example, uncomment and adjust if it exists)
