@@ -3,7 +3,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Real Estate - Broker</title>
+     <title>Semsar</title>
 
      <!--=====FAB ICON=======-->
     <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
@@ -27,8 +27,8 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  display: flex; 
-  gap: 30px; 
+  display: flex; /* يضع العناصر جنب بعض */
+  gap: 30px; /* مسافة بين العناصر */
 }
 
 .social-links-mobile-menu li {
@@ -38,7 +38,7 @@
 .social-links-mobile-menu a {
   text-decoration: none;
   color: inherit;
-  font-size: 20px; 
+  font-size: 20px; /* حجم الأيقونات */
 }
 
     </style>
@@ -99,17 +99,21 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="header-elements" style="display: flex;align-items: center;justify-content: center; position: relative;transition: all 0.4s;border-radius: 42px;padding: 0 20px;">
-              <div class="site-logo" style=" flex: 1;text-align: left;">
+            <div class="header-elements">
+              <div class="site-logo">
                 <a href="index.html"><img src="assets/img/logo/logo1.png" alt=""></a>
               </div>
-              <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
+              <div class="main-menu">
                 <ul>
-                  <li><a href="home.html">Home</a></li>
-                  <li><a href="about2.html">About</a></li>
-                  <li><a href="login.html">Login</a></li>
-                  
-                </div>
+                  <li><a href="index2.html">Home</a></li>
+                  <li><a href="about.html">About</a></li>
+                  <li><a href="property.html">Property</a></li>
+                  <li><a href="Brokers.html">Brokers</a></li>
+                
+              </div>
+              <div class="btn-area">
+                <a href="property.html" class="header-btn2">Search Our Property <i class="fa-solid fa-angle-right"></i></a>
+              </div>
 
               <div class="header-search-form-wrapper">
                 <div class="tx-search-close tx-close"><i class="fa-solid fa-xmark"></i></div>
@@ -156,12 +160,12 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home.html" >Home </a>
+      <li><a href="./index2.html" >Home </a>
        
           </li>
         
-      <li><a href="about2.html">About</a></li>
-      <li><a href="./login.html">Login</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="property.html">Property</a></li>
       
     <div class="allmobilesection">
       <div class="single-footer">
@@ -220,7 +224,7 @@
                       <p>Browse our exclusive Properties and find the perfect property that suits your our needs and circumstances. Your ideal home just click away.</p>
                       <div class="space32"></div>
                       <div class="btn-area1">
-                          <a href="login.html" class="header-btn2">Explore Our Properties <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="property.html" class="header-btn2">Explore Our Properties <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>01/03</span>
                   </div>
@@ -247,7 +251,7 @@
                       <p class="text-anim">Get help from the most experienced brokers to find the perfect property that suits your lifestyle and budget. Your dream home just click away.</p>
                       <div class="space32"></div>
                       <div class="btn-area1 text-anim">
-                          <a href="login.html" class="header-btn2">Request a Broker <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="property-listing.html" class="header-btn2">Request a Broker <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>02/03</span>
                   </div>
@@ -295,7 +299,7 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="about2.html" class="header-btn3" >Discover More <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                        <a href="about.html" class="header-btn3" >Discover More <img src="assets/img/icons/arrow1.svg" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -322,7 +326,7 @@
           <h2 class="text-anim">Explore Our Latest Properties</h2>
         </div>
       </div>
-    </div>       
+    </div>
 <br>
 <br>
 <br>
@@ -341,7 +345,12 @@
             </div>
             </div>
           </div>
- <!--===== PROPERTIES AREA ENDS =======-->
+          
+  
+             
+
+          
+<!--===== PROPERTIES AREA ENDS =======-->
 
 <!--===== FOOTER AREA STARTS =======-->
 
@@ -369,11 +378,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="about2.html">About Us</a></li>
-            <li><a href="login.html">Login</a></li>
-            
-
+            <li><a href="./index2.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="property.html">Properties</a></li>
+            <li><a href="Brokers.html">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -384,8 +392,8 @@
         <div class="footer-header">
            <h3>   Info   </h3>
           <ul>
-            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
-            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
+            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
+            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
             
           </ul>
         </div>

@@ -100,20 +100,37 @@
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
-            <div class="header-elements" style="display: flex;align-items: center;justify-content: center; position: relative;transition: all 0.4s;border-radius: 42px;padding: 0 20px;">
-              <div class="site-logo" style=" flex: 1;text-align: left;">
-                <a href="index.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+            <div class="header-elements">
+              <div class="site-logo">
+                <a href="home-broker.html"><img src="assets/img/logo/logo2.png" alt=""></a>
               </div>
-              <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
-                 <div class="header-right">
+              <div class="main-menu">
                 <ul>
-                  <li><a href="./home.html">Home </a></li>
-                  <li><a href="about2.html">About</a></li>
-                  <li><a href="login.html">Login</a></li>
-                  </ul>
-                  </div>
+                  <li><a href="./home-broker.html">Home </a></li>
+                  <li><a href="about-broker.html">About</a></li>
+                  <li><a href="property.html">Property <i class="fa-solid fa-angle-down"></i></a>
+                    <ul class="dropdown-padding">
+                      <li><a href="property-location.html">Apartment</a></li>
+                      <li><a href="property-sell-rent.html">Villas</a></li>
+                    </ul>
+                    <li><a href="Brokers.html">Brokers</a></li>
+                  </li>
+                </ul>
+                  
               </div>
-             
+              <div class="btn-area">
+                <a href="property.html" class="header-btn1">Search Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+              </div>
+
+              <div class="header-search-form-wrapper">
+                <div class="tx-search-close tx-close"><i class="fa-solid fa-xmark"></i></div>
+                <div class="header-search-container">
+                    <form role="search" class="search-form">
+                    <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
+                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
+                    </form>
+                </div>
+            </div>
             <div class="body-overlay"></div>
             </div>
           </div>
@@ -129,7 +146,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="index.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+          <a href="home-broker.html"><img src="assets/img/logo/logo2.png" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -142,7 +159,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="index.html"><img src="assets/img/logo/logo1.png" alt=""></a>
+        <a href="home-broker.html"><img src="assets/img/logo/logo1.png" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -150,13 +167,17 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home.html" >Home </a>
+      <li><a href="./home-broker.html" >Home </a>
        
           </li>
         
-      <li><a href="about2.html">About</a></li>
-      <li><a href="./login.html">Login</a></li>
-    
+      <li><a href="about-broker.html">About</a></li>
+      <li><a href="features.html">Property</a>
+        <ul class="sub-menu">
+          <li><a href="property-location.html">Apartment</a></li>
+          <li><a href="property-sell-rent.html">Villas </a></li>
+        </ul>
+      </li>
       
     <div class="allmobilesection">
       <div class="single-footer">
@@ -203,13 +224,13 @@
 
 <!--===== HERO AREA STARTS =======-->
 
-<div class="inner-section-area" style="background-image: linear-gradient(rgb(0, 0, 0), rgba(4, 10, 30, 0.201)), url('assets/img/all-images/img.jpg'); background-size: cover; background-position: center center; min-height: 300px;">
+<div class="inner-section-area" style="background-image:linear-gradient(rgb(0, 0, 0),rgba(4, 10, 30, 0.201)), url('./img.jpg');">
   
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="index.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="home-broker.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                      <div class="space16"></div>
@@ -231,14 +252,14 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="images image-anime reveal">
-                    <img src="assets/img/all-images/business-agreement-handshake.jpg" alt=""  >
+                    <img src="./business-agreement-handshake.jpg" alt=""  >
                 </div>
             </div>
 
             <div class="col-lg-9">
                 <div class="other-area">
                     <div class="img1 image-anime reveal">
-                        <img src="assets/img/all-images/FutureOfRealEstateTeams.jpg" alt="" style="filter: brightness(87%);">
+                        <img src="./FutureOfRealEstateTeams.jpg" alt="" style="filter: brightness(87%);">
                     </div>
                     
             </div>
@@ -258,7 +279,7 @@
             <div class="col-lg-6 col-md-6">
               <div class="images">
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/broker.jpg" alt="" style="height: 200px;; width: 270px;" >
+                  <img src="./broker.jpg" alt="" style="height: 200px;; width: 270px;" >
                 </div>
                 <div class="space20"></div>
                 <div class="img1 reveal image-anime">
@@ -270,11 +291,11 @@
             <div class="col-lg-6 col-md-6">
               <div class="images">
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/photo-about.jpg" alt="" style="height: 270px;; width: 320px;" >
+                  <img src="./photo-about.jpg" alt="" style="height: 270px;; width: 320px;" >
                 </div>
                 <div class="space20"></div>
                 <div class="img1 reveal image-anime">
-                  <img src="assets/img/all-images/real.jpg" alt="" style="height: 200px;; width: 270px;">
+                  <img src="./real.jpg" alt="" style="height: 200px;; width: 270px;">
                 </div>
               </div>
             </div>
@@ -314,7 +335,7 @@
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">Request a Broker <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                            <a href="property-listing.html" class="header-btn1">Request a Broker <img src="assets/img/icons/arrow1.svg" alt=""></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
@@ -322,7 +343,7 @@
   
                   <div class="col-lg-6">
                   
-                      <img src="assets/img/all-images/our mission.jpg" alt="" style="height: 400px;; width: 500px;">
+                      <img src="./our mission.jpg" alt="" style="height: 400px;; width: 500px;">
                   </div>
               </div>
               </div>
@@ -335,7 +356,7 @@
                 <div class="row align-items-center">
                   <div class="col-lg-6">
                     <div class="images image-anime reveal">
-                        <img src="assets/img/all-images/are.jpg" alt="">
+                        <img src="./are.jpg" alt="">
                     </div>
                 </div>
                   <div class="col-lg-6">
@@ -347,7 +368,7 @@
                           <p>We are a team of experienced and passionate real estate professionals who are committed to making your real estate journey smooth and successful. Our deep understanding of the local market, combined with our innovative strategies, ensures that you receive the best possible service and list of our featured Properties.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">View Our Properties <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                            <a href="property.html" class="header-btn1">View Our Properties <img src="assets/img/icons/arrow1.svg" alt=""></a>
                           </div>
                       </div>
                   </div>
@@ -372,7 +393,7 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="img1 reveal image-anime">
-          <img src="assets/img/all-images/home5.jpg" alt="" style="height: 380px;; width: 370px;">
+          <img src="./home5.jpg" alt="" style="height: 380px;; width: 370px;">
         </div>
       </div>
       <div class="col-lg-8">
@@ -385,11 +406,11 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Buying A Home</a>
+                  <a href="property.html">Buying A Home</a>
                   <div class="space16"></div>
                   <p>At Semsar, we understand that buying a home is one of the most significant investments you'll ever make. Our experienced agents are here to guide you through every step of the home-buying process.</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="property.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -400,11 +421,11 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Renting A Home</a>
+                  <a href="property.html">Renting A Home</a>
                   <div class="space16"></div>
                   <p>Finding the perfect rental property can be challenging, but with Semsar, it’s a breeze. Whether you’re looking for a short-term lease or a long-term rental, we have a diverse selection of properties to meet with Our experienced agents .</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="property.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -437,7 +458,7 @@
           <div class="row align-items-center">
             <div class="col-lg-6">
               <div class="images image-anime reveal">
-                <img src="assets/img/all-images/office3.jpg" alt="" style="height: 400px;; width: 850px;">
+                <img src="./office3.jpg" alt="" style="height: 400px;; width: 850px;">
               </div>
             </div>
             <div class="col-lg-6">
@@ -479,6 +500,14 @@
 </div>
 <!--===== OTHERS AREA ENDS =======-->
 
+<!--===== LOCATION AREA STARTS =======-->
+
+<!--===== LOCATION AREA ENDS =======-->
+
+<!--===== TESTIMONIAL AREA STARTS =======-->
+
+<!--===== TESTIMONIAL AREA ENDS =======-->
+
 <!--===== CTA AREA STARTS =======-->
 <div class="cta1-section-area sp1">
   <div class="container">
@@ -491,8 +520,8 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4">
         <div class="cta-btn-area">
-          <a href="login.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
-          <a href="login.html" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+          <a href="contact.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
+          <a href="property.html" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
         </div>
       </div>
     </div>
@@ -525,11 +554,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./home.html">Home</a></li>
-            <li><a href="about2.html">About Us</a></li>
-            <li><a href="login.html">Login</a></li>
-            
-
+            <li><a href="home-broker.html">Home</a></li>
+            <li><a href="about-broker.html">About Us</a></li>
+            <li><a href="property.html">Properties</a></li>
+            <li><a href="Brokers.html">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -539,8 +567,8 @@
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
-            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
-            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
+            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
+            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
             
           </ul>
         </div>

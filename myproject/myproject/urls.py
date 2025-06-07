@@ -28,7 +28,7 @@ urlpatterns = [
 
     # Front-end pages (if you’re just serving home.html and index.html as static templates)
     path('', TemplateView.as_view(template_name='index.html'), name='index'),
-    path('Brokers/', TemplateView.as_view(template_name='Brokers.html'), name='Brokers'),
+    path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
 ]
 
 if settings.DEBUG:
