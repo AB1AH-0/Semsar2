@@ -311,7 +311,7 @@
             </ul>
             <div class="space24"></div>
             <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+              <div class="tab-pane fade show active" id="pills-home-user-rent" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="listing-input">
@@ -478,12 +478,12 @@
 <div class="space24"></div>
 
 <div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" name="send-to-brokers-rent" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
 </div>
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+<div class="tab-pane fade" id="pills-profile-user-sale" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
 <div class="row">
   <div class="col-lg-4">
     <div class="listing-input">
@@ -655,7 +655,7 @@
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
-<button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+<button class="header-btn1 send-to-brokers" name="send-to-brokers-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
 </div>
 </div>
 <div id="inquiry-list" class="space24"></div>
@@ -771,34 +771,143 @@
 <script src="assets/js/plugins/Splitetext.js"></script>
 <script src="assets/js/main.js"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const areas = {
-      cairo: ["Nasr City", "Maadi", "Heliopolis", "New Cairo", "Helwan"],
-      giza: ["Dokki", "Mohandessin", "Faisal", "Haram", "Agouza"]
-    };
+  $(function () {
+    // Initialize nice-select for all select elements
+    $('select.nice-select').niceSelect();
+    
+    // Store all area options for each dropdown
+    const allAreaOptions = {};
+    
+    // Function to store original options
+    function storeOriginalOptions(areaSelector) {
+        const $area = $(areaSelector);
+        // Only store if not already stored, or if you want to ensure it's always the pristine version from DOM
+        if (!allAreaOptions[areaSelector] || allAreaOptions[areaSelector].length === 0) {
+            allAreaOptions[areaSelector] = [];
+            $area.find('option').each(function() {
+                const $option = $(this);
+                allAreaOptions[areaSelector].push({
+                    value: $option.val(),
+                    text: $option.text(),
+                    city: $option.data('city'),
+                    disabled: $option.prop('disabled'),
+                    selected: $option.prop('selected')
+                });
+            });
+        }
+    }
 
-    const governorateSelect = document.getElementById("governorate");
-    const areaSelect = document.getElementById("area");
+    // Call storeOriginalOptions for all relevant area dropdowns ONCE here
+    // For RENT tab
+    storeOriginalOptions('#area-rent');
+    // For SALE tab (if and when you add #area-sale)
+    // storeOriginalOptions('#area-sale');
+    
+    // Function to link city and area dropdowns
+    function linkCityAreaDropdowns(citySelector, areaSelector) {
+        const $city = $(citySelector);
+        const $area = $(areaSelector);
+        
+        // Original options should already be stored by this point
+        // storeOriginalOptions(areaSelector); // This call is removed from here
+        
+        function filterAreasByCity() {
+            const selectedCity = $city.val();
+            
+            // Clear current options
+            $area.empty();
+            
+            // Add back filtered options
+            allAreaOptions[areaSelector].forEach(function(option) {
+                // Add option if it has no city data (default option) or matches selected city
+                if (!option.city || option.city === selectedCity) {
+                    const $newOption = $('<option>', {
+                        value: option.value,
+                        text: option.text,
+                        disabled: option.disabled && !option.city, // Keep default option disabled
+                        selected: false // Reset selection
+                    });
+                    
+                    if (option.city) {
+                        $newOption.data('city', option.city);
+                    }
+                    
+                    $area.append($newOption);
+                }
+            });
+            
+            // Reset to default selection
+            $area.val('');
+            
+            // Destroy and recreate nice-select
+            $area.niceSelect('destroy');
+            $area.niceSelect();
+        }
+        
+        // Initial filtering when page loads
+        filterAreasByCity();
+        
+        // Filter when city selection changes
+        $city.on('change', filterAreasByCity);
+    }
+    
+    // For RENT tab - link city-rent and area-rent
+    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+    
+    // For SALE tab - link city-sale and area-sale (when you add them)
+    // Example: if you have a city dropdown with name "city-sale" and area dropdown with id "area-sale"
+    // if ($('select[name="city-sale"]').length && $('#area-sale').length) {
+    //     storeOriginalOptions('#area-sale'); // Ensure its options are stored if not done above
+    //     linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
+    // }
+});
 
-    governorateSelect.addEventListener("change", function () {
-      const selectedGovernorate = this.value;
-      areaSelect.innerHTML = ""; // Clear old options
+// Capture search data and send to backend
+$(function(){
+  function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+  }
 
-      if (areas[selectedGovernorate]) {
-        areas[selectedGovernorate].forEach(function (area) {
-          const option = document.createElement("option");
-          option.value = area;
-          option.textContent = area;
-          areaSelect.appendChild(option);
-        });
+  $('.send-to-brokers').on('click', function(e){
+    e.preventDefault();
+    const $panel = $(this).closest('.tab-pane');
+    const data = {};
+    $panel.find('input, select').each(function(){
+      const $el = $(this);
+      const name = $el.attr('name');
+      if(!name) return;
+      if($el.attr('type') === 'checkbox'){
+        data[name] = $el.is(':checked');
       } else {
-        const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "Select Area";
-        areaSelect.appendChild(option);
+        data[name] = $el.val();
       }
     });
+    fetch('/api/inquiries/', {
+      method: 'POST',
+      headers:{
+        'Content-Type':'application/json',
+        'X-CSRFToken': getCookie('csrftoken')
+      },
+      body: JSON.stringify(data)
+    }).then(r => r.json()).then(function(resp){
+      console.log('saved', resp);
+    }).catch(function(err){
+      console.error('error', err);
+    });
   });
-</script>
+});
+
+  </script>
 </body>
 </html>
