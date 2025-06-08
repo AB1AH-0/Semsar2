@@ -254,6 +254,29 @@
                 font-size: 0.9rem;
             }
         }
+        
+        .alert-container {
+            margin-bottom: 20px;
+        }
+        
+        .alert {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .alert-error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
     </style>
 </head>
 <body>
@@ -285,6 +308,17 @@
 
             <form id="register-form" action="{% url 'register-user' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                
+                {% if messages %}
+                <div class="alert-container">
+                    {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                
                 <div id="user-fields" class="form-section active">
                     <input type="hidden" name="usertype" id="userType" value="user">
                     <input type="text" name="full_name" placeholder="Full Name" required>

@@ -13,7 +13,27 @@ def register_user(request):
         national_id = request.POST.get('national_id')
         phone = request.POST.get('phone')
         password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
         license_image = request.FILES.get('license_image') if user_type == 'broker' else None
+
+        errors = []
+
+        # Check if email already exists
+        if UserProfile.objects.filter(email=email).exists():
+            errors.append("Email already exists")
+
+        # Check if national ID already exists
+        if UserProfile.objects.filter(national_id=national_id).exists():
+            errors.append("National ID already exists")
+            
+        # Check if passwords match
+        if password != confirm_password:
+            errors.append("Passwords do not match")
+
+        if errors:
+            for error in errors:
+                messages.error(request, error)
+            return render(request, 'reg1.html')
 
         # Create new UserProfile
         UserProfile.objects.create(
