@@ -23,7 +23,7 @@ class UserProfile(models.Model):
     full_name     = models.CharField(max_length=100)
     email         = models.EmailField(unique=True)
     national_id   = models.CharField(max_length=20, unique=True)
-    phone         = models.CharField(max_length=15, unique=True)
+    phone         = models.CharField(max_length=15)
     password      = models.CharField(
         max_length=128,
         help_text="Storing raw passwords is insecure. Consider using Django’s auth system."

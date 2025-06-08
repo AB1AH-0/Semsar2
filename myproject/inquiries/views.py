@@ -8,6 +8,7 @@ from django.utils import timezone
 
 from django.utils import timezone
 
+@csrf_exempt
 def register_user(request):
     if request.method == 'POST':
         user_type = request.POST.get('usertype')
