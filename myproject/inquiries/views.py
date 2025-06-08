@@ -1,9 +1,12 @@
 import json
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import UserProfile
+from .models import UserProfile, PaymentInfo
+from django.utils import timezone
+
+from django.utils import timezone
 
 def register_user(request):
     if request.method == 'POST':
@@ -44,6 +47,13 @@ def register_user(request):
             phone=phone,
             license_image=license_image
         )
+        
+        # For brokers, set trial period
+        if user_type == 'broker':
+            user.trial_start_date = timezone.now()
+            user.trial_end_date = user.trial_start_date + timezone.timedelta(days=30)
+            user.has_paid = False
+            
         user.set_password(password)
         user.save()
         
@@ -98,6 +108,17 @@ def login_user(request):
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
     
     if user.check_password(password):
+        from django.utils import timezone
+        
+        # For brokers: check trial status
+        if user.user_type == 'broker':
+            if not user.has_paid and (not user.trial_end_date or timezone.now() > user.trial_end_date):
+                return JsonResponse({
+                    'success': True,
+                    'user_type': user.user_type,
+                    'redirect_url': '/payment'  # Redirect to payment view
+                })
+                
         return JsonResponse({
             'success': True,
             'user_type': user.user_type,
@@ -105,3 +126,43 @@ def login_user(request):
         })
     else:
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
+
+def payment_page(request):
+    return render(request, 'payment.html')
+
+@csrf_exempt
+def process_payment(request):
+    if request.method == 'POST':
+        # In a real application, we would encrypt this data
+        # For now, we'll just store it as-is for demonstration
+        user_email = request.POST.get('email')
+        card_holder_name = request.POST.get('name_on_card')
+        card_number = request.POST.get('credit_card_number')
+        exp_month = request.POST.get('exp_month')
+        exp_year = request.POST.get('exp_year')
+        cvv = request.POST.get('cvv')
+        
+        try:
+            user = UserProfile.objects.get(email=user_email)
+            
+            # Update user payment status
+            user.has_paid = True
+            user.save()
+            
+            # Create payment info record
+            payment_info = PaymentInfo(
+                user=user,
+                card_holder_name=card_holder_name,
+                encrypted_card_number=card_number.encode(),  # In real app, use encryption
+                encrypted_expiry_date=f"{exp_month}/{exp_year}".encode(),
+                encrypted_cvv=cvv.encode()
+            )
+            payment_info.save()
+            
+            messages.success(request, 'Payment successful!')
+            return redirect('home-broker.html')
+        except UserProfile.DoesNotExist:
+            messages.error(request, 'User not found')
+            return redirect('payment')
+    
+    return redirect('payment')
