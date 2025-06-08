@@ -214,85 +214,17 @@
 
 <!--===== HERO AREA STARTS =======-->
 <div class="properties3-section-area sp1">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-4 m-auto">
-          <div class="property-header text-center heading6">
-            <h5 class="text-anim"><img src="assets/img/icons/logo-icon2.svg" alt="">Properties</h5>
-            <h2 class="text-anime-style-3">Our Properties</h2>
-          </div>
-        </div>
-      </div>
-<div class="row">
-        <div class="col-lg-8 m-auto">
-          <div class="property-slider-area owl-carousel">
-            <div class="property-boxarea">
-              <div class="img1 image-anime reveal">
-                <img src="assets/img/all-images/prime-residence-new-cairo.jpg" alt=""  style="height: 430px;">
-              </div>
-  
-              <div class="content-area">
-                <h2>3,000 EGP / Month</h2>
-                <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">170 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">2 Baths</a></li>
-                </ul>
-                <p>Apartment in Al Lebeny Axis, El Mariouteya, Faisal</p>
-                <div class="space16"></div>
-                <p> Located in Al Lebeny Axis, El Mariouteya, Faisal, Hay El Haram, Giza</p>
-                <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Rent Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
-                </div>
-              </div>
-            </div>
-  
-            <div class="property-boxarea">
-              <div class="img1 image-anime reveal">
-                <img src="assets/img/all-images/New-giza-compound.jpg" alt="" style="height: 430px;">
-              </div>
-  
-              <div class="content-area">
-                <h2>8,000,000 EGP</h2>
-                <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">390 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">5 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">4 Baths</a></li>
-                </ul>
-                <p>Luxury Independent Villa in Al Yasmine Compound, Sheikh Zayed</p>
-                <div class="space16"></div>
-                <p>Al Yasmine, Sheikh Zayed, Giza</p>
-                <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Buy Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
-                </div>
-              </div>
-            </div>
-  
-            <div class="property-boxarea">
-              <div class="img1 image-anime reveal">
-                <img src="assets/img/all-images/home3.jpg" alt=""  style="height: 430px;" >
-              </div>
-  
-              <div class="content-area">
-                <h2>35,000 EGP / Month</h2>
-                <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">210 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
-                </ul>
-                <p> Furnished Apartment in Lake View Residence, New Cairo</p>
-                <div class="space16"></div>
-                <p>Lake View Residence, 5th Settlement, New Cairo City</p>
-                <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Rent Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 m-auto">
+        <div class="property-header text-center heading6">
+          <h5 class="text-anim"><img src="assets/img/icons/logo-icon2.svg" alt="">Properties</h5>
+          <h2 class="text-anime-style-3">Search Our Properties</h2>
         </div>
       </div>
     </div>
   </div>
+</div>
 <!--===== HERO AREA ENDS =======-->
 
 <!--===== PROPERTY AREA STARTS =======-->
@@ -602,7 +534,7 @@
 <div class="col-lg-6">
 <div class="listing-input">
 <input  type="number"
-      name="min_size-rent"
+      name="min_size-sale"
       class="nice-select"   
       placeholder="Min Size (m²)"
       min="0"              
@@ -627,7 +559,7 @@
 
 <div class="col-lg-6">                 
   <label>
-    <input type="checkbox" name="Furnished" value="yes">
+    <input type="checkbox" name="Furnished-rent" value="yes">
     Furnished
   </label>                              
 <div class="space24"></div>
@@ -655,7 +587,7 @@
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
-<button class="header-btn1 send-to-brokers" name="send-to-brokers-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+<button class="header-btn1" name="Search-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search</button>
 </div>
 </div>
 <div id="inquiry-list" class="space24"></div>
@@ -671,26 +603,17 @@
 
 <!--===== PROPERTY AREA ENDS =======-->
 
-<!--===== CTA AREA STARTS =======-->
-<div class="cta1-section-area sp1">
-  <div class="container">
-    <div class="row align-items-center">
-      <div class="col-lg-5">
-        <div class="cta-header heading1">
-          <h2 >We’re Here To Find Your New Home Project.</h2>
-        </div>
-      </div>
-      <div class="col-lg-3"></div>
-      <div class="col-lg-4">
-        <div class="cta-btn-area">
-          <a href="contact.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
-          <a href="#" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!--===== CTA AREA ENDS =======-->
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
 
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area">
