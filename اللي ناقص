@@ -1,5 +1,4 @@
-Post Register info to database with validation
-Validate Login info to database
+Check if broker has days left
 Logout
 Post Search for Broker Info to database (Brokers.html)
 Display Inquiry to customer (Brokers.html)
@@ -10,8 +9,5 @@ Display All Broker And Property info to customer (Brokers.html)
 When Broker offer is rejected by customer it gets deleted from his page (Brokers.html)
 When Broker offer is accepted by customer Display Broker ,Property ,Commission info to customer (Brokers.html)
 
-
 Post Property to database with validation -to be made page (add-property.html)-
 Display Property info and broker info that listed it to all customers (Property.html)
-
-صفحة my properties
