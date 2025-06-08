@@ -20,11 +20,16 @@ from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
 from django.views.generic import TemplateView
 
+from inquiries.views import login_user
+
 urlpatterns = [
     path('admin/', admin.site.urls),
 
     # your inquiries API
     path('inquiries/', include('inquiries.urls')),
+
+    # login API endpoint
+    path('api/login/', login_user, name='api_login'),
 
     # front-end
     path('', TemplateView.as_view(template_name='home.html'),       name='home'),

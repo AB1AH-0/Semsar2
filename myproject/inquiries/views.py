@@ -79,3 +79,29 @@ def create_inquiry(request):
         furnished=data.get('Furnished') in ['true', True, 'True']
     )
     return JsonResponse({'id': inquiry.id})
+
+@csrf_exempt
+def login_user(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    data = json.loads(request.body.decode() or '{}')
+    email = data.get('email')
+    password = data.get('password')
+    
+    if not email or not password:
+        return JsonResponse({'error': 'Email and password are required'}, status=400)
+    
+    try:
+        user = UserProfile.objects.get(email=email)
+    except UserProfile.DoesNotExist:
+        return JsonResponse({'error': 'Invalid email or password'}, status=400)
+    
+    if user.check_password(password):
+        return JsonResponse({
+            'success': True,
+            'user_type': user.user_type,
+            'redirect_url': '/home-broker.html' if user.user_type == 'broker' else '/home-user.html'
+        })
+    else:
+        return JsonResponse({'error': 'Invalid email or password'}, status=400)

@@ -245,26 +245,40 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken') // Add CSRF token for Django
           },
           body: JSON.stringify({ email, password }),
         });
 
+        const data = await response.json();
+        
         if (response.ok) {
-          const data = await response.json();
-          if (data.user_type === 'customer') {
-            window.location.href = 'index2.html';
-          } else if (data.user_type === 'broker') {
-            window.location.href = 'broker-home.html';
-          } else {
-            alert('Unknown user type.');
-          }
+          // Redirect based on user type
+          window.location.href = data.redirect_url;
         } else {
-          alert('Invalid login credentials.');
+          // Show error message from server
+          alert(data.error || 'Invalid login credentials.');
         }
       } catch (error) {
         console.error('Error during login:', error);
         alert('An error occurred. Please try again.');
       }
+    }
+    
+    // Function to get CSRF token from cookies
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
     }
   </script>
 </body>
