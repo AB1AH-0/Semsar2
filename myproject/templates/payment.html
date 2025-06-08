@@ -47,6 +47,7 @@
     
     <div class="container">
         <form action="{% url 'process_payment' %}" method="POST">
+            {% csrf_token %}
             <div class="row">
                 <div class="col">
                     <h3 class="title">Billing Address</h3>
@@ -83,21 +84,17 @@
                     <h3 class="title">Payment</h3>
 
                     <div class="inputbox">
-                        <span>Choose Payment Method</span><br>
+                        <span>Payment Method</span><br>
                         <div class="payment-options">
                             <label>
-                                <input type="radio" id="visa" name="payment_method" value="visa" checked onclick="togglePaymentMethod()"> 
+                                <input type="radio" name="payment_method" value="visa" checked>
                                 Visa
-                            </label>
-                            <label>
-                                <input type="radio" id="instapay" name="payment_method" value="instapay" onclick="togglePaymentMethod()"> 
-                                Instapay
                             </label>
                         </div>
                     </div>
 
                     <!-- Visa Section -->
-                    <div id="visa-section" class="payment-method-section" style="display: block;">
+                    <div id="visa-section">
                         <div class="inputbox">
                             <span>Cards Accepted</span>
                             <img src="{% static 'assets/img/all-images/visa.jpg' %}" alt="">
@@ -125,18 +122,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Instapay Section -->
-                    <div id="instapay-section" class="payment-method-section">
-                        <div class="inputbox">
-                            <span>Instapay Account Number</span>
-                            <input type="text" placeholder="Enter Instapay account number" name="instapay_account">
-                        </div>
-                        <div class="inputbox">
-                            <span>Transaction Reference</span>
-                            <input type="text" placeholder="Enter transaction reference" name="instapay_reference">
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -144,19 +129,5 @@
         </form>
     </div>
 
-    <script>
-        function togglePaymentMethod() {
-            const visaSection = document.getElementById('visa-section');
-            const instapaySection = document.getElementById('instapay-section');
-
-            if (document.getElementById('visa').checked) {
-                visaSection.style.display = 'block';
-                instapaySection.style.display = 'none';
-            } else {
-                visaSection.style.display = 'none';
-                instapaySection.style.display = 'block';
-            }
-        }
-    </script>
 </body>
 </html>
