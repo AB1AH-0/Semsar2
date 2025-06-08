@@ -368,15 +368,31 @@
 
             // Function to show fields based on selected role
             function showFields(role) {
+                // Helper function to enable/disable all inputs in a section
+                function setInputsDisabled(sectionElement, isDisabled) {
+                    const inputs = sectionElement.querySelectorAll('input, button, select, textarea');
+                    inputs.forEach(input => {
+                        input.disabled = isDisabled;
+                    });
+                }
+
                 userFields.classList.remove('active');
                 brokerFields.classList.remove('active');
 
+                // Disable all inputs first
+                setInputsDisabled(userFields, true);
+                setInputsDisabled(brokerFields, true);
+
                 if (role === 'user') {
                     userFields.classList.add('active');
+                    setInputsDisabled(userFields, false); // Enable inputs for active section
+                    document.getElementById('userType').disabled = false; // Explicitly enable the hidden usertype input
                     userRole.classList.add('selected');
                     brokerRole.classList.remove('selected');
                 } else if (role === 'broker') {
                     brokerFields.classList.add('active');
+                    setInputsDisabled(brokerFields, false); // Enable inputs for active section
+                    document.getElementById('brokerType').disabled = false; // Explicitly enable the hidden usertype input
                     brokerRole.classList.add('selected');
                     userRole.classList.remove('selected');
                 }

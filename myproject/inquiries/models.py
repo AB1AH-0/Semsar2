@@ -1,59 +1,104 @@
 from django.db import models
 
 class UserProfile(models.Model):
+    """
+    Stores both end-users and brokers.
+    Consider migrating to Django’s auth.User + a one-to-one profile
+    for better password handling.
+    """
+    USER_TYPE_USER   = 'user'
+    USER_TYPE_BROKER = 'broker'
     USER_TYPE_CHOICES = [
-        ('user', 'User'),
-        ('broker', 'Broker'),
+        (USER_TYPE_USER,   'User'),
+        (USER_TYPE_BROKER, 'Broker'),
     ]
-    user_type     = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='user')
+
+    user_type     = models.CharField(
+        max_length=10,
+        choices=USER_TYPE_CHOICES,
+        default=USER_TYPE_USER,
+        help_text="Distinguishes regular users from brokers."
+    )
     full_name     = models.CharField(max_length=100)
-    email         = models.EmailField()
-    national_id   = models.CharField(max_length=20)
-    phone         = models.CharField(max_length=15)
-    password      = models.CharField(max_length=100)  # Note: Storing raw passwords is a security risk. Consider using Django's built-in auth system.
-    license_image = models.ImageField(upload_to='licenses/', blank=True, null=True)
+    email         = models.EmailField(unique=True)
+    national_id   = models.CharField(max_length=20, unique=True)
+    phone         = models.CharField(max_length=15, unique=True)
+    password      = models.CharField(
+        max_length=128,
+        help_text="Storing raw passwords is insecure. Consider using Django’s auth system."
+    )
+    license_image = models.ImageField(
+        upload_to='licenses/',
+        blank=True,
+        null=True,
+        help_text="Only required when user_type='broker'."
+    )
     created_at    = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return f"{self.full_name} - {self.get_user_type_display()}"
-
-class BrokerProfile(UserProfile):
     class Meta:
-        proxy = True
-        verbose_name = 'Broker'
-        verbose_name_plural = 'Brokers'
+        ordering = ['-created_at']
+        verbose_name = 'User Profile'
+        verbose_name_plural = 'User Profiles'
 
-class EndUserProfile(UserProfile): # This should come after UserProfile is defined
+    def __str__(self):
+        return f"{self.full_name} ({self.get_user_type_display()})"
+
+
+class EndUserProfile(UserProfile):
+    """
+    Proxy model for filtering only regular users in the admin.
+    """
     class Meta:
         proxy = True
         verbose_name = 'User'
         verbose_name_plural = 'Users'
 
+
+class BrokerProfile(UserProfile):
+    """
+    Proxy model for filtering only brokers in the admin.
+    """
+    class Meta:
+        proxy = True
+        verbose_name = 'Broker'
+        verbose_name_plural = 'Brokers'
+
+
 class Inquiry(models.Model):
+    """
+    Stores property-search inquiries submitted by users.
+    """
+    TRANSACTION_RENT = 'rent'
+    TRANSACTION_SALE = 'sale'
     TRANSACTION_CHOICES = [
-        ('rent', 'For Rent'),
-        ('sale', 'For Sale'),
+        (TRANSACTION_RENT, 'For Rent'),
+        (TRANSACTION_SALE, 'For Sale'),
     ]
 
-    created_at = models.DateTimeField(auto_now_add=True)
     transaction_type = models.CharField(
         max_length=4,
         choices=TRANSACTION_CHOICES,
-        default='rent',
-        blank=False,
-        null=False
+        default=TRANSACTION_RENT,
     )
-    city = models.CharField(max_length=100, blank=True)
-    area = models.CharField(max_length=100, blank=True)
-    property_type = models.CharField(max_length=50, blank=True)
-    bedrooms = models.PositiveIntegerField(null=True, blank=True)
-    bathrooms = models.PositiveIntegerField(null=True, blank=True)
-    min_price = models.PositiveIntegerField(null=True, blank=True)
-    max_price = models.PositiveIntegerField(null=True, blank=True)
-    min_size = models.PositiveIntegerField(null=True, blank=True)
-    max_size = models.PositiveIntegerField(null=True, blank=True)
-    furnished = models.BooleanField(default=False)
+    city            = models.CharField(max_length=100, blank=True)
+    area            = models.CharField(max_length=100, blank=True)
+    property_type   = models.CharField(max_length=50, blank=True)
+    bedrooms        = models.PositiveIntegerField(null=True, blank=True)
+    bathrooms       = models.PositiveIntegerField(null=True, blank=True)
+    min_price       = models.PositiveIntegerField(null=True, blank=True)
+    max_price       = models.PositiveIntegerField(null=True, blank=True)
+    min_size        = models.PositiveIntegerField(null=True, blank=True)
+    max_size        = models.PositiveIntegerField(null=True, blank=True)
+    furnished       = models.BooleanField(default=False)
+    created_at      = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Inquiry'
+        verbose_name_plural = 'Inquiries'
 
     def __str__(self):
-        return f"{self.get_transaction_type_display()} - {self.city} - {self.area}"
-
+        return (
+            f"{self.get_transaction_type_display()} in {self.city or 'N/A'} – "
+            f"{self.area or 'N/A'}"
+        )
