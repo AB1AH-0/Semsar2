@@ -36,15 +36,16 @@ def register_user(request):
             return render(request, 'reg1.html')
 
         # Create new UserProfile
-        UserProfile.objects.create(
+        user = UserProfile(
             user_type=user_type,
             full_name=full_name,
             email=email,
             national_id=national_id,
             phone=phone,
-            password=password,
             license_image=license_image
         )
+        user.set_password(password)
+        user.save()
         
         messages.success(request, 'Registration successful!')
         return redirect('login')  # Redirect to login page after registration

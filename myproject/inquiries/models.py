@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.hashers import make_password, check_password
 
 class UserProfile(models.Model):
     """
@@ -27,6 +28,12 @@ class UserProfile(models.Model):
         max_length=128,
         help_text="Storing raw passwords is insecure. Consider using Django’s auth system."
     )
+    
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+        
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
     license_image = models.ImageField(
         upload_to='licenses/',
         blank=True,
@@ -42,6 +49,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.full_name} ({self.get_user_type_display()})"
+        
+    def save(self, *args, **kwargs):
+        # Hash password if it's provided in plain text
+        if self.password and not self.password.startswith('pbkdf2_sha256$'):
+            self.set_password(self.password)
+        super().save(*args, **kwargs)
 
 
 class EndUserProfile(UserProfile):
