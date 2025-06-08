@@ -1,5 +1,34 @@
 from django.db import models
 
+class UserProfile(models.Model):
+    USER_TYPE_CHOICES = [
+        ('user', 'User'),
+        ('broker', 'Broker'),
+    ]
+    user_type     = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='user')
+    full_name     = models.CharField(max_length=100)
+    email         = models.EmailField()
+    national_id   = models.CharField(max_length=20)
+    phone         = models.CharField(max_length=15)
+    password      = models.CharField(max_length=100)  # Note: Storing raw passwords is a security risk. Consider using Django's built-in auth system.
+    license_image = models.ImageField(upload_to='licenses/', blank=True, null=True)
+    created_at    = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.full_name} - {self.get_user_type_display()}"
+
+class BrokerProfile(UserProfile):
+    class Meta:
+        proxy = True
+        verbose_name = 'Broker'
+        verbose_name_plural = 'Brokers'
+
+class EndUserProfile(UserProfile): # This should come after UserProfile is defined
+    class Meta:
+        proxy = True
+        verbose_name = 'User'
+        verbose_name_plural = 'Users'
+
 class Inquiry(models.Model):
     TRANSACTION_CHOICES = [
         ('rent', 'For Rent'),
@@ -28,24 +57,3 @@ class Inquiry(models.Model):
     def __str__(self):
         return f"{self.get_transaction_type_display()} - {self.city} - {self.area}"
 
-class UserProfile(models.Model):
-    USER_TYPE_CHOICES = [
-        ('user', 'User'),
-        ('broker', 'Broker'),
-    ]
-    
-    user_type = models.CharField(
-        max_length=10,
-        choices=USER_TYPE_CHOICES,
-        default='user'
-    )
-    full_name = models.CharField(max_length=100)
-    email = models.EmailField()
-    national_id = models.CharField(max_length=20)
-    phone = models.CharField(max_length=15)
-    password = models.CharField(max_length=100)  # Note: In production, use Django's built-in User model
-    license_image = models.ImageField(upload_to='licenses/', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.full_name} - {self.get_user_type_display()}"
