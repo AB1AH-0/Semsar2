@@ -20,7 +20,7 @@ from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
 from django.views.generic import TemplateView
 
-from inquiries.views import login_user
+from inquiries.views import login_user, payment_page, process_payment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -37,6 +37,8 @@ urlpatterns = [
     path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
     path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
     path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
+    path('payment/', payment_page, name='payment'),
+    path('process_payment/', process_payment, name='process_payment'),
 ]
 
 # Serve static files during development when DEBUG is True

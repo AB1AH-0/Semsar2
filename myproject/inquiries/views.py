@@ -6,8 +6,6 @@ from django.contrib import messages
 from .models import UserProfile, PaymentInfo
 from django.utils import timezone
 
-from django.utils import timezone
-
 @csrf_exempt
 def register_user(request):
     if request.method == 'POST':
@@ -131,11 +129,8 @@ def login_user(request):
 def payment_page(request):
     return render(request, 'payment.html')
 
-@csrf_exempt
 def process_payment(request):
     if request.method == 'POST':
-        # In a real application, we would encrypt this data
-        # For now, we'll just store it as-is for demonstration
         user_email = request.POST.get('email')
         card_holder_name = request.POST.get('name_on_card')
         card_number = request.POST.get('credit_card_number')
@@ -143,27 +138,39 @@ def process_payment(request):
         exp_year = request.POST.get('exp_year')
         cvv = request.POST.get('cvv')
         
+        # Validate required fields
+        required_fields = [user_email, card_holder_name, card_number, exp_month, exp_year, cvv]
+        if not all(required_fields):
+            messages.error(request, 'All payment fields are required')
+            return redirect('payment')
+        
         try:
             user = UserProfile.objects.get(email=user_email)
             
-            # Update user payment status
-            user.has_paid = True
-            user.save()
+            # For brokers: extend trial period after payment
+            if user.user_type == user.USER_TYPE_BROKER:
+                user.has_paid = True
+                # Set new trial end date (1 year from now)
+                user.trial_end_date = timezone.now() + timezone.timedelta(days=365)
+                user.save()
             
-            # Create payment info record
+            # Create payment info record with proper encryption
             payment_info = PaymentInfo(
                 user=user,
                 card_holder_name=card_holder_name,
-                encrypted_card_number=card_number.encode(),  # In real app, use encryption
-                encrypted_expiry_date=f"{exp_month}/{exp_year}".encode(),
-                encrypted_cvv=cvv.encode()
+                encrypted_card_number=PaymentInfo.encrypt_value(card_number),
+                encrypted_expiry_date=PaymentInfo.encrypt_value(f"{exp_month}/{exp_year}"),
+                encrypted_cvv=PaymentInfo.encrypt_value(cvv)
             )
             payment_info.save()
             
-            messages.success(request, 'Payment successful!')
+            messages.success(request, 'Payment successful! Your account has been activated.')
             return redirect('home-broker.html')
         except UserProfile.DoesNotExist:
             messages.error(request, 'User not found')
-            return redirect('payment')
+        except Exception as e:
+            messages.error(request, f'Payment failed: {str(e)}')
+        
+        return redirect('payment')
     
     return redirect('payment')
