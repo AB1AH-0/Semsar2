@@ -107,16 +107,14 @@
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="./home-broker.html">Home </a>
-                  <li><a href="about-broker.html">About</a></li>
-                  <li><a href="property-broker.html">Your Properties</a></li>
-                  <li><a href="Customers.html">Customers</a></li>
+                  <li><a href="{% url 'home_broker' %}">Home </a></li>
+                  <li><a href="{% url 'broker:about' %}">About</a></li>
+                  <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+                  <li><a href="{% url 'broker:customers' %}">Customers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-
               </div>
-
               <div class="header-search-form-wrapper">
                 <div class="tx-search-close tx-close"><i class="fa-solid fa-xmark"></i></div>
                 <div class="header-search-container">
@@ -136,7 +134,6 @@
   <!--=====HEADER END =======-->
 
   <!--===== MOBILE HEADER STARTS =======-->
-
   <div class="mobile-header mobile-haeder2 d-block d-lg-none">
   <div class="container-fluid">
     <div class="col-12">
@@ -163,13 +160,10 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home-user.html" >Home </a>
-       
-          </li>
-        
-      <li><a href="about.html">About</a></li>
-      <li><a href="property.html">Property</a></li>
-      
+      <li><a href="{% url 'home_broker' %}" >Home </a></li>
+      <li><a href="{% url 'broker:about' %}">About</a></li>
+      <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+      <li><a href="{% url 'broker:customers' %}">Customers</a></li>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -181,8 +175,7 @@
             <div class="contact-info-text">
               <a href="tel:+3(924)4596512">+0201020017477</a>
             </div>
-          </div>
-          
+          </div>      
           <div class="single-footer" >
             <h3>Our Location</h3>
             <div class="contact-info-single">
@@ -210,7 +203,6 @@
      </div>
   </div>
 </div>
- 
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
@@ -551,9 +543,7 @@ inputmode="numeric">
 </div>
 </div>
 </div>
-
 <!--===== PROPERTY AREA ENDS =======-->
-
 
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area">
@@ -575,27 +565,23 @@ inputmode="numeric">
           </ul>
         </div>
       </div>
-
       <div class="col-lg col-md-6">
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-broker.html">Home</a></li>
-            <li><a href="about-broker.html">About Us</a></li>
-            <li><a href="property-broker.html">Your Properties</a></li>
-            <li><a href="Customers.html">Customers</a></li>
+            <li><a href="{% url 'home_broker' %}">Home</a></li>
+            <li><a href="{% url 'broker:about' %}">About Us</a></li>
+            <li><a href="{% url 'broker:add_property' %}">Your Properties</a></li>
+            <li><a href="{% url 'broker:customers' %}">Customers</a></li>
           </ul>
         </div>
       </div>
-
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
             <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
-            
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>           
           </ul>
         </div>
       </div>
@@ -607,8 +593,7 @@ inputmode="numeric">
         <div class="copyright">
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
-          </div>
-          
+          </div>         
         </div>
       </div>
     </div>

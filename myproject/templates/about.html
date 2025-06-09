@@ -111,10 +111,10 @@
               <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
                  <div class="header-right">
                 <ul>
-                  <li><a href="home.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="login.html">Login</a></li>
-                  </ul>
+                  <li><a href="{% url 'home' %}">Home</a></li>
+                  <li><a href="{% url 'about' %}">About</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
+                </ul>
                   </div>
               </div>
              
@@ -154,9 +154,9 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home.html" >Home </a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="login.html">Login</a></li>
+      <li><a href="{% url 'home' %}" >Home </a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'login' %}">Login</a></li>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -197,25 +197,20 @@
      </div>
   </div>
 </div>
- 
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
-
 <div class="inner-section-area" style="background-image: linear-gradient(rgb(0, 0, 0), rgba(4, 10, 30, 0.201)), var(--about-inner-bg-image); background-size: cover; background-position: center center; min-height: 300px;">
-  
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="home.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="{% url 'home' %}">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                      <div class="space16"></div>
                      <div class="inner-header heading1">
-                    <p class="" style="font-size: large; color: rgb(255, 255, 255) ; font-weight: bolder;" >Our team of dedicated experts is here to guide you every step of the way. Whether you’re buying your first home, looking for a luxurious upgrade, or expertise to make your real estate journey seamless and rewarding.</p>
-                  
-                    
+                    <p class="" style="font-size: large; color: rgb(255, 255, 255) ; font-weight: bolder;" >Our team of dedicated experts is here to guide you every step of the way. Whether you’re buying your first home, looking for a luxurious upgrade, or expertise to make your real estate journey seamless and rewarding.</p> 
                 </div>
                 </div>
             </div>
@@ -233,13 +228,12 @@
                     <img src="{% static 'assets/img/all-images/business-agreement-handshake.jpg' %}" alt="Business Agreement Handshake"  >
                 </div>
             </div>
-
             <div class="col-lg-9">
                 <div class="other-area">
                     <div class="img1 image-anime reveal">
                         <img src="{% static 'assets/img/all-images/FutureOfRealEstateTeams.jpg' %}" alt="Future of Real Estate Teams" style="filter: brightness(87%);">
                     </div>
-                    
+                </div>
             </div>
         </div>
     </div>
@@ -280,15 +274,13 @@
           </div>
         </div>
       </div>
-
       <div class="col-lg-6">
         <div class="about4-header heading8">
           <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon3.svg' %}" alt="Logo Icon">About Real Estate Agency</h5>
           <h2 class="text-anime-style-3">The Story Of Semsar And The Team Behind Your Next Home</h2>
           <div class="space24"></div>
           <p class="text-anim">At Semsar Real, is to transform dreams into reality by connecting people with their perfect homes. We are committed to providing exceptional service, unparalleled market expertise, and personalized solutions that cater to each client's unique needs, we transform the way you experience real estate. Our platform is powered by passion, integrity, and unmatched expertise, designed to guide you effortlessly through every step of your property journey. Whether you're searching for your dream home or seeking the perfect investment, we deliver unparalleled service and results. Trust us to turn your ambitions into achievements </p>
-          <div class="space32"></div>
-          
+          <div class="space32"></div>          
         </div>
       </div>
     </div>
@@ -298,7 +290,6 @@
 <!--===== ABOUT AREA ENDS =======-->
 
 <!--===== MISSION AREA STARTS =======-->
-
 <div class="mission-section-area sp1">
     <div class="container">
         <div class="row">
@@ -313,7 +304,7 @@
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+                            <a href="{% url 'login' %}" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
@@ -345,7 +336,7 @@
                           <p>We are a team of experienced and passionate real estate professionals who are committed to making your real estate journey smooth and successful. Our deep understanding of the local market, combined with our innovative strategies, ensures that you receive the best possible service and list of our featured Properties.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+                            <a href="{% url 'login' %}" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                   </div>
@@ -383,11 +374,11 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Buying A Home</a>
+                  <a href="{% url 'login' %}">Buying A Home</a>
                   <div class="space16"></div>
                   <p>At Semsar, we understand that buying a home is one of the most significant investments you'll ever make. Our experienced agents are here to guide you through every step of the home-buying process.</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="{% url 'login' %}" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -398,15 +389,12 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Renting A Home</a>
+                  <a href="{% url 'login' %}">Renting A Home</a>
                   <div class="space16"></div>
                   <p>Finding the perfect rental property can be challenging, but with Semsar, it’s a breeze. Whether you’re looking for a short-term lease or a long-term rental, we have a diverse selection of properties to meet with Our experienced agents .</p>
                   <div class="space24"></div>
                   <a href="{% url 'login' %}" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
-              </div>
-            </div>
-
               </div>
             </div>
           </div>
@@ -428,7 +416,6 @@
         </div>
       </div>
     </div>
-
     <div class="row">
       <div class="col-lg-12">
         <div class="visit-slider-area">
@@ -462,11 +449,7 @@
                       <a href="tel:(925)683-1469">+0201020017477</a>
                     </div>
                   </div>
-    
-                  </div>
                 </div>
-
-                
               </div>
             </div>
           </div>
@@ -509,7 +492,6 @@
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
           <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>
-          
           <ul>
             <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
@@ -518,7 +500,6 @@
           </ul>
         </div>
       </div>
-
       <div class="col-lg col-md-6">
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
@@ -526,20 +507,15 @@
             <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'about' %}">About Us</a></li>
             <li><a href="{% url 'login' %}">Login</a></li>
-            
-
           </ul>
         </div>
       </div>
-
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
             <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt="Location Icon"></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
             <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt="Call Icon"></span><a href="tel:(925)683-1469">+0201020017477</a></li>
-            
           </ul>
         </div>
       </div>
@@ -552,7 +528,6 @@
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
           </div>
-          
         </div>
       </div>
     </div>

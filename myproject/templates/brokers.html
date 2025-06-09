@@ -81,21 +81,19 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="home-user.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home</a></li>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property-user.html">Property</a></li>
-                  <li><a href="brokers.html">Brokers</a></li>
-
+                  <li><a href="{% url 'home_user' %}">Home</a></li>
+                  <li><a href="{% url 'user:about' %}">About</a></li>
+                  <li><a href="{% url 'user:property' %}">Property</a></li>
+                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="#" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="{% url 'user:property' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
-
               <div class="header-search-form-wrapper">
                 <div class="tx-search-close tx-close"><i class="fa-solid fa-xmark"></i></div>
                 <div class="header-search-container">
@@ -120,7 +118,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="home-user.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -141,10 +139,10 @@
    </div>
    <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html">Home</a></li>
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property-user.html">Property</a></li>
-      <li><a href="brokers.html">Brokers</a></li>
+      <li><a href="{% url 'home_user' %}">Home</a></li>
+      <li><a href="{% url 'user:about' %}">About</a></li>
+      <li><a href="{% url 'user:property' %}">Property</a></li>
+      <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
     </ul>
   </div>
     <div class="allmobilesection">
@@ -202,7 +200,7 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="home-user.html">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
+                    <a href="{% url 'home_user' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
                     <div class="space20"></div>
                     <h2>Brokers</h2>
                 </div>
@@ -623,10 +621,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-user.html">Home</a></li>
-            <li><a href="about-user.html">About Us</a></li>
-            <li><a href="property-user.html">Properties</a></li>
-            <li><a href="brokers.html">Brokers</a></li>
+            <li><a href="{% url 'home_user' %}">Home</a></li>
+            <li><a href="{% url 'user:about' %}">About Us</a></li>
+            <li><a href="{% url 'user:property' %}">Properties</a></li>
+            <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -649,14 +647,11 @@
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
           </div>
-          
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->

@@ -82,18 +82,18 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="./home-broker.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="./home-broker.html">Home </a>
-                  <li><a href="about-broker.html">About</a></li>
-                  <li><a href="property.html">Property</a></li>
-                  <li><a href="Brokers.html">Brokers</a></li>
+                  <li><a href="{% url 'home_broker' %}">Home </a></li>
+                  <li><a href="{% url 'broker:about' %}">About</a></li>
+                  <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+                  <li><a href="{% url 'broker:customers' %}">Customers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="property.html" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="{% url 'broker:add_property' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -120,7 +120,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="./home-broker.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -141,21 +141,18 @@
    </div>
    <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home-broker.html" >Home </a></li>
-      <li><a href="property.html">Property Listing</a></li>
-      <li><a href="about-broker.html">About</a></li>
-      <li><a href="customers.html">Customers</a></li>
+      <li><a href="{% url 'home_broker' %}" >Home </a></li>
+      <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+      <li><a href="{% url 'broker:about' %}">About</a></li>
+      <li><a href="{% url 'broker:customers' %}">Customers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
         <div class="footer1-contact-info">
-          <div class="contact-info-single">
-            
-            
+          <div class="contact-info-single">               
           </div>
-          <div class="contact-info-single">
-            
+          <div class="contact-info-single">            
             <div class="contact-info-text">
               <a href="mailto:info@example.com">info@example.com</a>
             </div>
@@ -184,7 +181,7 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="./home-broker.html">Home <i class="fa-solid fa-angle-right"></i> <span>Customers </span></a>
+                    <a href="{% url 'home_broker' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Customers </span></a>
                     <div class="space20"></div>
                     <h2>Customers</h2>
                 </div>
@@ -257,7 +254,6 @@
 </div>
 </div>
 </div>
-
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area" style="margin-top: 30%;">
   <div class="container">
@@ -286,19 +282,17 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="property.html">Listings</a></li>
-            <li><a href="about-broker.html">About Us</a></li>
-            <li><a href="customers.html">Customers</a></li>
+            <li><a href="{% url 'home_broker' %}">Home</a></li>
+            <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+            <li><a href="{% url 'broker:about' %}">About Us</a></li>
+            <li><a href="{% url 'broker:customers' %}">Customers</a></li>
           </ul>
         </div>
       </div>
-
       <div class="col-lg col-md-6">
-        <div class="footer-header padding-left">
-          
+        <div class="footer-header padding-left">   
         </div>
       </div>
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
           <h3>Contact Info</h3>
@@ -327,8 +321,6 @@
     </div>
   </div>
 </div>
-
-
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->

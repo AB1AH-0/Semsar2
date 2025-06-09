@@ -106,10 +106,10 @@
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home</a></li>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property.html">Property</a></li>
-                  <li><a href="brokers.html">Brokers</a></li> 
+                  <li><a href="{% url 'home_user' %}">Home</a></li>
+                  <li><a href="{% url 'user:about' %}">About</a></li>
+                  <li><a href="{% url 'user:property' %}">Property</a></li>
+                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
               </div>
               <div class="btn-area">
                 <a href="" class="header-btn2">Search Our Property <i class="fa-solid fa-angle-right"></i></a>

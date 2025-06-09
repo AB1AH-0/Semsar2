@@ -4,7 +4,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Real Estate - Broker</title>
+     <title>Semsar</title>
 
      <!--=====FAB ICON=======-->
     <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
@@ -102,25 +102,21 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="index.html"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+                <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="homebroker.html">Home</a></li>
-                  <li><a href="aboutbroker.html">About</a></li>
-                  <li><a href="#">Property <i class="fa-solid fa-angle-down"></i></a>
-                    <ul class="dropdown-padding">
-                      <li><a href="property-location.html">Apartment</a></li>
-                      <li><a href="property-sell-rent.html">Villas</a></li>
-                    </ul>
-                  </li>
-                
+                  <li><a href="{% url 'home_broker' %}">Home </a></li>
+                  <li><a href="{% url 'broker:about' %}">About</a></li>
+                  <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+                  <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+                </ul>
               </div>
               <div class="btn-area">
                 <div class="search-icon header__search header-search-btn">
                   <img src="{% static 'assets/img/icons/search1.svg' %}" alt="">
                 </div>
-                <a href="property.html" class="header-btn2">Add New Property <i class="fa-solid fa-angle-right"></i></a>
+                <a href="{% url 'broker:add_property' %}" class="header-btn2">Add New Property <i class="fa-solid fa-angle-right"></i></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -147,7 +143,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="index.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -160,7 +156,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="index.html"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+        <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -168,18 +164,11 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./homebroker.html" >Home </a>
-       
-          </li>
-        
-      <li><a href="aboutbroker.html">About</a></li>
-      <li><a href="features.html">Property</a>
-        <ul class="sub-menu">
-          <li><a href="property-location.html">Apartment</a></li>
-          <li><a href="property-sell-rent.html">Villas </a></li>
-        </ul>
-      </li>
-      
+      <li><a href="{% url 'home_broker' %}">Home </a></li>
+      <li><a href="{% url 'broker:about' %}">About</a></li>
+      <li><a href="{% url 'broker:add_property' %}">Property</a></li>
+      <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+    </ul>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -237,7 +226,7 @@
                       <p>Browse our customer needs to help them find the ideal property with excellent deal and ofcourse the most experienced one .</p>
                       <div class="space32"></div>
                       <div class="btn-area1">
-                          <a href="property.html" class="header-btn2">View Buyer`s Requests <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'broker:customers' %}" class="header-btn2">View Buyer`s Requests <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>01/03</span>
                   </div>
@@ -264,7 +253,7 @@
                       <p class="text-anim">add to us a property from the most experienced brokers to find the perfect property that suits every buyer`s or renter`s needs</p>
                       <div class="space32"></div>
                       <div class="btn-area1 text-anim">
-                          <a href="property-listing.html" class="header-btn2"> Add Your Property <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'broker:add_property' %}" class="header-btn2"> Add Your Property <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>02/03</span>
                   </div>
@@ -277,8 +266,6 @@
           </div>
       </div>
   </div>
-
-  
               </div>
           </div>
       </div>
@@ -297,11 +284,9 @@
                     </div>
                     <div class="img2 reveal">
                         <img src="{% static 'assets/img/ab.jpg' %}" alt=""style="height: 400px; width: 350px;">
-                    </div>
-                   
+                    </div>             
                 </div>
             </div>
-
             <div class="col-lg-6">
                 <div class="about-content-area heading6">
           <h5 class="text-anim" style="color: #164D59;"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">About Real Estate Agency</h5>
@@ -312,27 +297,14 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="aboutbroker.html" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                        <a href="{% url 'broker:about' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!--===== ABOUT AREA ENDS =======-->
-
-<!--===== FEATURES AREA STARTS =======-->
-
-<!--===== FEATURES AREA ENDS =======-->
-
-<!--===== SERVICE AREA STARTS =======-->
-
-<!--===== SERVICE AREA ENDS =======-->
-
-<!--===== PROPERTIES AREA STARTS =======-->
-
-             
-                  
+<!--===== ABOUT AREA ENDS =======-->                  
                                        <br>
 <br>
 <br>
@@ -343,33 +315,6 @@
 <br>
 <br>
 <br>
-          
-  
-             
-
-          
-<!--===== PROPERTIES AREA ENDS =======-->
-
-<!--===== LOCATION AREA STARTS =======-->
-
-<!--===== LOCATION AREA ENDS =======-->
-
-<!--===== TESTIMONIAL AREA STARTS =======-->
-
-<!--===== TESTIMONIAL AREA ENDS =======-->
-
-<!--===== OTHERS AREA STARTS =======-->
-
-<!--===== OTHERS AREA ENDS =======-->
-
-<!--===== BLOG AREA STARTS =======-->
-
-<!--===== BLOG AREA ENDS =======-->
-
-<!--===== CTA AREA STARTS =======-->
-
-<!--===== CTA AREA ENDS =======-->
-
 <!--===== FOOTER AREA STARTS =======-->
 
 <div class="footer2-section-area">
@@ -381,8 +326,7 @@
           <div class="space32"></div>
           <h4>Your Dreams Comes True</h4>
           <div class="space16"></div>
-          <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>
-         
+          <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>        
           <ul>
             <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
@@ -391,29 +335,23 @@
           </ul>
         </div>
       </div>
-
       <div class="col-lg col-md-6">
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./homebroker.html">Home</a></li>
-            <li><a href="aboutbroker.html">About Us</a></li>
-             <li><a href="#">Add Property</a></li>
-            
-
+            <li><a href="{% url 'home_broker' %}">Home</a></li>
+            <li><a href="{% url 'broker:about' %}">About Us</a></li>
+             <li><a href="{% url 'broker:add_property' %}">Add Property</a></li>
+             <li><a href="{% url 'broker:customers' %}">Customers</a></li>
           </ul>
         </div>
       </div>
-
-     
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
            <h3>   Info   </h3>
           <ul>
             <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
             <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
-            
           </ul>
         </div>
       </div>
@@ -426,7 +364,6 @@
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
           </div>
-          
         </div>
       </div>
     </div>

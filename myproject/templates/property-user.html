@@ -107,14 +107,14 @@
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home </a>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property-user.html">Property</a></li>
-                  <li><a href="brokers.html">Brokers</a></li>
+                  <li><a href="{% url 'home_user' %}">Home </a>
+                  <li><a href="{% url 'user:about' %}">About</a></li>
+                  <li><a href="{% url 'user:property' %}">Property</a></li>
+                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="property-user.html" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="{% url 'user:property' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -163,10 +163,10 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html" >Home </a></li>
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property-user.html">Property</a></li>
-      <li><a href="brokers.html">Brokers</a></li>
+      <li><a href="{% url 'home_user' %}" >Home </a></li>
+      <li><a href="{% url 'user:about' %}">About</a></li>
+      <li><a href="{% url 'user:property' %}">Property</a></li>
+      <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
     </ul>
   </div>
     <div class="allmobilesection">
@@ -180,8 +180,7 @@
             <div class="contact-info-text">
               <a href="tel:+3(924)4596512">+0201020017477</a>
             </div>
-          </div>
-          
+          </div>         
           <div class="single-footer" >
             <h3>Our Location</h3>
             <div class="contact-info-single">
@@ -209,7 +208,6 @@
      </div>
   </div>
 </div>
- 
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
@@ -600,9 +598,7 @@
 </div>
 </div>
 </div>
-
 <!--===== PROPERTY AREA ENDS =======-->
-
 <div class="space24"></div>
 <div class="space24"></div>
 <div class="space24"></div>
@@ -614,7 +610,6 @@
 <div class="space24"></div>
 <div class="space24"></div>
 <div class="space24"></div>
-
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area">
   <div class="container">
@@ -625,8 +620,7 @@
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
-          <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>
-          
+          <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>          
           <ul>
             <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
             <li><a href="#"><i class="fa-brands fa-instagram"></i></a></li>
@@ -640,22 +634,19 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-user.html">Home</a></li>
-            <li><a href="about-user.html">About Us</a></li>
-            <li><a href="property-user.html">Properties</a></li>
-            <li><a href="brokers.html">Brokers</a></li>
+            <li><a href="{% url 'home_user' %}">Home</a></li>
+            <li><a href="{% url 'user:about' %}">About Us</a></li>
+            <li><a href="{% url 'user:property' %}">Properties</a></li>
+            <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
           </ul>
         </div>
       </div>
-
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
             <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
-            
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>           
           </ul>
         </div>
       </div>
@@ -668,7 +659,6 @@
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
           </div>
-          
         </div>
       </div>
     </div>
