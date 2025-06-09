@@ -103,19 +103,27 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="{% url 'homebroker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="{% url 'home_user' %}">Home</a></li>
-                  <li><a href="{% url 'user:about' %}">About</a></li>
-                  <li><a href="">Property</a></li>
-                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
-                </ul>
+                  <li><a href="{% url 'homebroker' %}">Home </a></li>
+                  <li><a href="{% url 'aboutbroker' %}">About</a></li>
+                  <li><a href="#">Property <i class="fa-solid fa-angle-down"></i></a>
+                    <ul class="dropdown-padding">
+                      <li><a href="{% url 'property_location' %}">Apartment</a></li>
+                      <li><a href="{% url 'property_sell_rent' %}">Villas</a></li>
+                     
+                    </ul>
+                  </li>
+                  
                   
               </div>
               <div class="btn-area">
-                <a href="#" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <div class="search-icon header__search header-search-btn">
+                  <img src="{% static 'assets/img/icons/search1.svg' %}" alt="">
+                </div>
+                <a href="{% url 'add_property' %}" class="header-btn1">Add New Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -142,7 +150,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'homebroker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -155,7 +163,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+        <a href="{% url 'homebroker' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -163,10 +171,17 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="{% url 'home_user' %}">Home</a></li>
-      <li><a href="{% url 'user:about' %}">About</a></li>
-      <li><a href="">Property</a></li>
-      <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
+      <li><a href="{% url 'homebroker' %}" >Home </a>
+       
+          </li>
+        
+      <li><a href="{% url 'aboutbroker' %}">About</a></li>
+      <li><a href="{% url 'features' %}">Property</a>
+        <ul class="sub-menu">
+          <li><a href="{% url 'property_location' %}">Apartment</a></li>
+          <li><a href="property-sell-rent.html">Villas </a></li>
+        </ul>
+      </li>
       
     <div class="allmobilesection">
       <div class="single-footer">
@@ -213,15 +228,13 @@
 
 <!--===== HERO AREA STARTS =======-->
 
-{% with bg_image='assets/img/all-images/inner-bg.jpg' %}
-<div class="inner-section-area" style="background-image:linear-gradient(rgb(0, 0, 0),rgba(4, 10, 30, 0.7)), url('{% static bg_image %}');">
-{% endwith %}
+<div class="inner-section-area" style="background-image:linear-gradient(rgb(0, 0, 0),rgba(4, 10, 30, 0.201)), url('{% static 'assets/img/img.jpg' %}')">
   
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="home-user.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="{% url 'homebroker' %}">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                      <div class="space16"></div>
@@ -243,14 +256,14 @@
         <div class="row">
             <div class="col-lg-3">
                 <div class="images image-anime reveal">
-                    <img src="{% static 'assets/img/all-images/business-agreement-handshake.jpg' %}" alt=""  >
+                    <img src="{% static 'assets/img/business-agreement-handshake.jpg' %}" alt=""  >
                 </div>
             </div>
 
             <div class="col-lg-9">
                 <div class="other-area">
                     <div class="img1 image-anime reveal">
-                        <img src="{% static 'assets/img/all-images/FutureOfRealEstateTeams.jpg' %}" alt="" style="filter: brightness(87%);">
+                        <img src="{% static 'assets/img/FutureOfRealEstateTeams.jpg' %}" alt="" style="filter: brightness(87%);">
                     </div>
                     
             </div>
@@ -326,7 +339,7 @@
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="property-listing.html" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                            <a href="{% url 'property_listing' %}" class="header-btn1">View Buyer`s Requests <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
@@ -359,7 +372,7 @@
                           <p>We are a team of experienced and passionate real estate professionals who are committed to making your real estate journey smooth and successful. Our deep understanding of the local market, combined with our innovative strategies, ensures that you receive the best possible service and list of our featured Properties.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="#" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                            <a href="{% url 'add_property' %}" class="header-btn1">Add Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                           </div>
                       </div>
                   </div>
@@ -370,65 +383,7 @@
     </div>
 </div>
 <!--===== SERVICE AREA STARTS =======-->
-<div class="service-inner-section-area sp2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-7  m-auto">
-        <div class="service4-header text-center heading2">
-          <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">What We Offer</h5>
-          <h2>Upgrade To a Smarter Living <br class="d-lg-block d-none"> Experience With Home Automation</h2>
-        </div>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-lg-4">
-        <div class="img1 reveal image-anime">
-          <img src="{% static 'assets/img/about/home5.jpg' %}" alt="" style="height: 380px; width: 370px;">
-        </div>
-      </div>
-      <div class="col-lg-8">
-        <div class="service-boxes">
-          <div class="row">
-            <div class="col-lg-6 col-md-6">
-              <div class="service-author-box">
-                <div class="icons">
-                  <img src="{% static 'assets/img/icons/service-icon5.svg' %}" alt="">
-                </div>
-                <div class="space24"></div>
-                <div class="content-area">
-                  <a href="property-user.html">Buying A Home</a>
-                  <div class="space16"></div>
-                  <p>At Semsar, we understand that buying a home is one of the most significant investments you'll ever make. Our experienced agents are here to guide you through every step of the home-buying process.</p>
-                  <div class="space24"></div>
-                  <a href="property-user.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
-              <div class="service-author-box">
-                <div class="icons">
-                  <img src="{% static 'assets/img/icons/service-icon5.svg' %}" alt="">
-                </div>
-                <div class="space24"></div>
-                <div class="content-area">
-                  <a href="property-user.html">Renting A Home</a>
-                  <div class="space16"></div>
-                  <p>Finding the perfect rental property can be challenging, but with Semsar, it’s a breeze. Whether you’re looking for a short-term lease or a long-term rental, we have a diverse selection of properties to meet with Our experienced agents .</p>
-                  <div class="space24"></div>
-                  <a href="property-user.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
-
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 <!--===== SERVICE AREA ENDS =======-->
 
 <!--===== OTHERS AREA STARTS =======-->
@@ -449,7 +404,7 @@
           <div class="row align-items-center">
             <div class="col-lg-6">
               <div class="images image-anime reveal">
-                <img src="{% static 'assets/img/about/office3.jpg' %}" alt="" style="height: 400px; width: 850px;">
+                <img src="{% static 'assets/img/office3.jpg' %}" alt="" style="height: 400px;; width: 850px;">
               </div>
             </div>
             <div class="col-lg-6">
@@ -503,16 +458,16 @@
 <div class="cta1-section-area sp1">
   <div class="container">
     <div class="row align-items-center">
-      <div class="col-lg-5">
+      <div class="col-lg-6">
         <div class="cta-header heading1">
           <h2 >We’re Here To Find Your New Home Project.</h2>
         </div>
       </div>
-      <div class="col-lg-3"></div>
-      <div class="col-lg-4">
+      
+      <div class="col-lg-6">
         <div class="cta-btn-area">
-          <a href="{% url 'user:brokers' %}" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
-          <a href="#" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+          <a href="{% url 'customers' %}" class="header-btn1">View Buyer`s Requests<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+          <a href="{% url 'add_property' %}" class="header-btn1 btn1">Add Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
         </div>
       </div>
     </div>
@@ -528,7 +483,7 @@
         <div class="footer-logo-area">
           <img src="{% static 'assets/img/logo/logo1.png' %}" alt="">
           <div class="space32"></div>
-          <h4>Your dream property comes true</h4>
+          <h4>Your Dreams Comes True</h4>
           <div class="space16"></div>
           <p>At Semsar, we are committed to providing exceptional service and support. Whether you are looking buy or rent in real estate, our team is here help.</p>
           
@@ -545,10 +500,11 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="{% url 'home_user' %}">Home</a></li>
-            <li><a href="{% url 'user:about' %}">About Us</a></li>
-            <li><a href="#">Properties</a></li>
-            <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+            <li><a href="{% url 'homebroker' %}">Home</a></li>
+            <li><a href="{% url 'aboutbroker' %}">About Us</a></li>
+             <li><a href="{% url 'add_property' %}">Add Property</a></li>
+           
+
           </ul>
         </div>
       </div>
@@ -558,8 +514,8 @@
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
-            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="#">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
+            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
             
           </ul>
         </div>
@@ -582,42 +538,22 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="{% static 'assets/js/plugins/popper.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/owl.carousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
+<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
+<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
+<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
 <script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
-<script src="{% static 'assets/js/plugins/parallax.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/wow.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
+<script src="{% static 'assets/js/plugins/owlcarousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
+<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
 <script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
-<script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/parallax-scroll.js' %}"></script>
-<script src="{% static 'assets/js/plugins/jquery.counterup.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/jquery.lettering.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/jquery.countdown.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
+<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
-
-<script>
-    // Wait for window load
-    $(window).on('load', function() {
-        // Fade out the preloader
-        $('#preloader').fadeOut('slow', function() {
-            // Remove the preloader from the DOM after fade out
-            $(this).remove();
-        });
-        
-        // Ensure body is not hidden (in case it was hidden by preloader CSS)
-        $('body').css('overflow', 'visible');
-    });
-    
-    // Fallback in case window load event doesn't fire
-    setTimeout(function() {
-        $('#preloader').fadeOut('slow', function() {
-            $(this).remove();
-        });
-        $('body').css('overflow', 'visible');
-    }, 3000); // 3 seconds timeout as fallback
-</script>
 
 </body>
 </html>

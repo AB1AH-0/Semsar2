@@ -4,7 +4,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Our Properties </title>
+     <title>Your Properties </title>
 
      <!--=====FAB ICON=======-->
     <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
@@ -107,14 +107,14 @@
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home </a>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property-user.html">Property</a></li>
-                  <li><a href="brokers.html">Brokers</a></li>
+                  <li><a href="./home-broker.html">Home </a>
+                  <li><a href="about-broker.html">About</a></li>
+                  <li><a href="property-broker.html">Your Properties</a></li>
+                  <li><a href="Customers.html">Customers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="property-user.html" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+
               </div>
 
               <div class="header-search-form-wrapper">
@@ -163,12 +163,13 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html" >Home </a></li>
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property-user.html">Property</a></li>
-      <li><a href="brokers.html">Brokers</a></li>
-    </ul>
-  </div>
+      <li><a href="./home-user.html" >Home </a>
+       
+          </li>
+        
+      <li><a href="about.html">About</a></li>
+      <li><a href="property.html">Property</a></li>
+      
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -214,17 +215,17 @@
 
 <!--===== HERO AREA STARTS =======-->
 <div class="properties3-section-area sp1">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 m-auto">
-        <div class="property-header text-center heading6">
-          <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon2.svg' %}" alt="">Properties</h5>
-          <h2 class="text-anime-style-3">Search Our Properties</h2>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 m-auto">
+          <div class="property-header text-center heading6">
+            <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon2.svg' %}" alt="">Properties</h5>
+            <h2 class="text-anime-style-3">Manage Your Properties</h2>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 <!--===== HERO AREA ENDS =======-->
 
 <!--===== PROPERTY AREA STARTS =======-->
@@ -243,12 +244,13 @@
             </ul>
             <div class="space24"></div>
             <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-home-user-rent" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+              <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
                 <div class="row">
+                  <div class="row" style="justify-content: center;">
                   <div class="col-lg-4">
                     <div class="listing-input">
-                        <select id="city-rent" name="city-rent" class="city-select nice-select">
-                            <option value="" selected disabled>City</option>
+                        <select id="broker-city-rent" name="broker-city-rent" class="city-select nice-select">
+                            <option value="" selected disabled>Governorate</option>
                             <option value="cairo">Cairo</option>
                             <option value="giza">Giza</option>
                         </select>
@@ -257,7 +259,7 @@
                 </div>                  
                   <div class="col-lg-4">
                       <div class="listing-input">
-                        <select id="area-rent" name="area-rent" class="area-select nice-select">
+                        <select id="broker-area-rent" name="broker-area-rent" class="area-select nice-select">
                           <option value="" disabled selected>Area</option>
   
                           <!-- CAIRO -->
@@ -286,10 +288,11 @@
                       </div>
                       <div class="space24"></div>
                   </div>
+                  </div>
               
                   <div class="col-lg-4">
                     <div class="listing-input">
-                      <select name="Type-rent" class="nice-select">
+                      <select name="broker-Type-rent" class="nice-select">
                           <option value="" selected disabled>Type</option>
                           <option value="Roof">Roof</option>
                           <option value="Apartment">Apartment</option>
@@ -303,7 +306,7 @@
             <div class="col-lg-4">
               <div class="listing-input">
                 <input  type="number"
-                        name="bathrooms-rent"
+                        name="broker-bathrooms-rent"
                         class="nice-select"   
                         placeholder="Bathrooms"
                         min="0"              
@@ -315,7 +318,7 @@
           <div class="col-lg-4">
             <div class="listing-input">
               <input  type="number"
-                      name="bedrooms-rent"
+                      name="broker-bedrooms-rent"
                       class="nice-select"   
                       placeholder="Bedrooms"
                       min="0"              
@@ -327,12 +330,12 @@
 
         <div class="col-lg-4">
          <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="listing-input">
               <input  type="number"
-                      name="min_price-rent"
+                      name="broker-price-rent"
                       class="nice-select"   
-                      placeholder="Min Price (EGP)"
+                      placeholder="Price (EGP)"
                       min="0"              
                       step="1000"           
                       inputmode="numeric">             
@@ -340,105 +343,79 @@
           <div class="space24"></div>
           </div>
           
-          <div class="col-lg-6">
-            <div class="listing-input">
-              <input  type="number"
-                      name="max_price-rent"
-                      class="nice-select"   
-                      placeholder="Max Price (EGP)"
-                      min="0"              
-                      step="1000"           
-                      inputmode="numeric">             
-            </div>
-          <div class="space24"></div>
-          </div>
           </div>
           </div>
           
           <div class="col-lg-4">
-          <div class="row">
-          <div class="col-lg-6">
-            <div class="listing-input">
-              <input  type="number"
-                      name="min_size-rent"
-                      class="nice-select"   
-                      placeholder="Min Size (m²)"
-                      min="0"              
-                      step="1"           
-                      inputmode="numeric">             
+            <div class="col-lg-12">
+              <div class="listing-input">
+                <input  type="number"
+                name="broker-size-rent"
+                class="nice-select"   
+                placeholder="Size (m²)"
+                min="0"              
+                step="1"           
+                inputmode="numeric">             
+              </div>
+              <div class="space24"></div>
             </div>
-          <div class="space24"></div>
+            <div class="col-lg-12">
+              <div class="listing-input">
+                <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
+              </div>
+              <div class="space24"></div>
           </div>
-          
-          <div class="col-lg-6">
-            <div class="listing-input">
-              <input  type="number"
-                      name="max_size-rent"
-                      class="nice-select"   
-                      placeholder="Max Size (m²)"
-                      min="0"              
-                      step="1"           
-                      inputmode="numeric">             
-            </div>
-           <div class="space24"></div>
          </div>
-
-              <div class="col-lg-6">                 
-                  <label>
-                    <input type="checkbox" name="Furnished" value="yes">
-                    Furnished
-                  </label>                              
-                <div class="space24"></div>
-            </div>
-        </div>
-     </div>
 
      <div class="col-lg-4">
       <div class="row">
-
+        <div class="col-lg-12">                 
+          <div class="listing-input">
+            <select name="broker-Furnished-sale" class="nice-select">
+                <option value="" selected disabled>Furnish</option>
+                <option value="Furnished">Furnished</option>
+                <option value="Not-Furnished">Not Furnished</option>
+            </select>
+        </div>
+        <div class="space24"></div>
+    </div>
       </div>
    </div>
 
-   <div class="col-lg-4">
-    <div class="listing-input">
 
-    </div>
-    <div class="space24"></div>
-</div>
 
 <div class="col-lg-4">
-<div class="space24"></div>
-
 <div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" name="send-to-brokers-rent" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" name="list-property-rent" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> List Property</button>
+  <div class="space24"></div>
 </div>
 </div>
 </div>
 </div>
-<div class="tab-pane fade" id="pills-profile-user-sale" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+<div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
 <div class="row">
+  <div class="row" style="justify-content: center;">
   <div class="col-lg-4">
     <div class="listing-input">
-      <select id="city-sale" name="city-sale" class="city-select nice-select">
-        <option value="" disabled selected>City</option>
-        <option value="cairo">Cairo</option>
-        <option value="giza">Giza</option>
-    </select>
+        <select id="broker-city-sale" name="broker-city-sale" class="city-select nice-select">
+            <option value="" selected disabled>Governorate</option>
+            <option value="cairo">Cairo</option>
+            <option value="giza">Giza</option>
+        </select>
     </div>
     <div class="space24"></div>
-  </div> 
-
+</div>                  
   <div class="col-lg-4">
       <div class="listing-input">
-        <select id="area-sale" name="area-sale" class="area-select nice-select">
+        <select id="broker-area-sale" name="broker-area-sale" class="area-select nice-select">
           <option value="" disabled selected>Area</option>
-  
+
           <!-- CAIRO -->
           
           <option value="shubra"          data-city="cairo">Shubra</option>
           <option value="elmarg"          data-city="cairo">El Marg</option>
-          <option value="dar-el-salam"    data-city="cairo">Dokki</option>
-          <option value="maadi"           data-city="cairo">Manshiyat Naser</option>
+          <option value="dar-el-salam"    data-city="cairo">Dar El Salam</option>
+          <option value="maadi"           data-city="cairo">Maadi</option>
           <option value="nasr-city"       data-city="cairo">Nasr City</option>
           <option value="mokattam"        data-city="cairo">Mokattam</option>
           <option value="new-cairo"       data-city="cairo">New Cairo</option>
@@ -459,17 +436,17 @@
       </div>
       <div class="space24"></div>
   </div>
-
+  </div>
 
   <div class="col-lg-4">
     <div class="listing-input">
-      <select name="Type-rent" class="nice-select">
+      <select name="broker-Type-sale" class="nice-select">
           <option value="" selected disabled>Type</option>
           <option value="Roof">Roof</option>
           <option value="Apartment">Apartment</option>
           <option value="Duplex">Duplex</option>
           <option value="Villa">Villa</option>
-        </select>
+      </select>
   </div>
     <div class="space24"></div>
 </div>
@@ -477,7 +454,7 @@
 <div class="col-lg-4">
 <div class="listing-input">
 <input  type="number"
-        name="bathrooms-rent"
+        name="broker-bathrooms-sale"
         class="nice-select"   
         placeholder="Bathrooms"
         min="0"              
@@ -489,7 +466,7 @@
 <div class="col-lg-4">
 <div class="listing-input">
 <input  type="number"
-      name="bedrooms-rent"
+      name="broker-bedrooms-sale"
       class="nice-select"   
       placeholder="Bedrooms"
       min="0"              
@@ -501,98 +478,72 @@
 
 <div class="col-lg-4">
 <div class="row">
-<div class="col-lg-6">
+<div class="col-lg-12">
 <div class="listing-input">
 <input  type="number"
-      name="min_price-rent"
+      name="broker-price-sale"
       class="nice-select"   
-      placeholder="Min Price (EGP)"
+      placeholder="Price (EGP)"
       min="0"              
       step="1000"           
       inputmode="numeric">             
 </div>
 <div class="space24"></div>
+</div>
+<div class="col-lg-12">
+  <div class="listing-input">
+    <select name="broker-Finish-sale" class="nice-select">
+      <option value="" selected disabled>Finish</option>
+      <option value="Finished">Finished</option>
+      <option value="Unfinished">Unfinished</option>
+      <option value="Semi-Finished">Semi-Finished</option>
+  </select>
+  </div>
+  <div class="space24"></div>
+</div>
+</div>
 </div>
 
-<div class="col-lg-6">
+<div class="col-lg-4">
+<div class="col-lg-12">
 <div class="listing-input">
 <input  type="number"
-      name="max_price-rent"
-      class="nice-select"   
-      placeholder="Max Price (EGP)"
-      min="0"              
-      step="1000"           
-      inputmode="numeric">             
+name="broker-size-sale"
+class="nice-select"   
+placeholder="Size (m²)"
+min="0"              
+step="1"           
+inputmode="numeric">             
 </div>
 <div class="space24"></div>
 </div>
-</div>
+<div class="col-lg-12">
+  <div class="listing-input">
+  <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
+  </div>
+  <div class="space24"></div>
+  </div>
 </div>
 
 <div class="col-lg-4">
 <div class="row">
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-      name="min_size-sale"
-      class="nice-select"   
-      placeholder="Min Size (m²)"
-      min="0"              
-      step="1"           
-      inputmode="numeric">             
+  <div class="col-lg-12">
+    <div class="listing-input">
+      <select name="broker-Furnished-sale" class="nice-select">
+          <option value="" selected disabled>Furnish</option>
+          <option value="Furnished">Furnished</option>
+          <option value="Not-Furnished">Not Furnished</option>
+      </select>
+  </div>
+    <div class="space24"></div>
+    </div>
 </div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-6">
-<div class="listing-input">
-<input  type="number"
-      name="max_size-rent"
-      class="nice-select"   
-      placeholder="Max Size (m²)"
-      min="0"              
-      step="1"           
-      inputmode="numeric">             
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-6">                 
-  <label>
-    <input type="checkbox" name="Furnished-rent" value="yes">
-    Furnished
-  </label>                              
-<div class="space24"></div>
-</div>
-</div>
-</div>
-
-
-<div class="col-lg-4">
-<div class="listing-input">
-<select name="Finish" class="nice-select">
-  <option value="" selected disabled>Finish</option>
-  <option value="Finished">Finished</option>
-  <option value="Unfinished">Unfinished</option>
-  <option value="Semi-Finished">Semi-Finished</option>
-</select>
-</div>
-<div class="space24"></div>
-</div>
-
-<div class="col-lg-4">                                        
-<div class="space24"></div>
 </div>
 
 <div class="col-lg-4">
-<div class="space24"></div>
 <div class="btn-area1">
-<button class="header-btn1" name="Search-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search</button>
-</div>
-</div>
-<div id="inquiry-list" class="space24"></div>
-</div>
-</div>
+<button class="header-btn1 send-to-brokers" name="list-property-sale" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> List Property</button>
+<div class="space24"></div>
 </div>
 </div>
 </div>
@@ -603,17 +554,6 @@
 
 <!--===== PROPERTY AREA ENDS =======-->
 
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
 
 <!--===== FOOTER AREA STARTS =======-->
 <div class="footer1-section-area">
@@ -640,10 +580,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-user.html">Home</a></li>
-            <li><a href="about-user.html">About Us</a></li>
-            <li><a href="property-user.html">Properties</a></li>
-            <li><a href="brokers.html">Brokers</a></li>
+            <li><a href="home-broker.html">Home</a></li>
+            <li><a href="about-broker.html">About Us</a></li>
+            <li><a href="property-broker.html">Your Properties</a></li>
+            <li><a href="Customers.html">Customers</a></li>
           </ul>
         </div>
       </div>
@@ -704,7 +644,7 @@
     // Function to store original options
     function storeOriginalOptions(areaSelector) {
         const $area = $(areaSelector);
-        // Only store if not already stored, or if you want to ensure it's always the pristine version from DOM
+        // Only store if not already stored
         if (!allAreaOptions[areaSelector] || allAreaOptions[areaSelector].length === 0) {
             allAreaOptions[areaSelector] = [];
             $area.find('option').each(function() {
@@ -721,116 +661,113 @@
     }
 
     // Call storeOriginalOptions for all relevant area dropdowns ONCE here
-    // For RENT tab
-    storeOriginalOptions('#area-rent');
-    // For SALE tab (if and when you add #area-sale)
-    // storeOriginalOptions('#area-sale');
+    // Assuming same IDs/names as property-user.html for 'For Rent' tab
+    if ($('#broker-area-rent').length) {
+        storeOriginalOptions('#broker-area-rent');
+    }
+    // Example for 'For Sale' tab - uncomment and adjust selector if it exists
+    // if ($('#area-sale').length) {
+    //     storeOriginalOptions('#area-sale');
+    // }
     
     // Function to link city and area dropdowns
     function linkCityAreaDropdowns(citySelector, areaSelector) {
         const $city = $(citySelector);
         const $area = $(areaSelector);
         
-        // Original options should already be stored by this point
-        // storeOriginalOptions(areaSelector); // This call is removed from here
+        // Check if elements exist to prevent errors
+        if (!$city.length || !$area.length || !allAreaOptions[areaSelector]) {
+            // console.warn('City or Area selector not found, or original options not stored for:', citySelector, areaSelector);
+            return;
+        }
         
         function filterAreasByCity() {
             const selectedCity = $city.val();
-            
-            // Clear current options
             $area.empty();
             
-            // Add back filtered options
             allAreaOptions[areaSelector].forEach(function(option) {
-                // Add option if it has no city data (default option) or matches selected city
                 if (!option.city || option.city === selectedCity) {
                     const $newOption = $('<option>', {
                         value: option.value,
                         text: option.text,
-                        disabled: option.disabled && !option.city, // Keep default option disabled
-                        selected: false // Reset selection
+                        disabled: option.disabled && !option.city, 
+                        selected: false
                     });
                     
                     if (option.city) {
                         $newOption.data('city', option.city);
                     }
-                    
                     $area.append($newOption);
                 }
             });
             
-            // Reset to default selection
             $area.val('');
-            
-            // Destroy and recreate nice-select
             $area.niceSelect('destroy');
             $area.niceSelect();
         }
         
-        // Initial filtering when page loads
-        filterAreasByCity();
-        
-        // Filter when city selection changes
+        filterAreasByCity(); // Initial filtering
         $city.on('change', filterAreasByCity);
     }
     
-    // For RENT tab - link city-rent and area-rent
-    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+    // Setup for RENT tab
+    if ($('select[name="broker-city-rent"]').length && $('#broker-area-rent').length) {
+        linkCityAreaDropdowns('select[name="broker-city-rent"]', '#broker-area-rent');
+    }
     
-    // For SALE tab - link city-sale and area-sale (when you add them)
-    // Example: if you have a city dropdown with name "city-sale" and area dropdown with id "area-sale"
+    // Setup for SALE tab (example, uncomment and adjust if it exists)
     // if ($('select[name="city-sale"]').length && $('#area-sale').length) {
-    //     storeOriginalOptions('#area-sale'); // Ensure its options are stored if not done above
     //     linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
     // }
-});
+  });
 
-// Capture search data and send to backend
-$(function(){
-  function getCookie(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie !== '') {
-        const cookies = document.cookie.split(';');
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-  }
-
-  $('.send-to-brokers').on('click', function(e){
-    e.preventDefault();
-    const $panel = $(this).closest('.tab-pane');
-    const data = {};
-    $panel.find('input, select').each(function(){
-      const $el = $(this);
-      const name = $el.attr('name');
-      if(!name) return;
-      if($el.attr('type') === 'checkbox'){
-        data[name] = $el.is(':checked');
-      } else {
-        data[name] = $el.val();
+  // Capture search data and send to backend (assuming .send-to-brokers class and /api/inquiries/ endpoint)
+  $(function(){
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+              const cookie = cookies[i].trim();
+              if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                  cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                  break;
+              }
+          }
       }
-    });
-    fetch('/api/inquiries/', {
-      method: 'POST',
-      headers:{
-        'Content-Type':'application/json',
-        'X-CSRFToken': getCookie('csrftoken')
-      },
-      body: JSON.stringify(data)
-    }).then(r => r.json()).then(function(resp){
-      console.log('saved', resp);
-    }).catch(function(err){
-      console.error('error', err);
+      return cookieValue;
+    }
+
+    $('.send-to-brokers').on('click', function(e){
+      e.preventDefault();
+      const $panel = $(this).closest('.tab-pane');
+      const data = {};
+      $panel.find('input, select').each(function(){
+        const $el = $(this);
+        const name = $el.attr('name');
+        if(!name) return;
+        if($el.attr('type') === 'checkbox'){
+          data[name] = $el.is(':checked');
+        } else {
+          data[name] = $el.val();
+        }
+      });
+      fetch('/api/inquiries/', {
+        method: 'POST',
+        headers:{
+          'Content-Type':'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify(data)
+      }).then(r => r.json()).then(function(resp){
+        console.log('Inquiry saved:', resp);
+        // Optionally, display a success message to the user
+      }).catch(function(err){
+        console.error('Error saving inquiry:', err);
+        // Optionally, display an error message to the user
+      });
     });
   });
-});
-
-  </script>
+</script>
 </body>
 </html>
