@@ -37,17 +37,16 @@ urlpatterns = [
     path('register/', TemplateView.as_view(template_name='reg1.html'), name='register'),
     
     # user-specific URLs
-    path('user/', include(([
-        path('about/', TemplateView.as_view(template_name='User/about-user.html'), name='about'),
-        path('brokers/', TemplateView.as_view(template_name='User/brokers.html'), name='brokers'),
-        # Add other user-specific URLs here
-    ], 'user'))),
+    path('about-user/', TemplateView.as_view(template_name='about-user.html'), name='about'),
+    path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
+    path('property-user/', TemplateView.as_view(template_name='property-user.html'), name='property-user'),
+    # Add other user-specific URLs here
     path('payment/', payment_page, name='payment'),
     path('process_payment/', process_payment, name='process_payment'),
 
     # User/Broker specific home pages
-    path('broker/home/', TemplateView.as_view(template_name='Broker/home-broker.html'), name='home_broker'),
-    path('user/home/', TemplateView.as_view(template_name='User/home-user.html'), name='home_user'),
+    path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home_broker'),
+    path('home-user/', TemplateView.as_view(template_name='home-user.html'), name='home_user'),
 ]
 
 # Serve static files during development when DEBUG is True
