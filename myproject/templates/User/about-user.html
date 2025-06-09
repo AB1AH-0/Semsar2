@@ -108,14 +108,9 @@
               <div class="main-menu">
                 <ul>
                   <li><a href="{% url 'home_user' %}">Home</a></li>
-                  <li><a href="{% url 'user:about' %}" class="active">About</a></li>
-                  <li><a href="#">Property <i class="fa-solid fa-angle-down"></i></a>
-                    <ul class="dropdown-padding">
-                      <li><a href="#">Apartment</a></li>
-                      <li><a href="#">Villas</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+                  <li><a href="{% url 'user:about' %}">About</a></li>
+                  <li><a href="">Property</a></li>
+                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
                 </ul>
                   
               </div>
@@ -169,14 +164,9 @@
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
       <li><a href="{% url 'home_user' %}">Home</a></li>
-      <li><a href="{% url 'user:about' %}" class="active">About</a></li>
-      <li><a href="#">Property</a>
-        <ul class="sub-menu">
-          <li><a href="#">Apartment</a></li>
-          <li><a href="#">Villas</a></li>
-        </ul>
-      </li>
-      <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+      <li><a href="{% url 'user:about' %}">About</a></li>
+      <li><a href="">Property</a></li>
+      <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
       
     <div class="allmobilesection">
       <div class="single-footer">
