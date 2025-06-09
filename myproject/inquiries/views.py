@@ -121,7 +121,7 @@ def login_user(request):
         return JsonResponse({
             'success': True,
             'user_type': user.user_type,
-            'redirect_url': '/broker/home/' if user.user_type == 'broker' else '/user/home/'
+            'redirect_url': '/home-broker/' if user.user_type == 'broker' else '/home-user/'
         })
     else:
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
