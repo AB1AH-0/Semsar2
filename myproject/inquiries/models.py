@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password, check_password
+from django.utils import timezone
 
 class UserProfile(models.Model):
     """
@@ -185,3 +186,76 @@ class PaymentInfo(models.Model):
     @property
     def cvv(self):
         return self.decrypt_value(self.encrypted_cvv)
+
+
+class PaymentLog(models.Model):
+    """
+    Records payment transactions made by brokers.
+    """
+    PAYMENT_STATUS_PENDING = 'pending'
+    PAYMENT_STATUS_COMPLETED = 'completed'
+    PAYMENT_STATUS_FAILED = 'failed'
+    PAYMENT_STATUS_CHOICES = [
+        (PAYMENT_STATUS_PENDING, 'Pending'),
+        (PAYMENT_STATUS_COMPLETED, 'Completed'),
+        (PAYMENT_STATUS_FAILED, 'Failed'),
+    ]
+
+    PAYMENT_METHOD_CARD = 'credit_card'
+    PAYMENT_METHOD_TRANSFER = 'bank_transfer'
+    PAYMENT_METHOD_OTHER = 'other'
+    PAYMENT_METHOD_CHOICES = [
+        (PAYMENT_METHOD_CARD, 'Credit Card'),
+        (PAYMENT_METHOD_TRANSFER, 'Bank Transfer'),
+        (PAYMENT_METHOD_OTHER, 'Other'),
+    ]
+
+    broker = models.ForeignKey(
+        UserProfile,
+        on_delete=models.CASCADE,
+        related_name='payment_logs',
+        limit_choices_to={'user_type': UserProfile.USER_TYPE_BROKER},
+        help_text="The broker who made the payment."
+    )
+    amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        help_text="Amount paid."
+    )
+    payment_date = models.DateTimeField(
+        default=timezone.now,
+        help_text="Date and time of the payment."
+    )
+    payment_method = models.CharField(
+        max_length=20,
+        choices=PAYMENT_METHOD_CHOICES,
+        default=PAYMENT_METHOD_CARD,
+        help_text="Method used for payment."
+    )
+    transaction_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        help_text="Optional: Transaction ID from payment gateway."
+    )
+    status = models.CharField(
+        max_length=10,
+        choices=PAYMENT_STATUS_CHOICES,
+        default=PAYMENT_STATUS_PENDING,
+        help_text="Status of the payment."
+    )
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        help_text="Any additional notes about the payment."
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-payment_date']
+        verbose_name = 'Payment Log'
+        verbose_name_plural = 'Payment Logs'
+
+    def __str__(self):
+        return f"Payment of {self.amount} by {self.broker.full_name} on {self.payment_date.strftime('%Y-%m-%d')}"
