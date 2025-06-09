@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,22 +7,22 @@
      <title>Semsar</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/aos.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
-    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
-    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
+    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
     <style>
       .social-links-mobile-menu ul {
   list-style: none;
@@ -101,23 +102,17 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="home-user.html"><img src="assets/img/logo/logo1.png" alt=""></a>
+                <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home</a></li>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property.html">Property <i class="fa-solid fa-angle-down"></i></a>
-                    <ul class="dropdown-padding">
-                      <li><a href="property-location.html">Apartment</a></li>
-                      <li><a href="property-sell-rent.html">Villas</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="Brokers.html">Brokers</a></li>
-                
+                  <li><a href="{% url 'home_user' %}">Home</a></li>
+                  <li><a href="{% url 'user:about' %}">About</a></li>
+                  <li><a href="">Property</a></li>
+                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
               </div>
               <div class="btn-area">
-                <a href="property.html" class="header-btn2">Search Our Property <i class="fa-solid fa-angle-right"></i></a>
+                <a href="" class="header-btn2">Search Our Property <i class="fa-solid fa-angle-right"></i></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -125,7 +120,7 @@
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
+                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     </form>
                 </div>
             </div>
@@ -144,7 +139,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="home-user.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+          <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -157,7 +152,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="home-user.html"><img src="assets/img/logo/logo1.png" alt=""></a>
+        <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -165,18 +160,12 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html" >Home </a>
-       
-          </li>
-        
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property.html">Property</a>
-        <ul class="sub-menu">
-          <li><a href="property-location.html">Apartment</a></li>
-          <li><a href="property-sell-rent.html">Villas </a></li>
-        </ul>
-      </li>
-      
+      <li><a href="{% url 'home_user' %}" >Home </a></li>
+      <li><a href="{% url 'user:about' %}">About</a></li>
+      <li><a href="{% url 'home' %}">Property</a></li>
+      <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+    </ul>
+  </div>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -186,7 +175,7 @@
               <span><i class="fa-solid fa-phone-volume"></i></span>
             </div>
             <div class="contact-info-text">
-              <a href="tel:+3(924)4596512">+0201020017477</a>
+              <a href="tel:0123456789">+0123456789</a>
             </div>
           </div>
           
@@ -197,7 +186,7 @@
                 <span><i class="fa-solid fa-location-dot"></i></span>
               </div>
               <div class="contact-info-text">
-                <a href="mailto:info@example.com" >57th Street, Al-Bashaer District<br> 6th october, Giza </a>
+                <a href="mailto:info@example.com" > 82 Beside Banque Misr, Maadi <br> Cairo, Egypt </a>
               </div>
             </div>
           </div>
@@ -222,26 +211,26 @@
 <!--===== HERO AREA STARTS =======-->
 <div class="home-slider-area owl-carousel">
   <div class="hero2-section-area">
-    <div class="image" ><img src="./home1.jpg" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
-    <img src="assets/img/elements/header-bg1.png" alt="" class="header-bg1">
+    <div class="image" ><img src="{% static 'assets/img/all-images/home1.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
+    <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
       <div class="container">
           <div class="row align-items-center">
               <div class="col-lg-5">
                   <div class="hero-header heading3">
-                      <h5><img src="assets/img/icons/logo-icon1.svg" alt="">REAL ESTATE AGENCY</h5>
+                      <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h1>Find Your Dream Home Today!</h1>
                       <div class="space20"></div>
                       <p>Browse our exclusive Properties and find the perfect property that suits your our needs and circumstances. Your ideal home just click away.</p>
                       <div class="space32"></div>
                       <div class="btn-area1">
-                          <a href="property.html" class="header-btn2">Explore Our Properties <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'home' %}" class="header-btn2">Explore Our Properties <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>01/03</span>
                   </div>
               </div>
               <div class="col-lg-4">
                 <div class="images" style="height: 400px; width: 445px;">
-                  <img src="./home7.jpg" alt="">
+                  <img src="{% static 'assets/img/all-images/home7.jpg' %}" alt="">
                 </div>
               </div>
           </div>
@@ -249,26 +238,26 @@
   </div>
 
   <div class="hero2-section-area">
-    <div><img src="./home2.jpg" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
-    <img src="assets/img/elements/header-bg1.png" alt="" class="header-bg1">
+    <div><img src="{% static 'assets/img/all-images/home2.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
+    <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
       <div class="container">
           <div class="row align-items-center">
               <div class="col-lg-5">
                   <div class="hero-header heading3">
-                      <h5 class="text-anim"><img src="assets/img/icons/logo-icon1.svg" alt="">REAL ESTATE AGENCY</h5>
+                      <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h1 class="text-anim">Your Home In Your Pocket!</h1>
                       <div class="space20"></div>
                       <p class="text-anim">Get help from the most experienced brokers to find the perfect property that suits your lifestyle and budget. Your dream home just click away.</p>
                       <div class="space32"></div>
                       <div class="btn-area1 text-anim">
-                          <a href="property-listing.html" class="header-btn2">Request a Broker <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'user:brokers' %}" class="header-btn2">Request a Broker <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>02/03</span>
                   </div>
               </div>
               <div class="col-lg-5">
                 <div class="images">
-                  <img src="./home.jpg" alt="" style="height: 400px; width: 600px;">
+                  <img src="{% static 'assets/img/all-images/home.jpg' %}" alt="" style="height: 400px; width: 600px;">
                 </div>
               </div>
           </div>
@@ -290,10 +279,10 @@
             <div class="col-lg-6">
                 <div class="about3-images-area">
                     <div class="img1 reveal">
-                        <img src="./ab2.jpg" alt="" style="height: 500px; width: 481px;">
+                        <img src="{% static 'assets/img/all-images/ab2.jpg' %}" alt="" style="height: 500px; width: 481px;">
                     </div>
                     <div class="img2 reveal">
-                        <img src="./ab.jpg" alt=""style="height: 400px; width: 350px;">
+                        <img src="{% static 'assets/img/all-images/ab.jpg' %}" alt=""style="height: 400px; width: 350px;">
                     </div>
                    
                 </div>
@@ -301,7 +290,7 @@
 
             <div class="col-lg-6">
                 <div class="about-content-area heading6">
-          <h5 class="text-anim" style="color: #164D59;"><img src="assets/img/icons/logo-icon1.svg" alt="">About Real Estate Agency</h5>
+          <h5 class="text-anim" style="color: #164D59;"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">About Real Estate Agency</h5>
                     <h2 class="text-anime-style-3">Discover Our Commitment To Excellence And Integrity</h2>
                     <div class="space24"></div>
                     <p class="text-anim">Welcome to Semsar, where we transform real estate dreams into reality. With passion for excellence, our team of dedicated professionals is committed to providing exceptional service and expert guidance.</p>
@@ -309,263 +298,25 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="about-user.html" class="header-btn3" >Discover More <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                        <a href="{% url 'user:about' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
+<div class="space24"></div>
 </div>
 <!--===== ABOUT AREA ENDS =======-->
-
-<!--===== FEATURES AREA STARTS =======-->
-
-<!--===== FEATURES AREA ENDS =======-->
-
-<!--===== SERVICE AREA STARTS =======-->
-
-<!--===== SERVICE AREA ENDS =======-->
-
-<!--===== PROPERTIES AREA STARTS =======-->
-<div class="properties2-section-area sp2">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-5 m-auto">
-        <div class="property-header text-center heading2">
-          <h5 class="text-anim"><img src="assets/img/icons/logo-icon1.svg" alt="">OUR LISTING</h5>
-          <h2 class="text-anim">Explore Our Latest Properties</h2>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-lg-12">
-        <ul class="nav nav-pills" role="tablist">
-          <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-home1-tab" data-bs-toggle="pill" data-bs-target="#pills-all" type="button" role="tab" aria-controls="pills-all" aria-selected="true">View All</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-apartment-tab" data-bs-toggle="pill" data-bs-target="#pills-apartment" type="button" role="tab" aria-controls="pills-apartment" aria-selected="false">Apartment</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-villa-tab" data-bs-toggle="pill" data-bs-target="#pills-villa" type="button" role="tab" aria-controls="pills-villa" aria-selected="false">villa</button>
-          </li>
-
-        </ul>
-
-
-        <div class="tab-content"  data-aos="fade-up" data-aos-duration="1000" >
-          <div class="tab-pane fade show active" id="pills-all" role="tabpanel" aria-labelledby="pills-home1-tab" tabindex="0">
-            <div class="row">
-              <div class="col-lg-4 col-md-6 ">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="apart.jpg" alt="">
-                  </div>
-                  <div class="sell-point">
-                    <a href="#" class="sell">FOR RENT</a>
-                  </div>
-                  <div class="content-area" >
-                    <a href="#">Finished Apartment In Makram Ebeid,Nasr City  </a>
-                    <p>Makram Ebeid St., 6th Zone, Nasr City, Cairo</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">250 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
-                    </ul>
-                    <div class="price-area mt-auto" >
-                      <h3>6,000 EGP/month</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2" style="width: 90px;">RENT <i class="fa-solid fa-angle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="./حدائق.png" alt="" style="height:89% ; width:100% ;">
-                  </div>
-                  <div class="sell-point">
-                    <a href="property-single.html" class="sell">FOR SALE</a>
-                  </div>
-                  <div class="content-area">
-                    <a href="property-single.html">Unfinished Apartment In Hadayeq El Qubba,cairo </a>
-                    <p>Hadayeq El Qubba, Al Mahrousa St.</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">150 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">2 Baths</a></li>
-                    </ul>
-                    <div class="price-area">
-                      <h3>400,000 EGP</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2">BUY <i class="fa-solid fa-angle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="./luxury-villas-6-october-003.jpg" alt="">
-                  </div>
-                  <div class="sell-point">
-                    <a href="property-single.html" class="sell">FOR SALE</a>
-                  </div>
-                  <div class="content-area">
-                    <a href="property-single.html">Semi-Finished Villa Sheikh Zayed City, Giza</a>
-                    <p>Royal City, Sheikh Zayed City, Giza</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">400 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">4 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
-                    </ul>
-                    <div class="price-area">
-                      <h3>18,000,000 EGP</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2">BUY <i class="fa-solid fa-angle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-           <div class="tab-pane fade" id="pills-apartment" role="tabpanel" aria-labelledby="pills-apartment-tab" tabindex="0">
-            <div class="row">
-              <div class="col-lg-4 col-md-6 ">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="apart.jpg" alt="">
-                  </div>
-                  <div class="sell-point">
-                    <a href="property-single.html" class="sell">FOR RENT</a>
-                  </div>
-                  <div class="content-area" >
-                    <a href="property-single.html">Finished Apartment In Makram Ebeid,Nasr City  </a>
-                    <p>Makram Ebeid St., 6th Zone, Nasr City, Cairo</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">250 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
-                    </ul>
-                    <div class="price-area mt-auto" >
-                      <h3>6,000 EGP/month</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2" style="width: 90px;">RENT <i class="fa-solid fa-angle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-lg-4 col-md-6">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="./حدائق.png" alt="" style="height:89% ; width:100% ;">
-                  </div>
-                  <div class="sell-point">
-                    <a href="property-single.html" class="sell">FOR SALE</a>
-                  </div>
-                  <div class="content-area">
-                    <a href="property-single.html">Unfinished Apartment In Hadayeq El Qubba,cairo </a>
-                    <p>Hadayeq El Qubba, Al Mahrousa St.</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">150 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">2 Baths</a></li>
-                    </ul>
-                    <div class="price-area">
-                      <h3>400,000 EGP</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2">BUY <i class="fa-solid fa-angle-right"></i></a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </div>
-          <div class="tab-pane fade" id="pills-villa" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
-            
-               
-              <div class="col-lg-4 col-md-6 ">
-                <div class="property-boxarea">
-                  <div class="img1">
-                    <img src="./luxury-villas-6-october-003.jpg" alt="">
-                  </div>
-                  <div class="sell-point">
-                    <a href="property-single.html" class="sell">FOR SALE</a>
-                  </div>
-                  <div class="content-area">
-                    <a href="property-single.html">Semi-Finished Villa Sheikh Zayed City, Giza</a>
-                    <p>Royal City, Sheikh Zayed City, Giza</p>
-                    <ul>
-                      <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">400 sqm</a></li>
-                      <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">4 Beds</a></li>
-                      <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
-                    </ul>
-                    <div class="price-area">
-                      <h3>18,000,000 EGP</h3>
-                      <div class="btn-area1">
-                        <a href="detail.html" class="header-btn2">BUY <i class="fa-solid fa-angle-right"></i></a>
- 
-                      </div>
-                      
-                    </div>
-                    
-                  </div>
-                  
-                </div>
-                                       <br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-              </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-            </div>
-          </div>
-          
-  
-             
-
-          
-<!--===== PROPERTIES AREA ENDS =======-->
-
-<!--===== LOCATION AREA STARTS =======-->
-
-<!--===== LOCATION AREA ENDS =======-->
-
-<!--===== TESTIMONIAL AREA STARTS =======-->
-
-<!--===== TESTIMONIAL AREA ENDS =======-->
-
-<!--===== OTHERS AREA STARTS =======-->
-
-<!--===== OTHERS AREA ENDS =======-->
-
-<!--===== BLOG AREA STARTS =======-->
-
-<!--===== BLOG AREA ENDS =======-->
-
-<!--===== CTA AREA STARTS =======-->
-
-<!--===== CTA AREA ENDS =======-->
 
 <!--===== FOOTER AREA STARTS =======-->
 
@@ -574,7 +325,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="assets/img/logo/logo2.png" alt="">
+          <img src="{% static 'assets/img/logo/logo2.png' %}" alt="">
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
@@ -593,16 +344,13 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-user.html">Home</a></li>
-            <li><a href="about-user.html">About Us</a></li>
-            <li><a href="property.html">Properties</a></li>
-            <li><a href="Brokers.html">Brokers</a></li>
+            <li><a href="{% url 'home_user' %}">Home</a></li>
+            <li><a href="{% url 'user:about' %}">About Us</a></li>
+            <li><a href="{% url 'home' %}">Properties</a></li>
+            <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
           </ul>
         </div>
       </div>
-
-     
-
       <div class="col-lg col-md-6">
         <div class="footer-header">
            <h3>   Info   </h3>
@@ -631,22 +379,22 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/fontawesome.js"></script>
-<script src="assets/js/plugins/aos.js"></script>
-<script src="assets/js/plugins/counter.js"></script>
-<script src="assets/js/plugins/sidebar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/mobilemenu.js"></script>
-<script src="assets/js/plugins/owlcarousel.min.js"></script>
-<script src="assets/js/plugins/nice-select.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/slick-slider.js"></script>
-<script src="assets/js/plugins/circle-progress.js"></script>
-<script src="assets/js/plugins/gsap.min.js"></script>
-<script src="assets/js/plugins/ScrollTrigger.min.js"></script>
-<script src="assets/js/plugins/Splitetext.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
+<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
+<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
+<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
+<script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
+<script src="{% static 'assets/js/plugins/owlcarousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
+<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
+<script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
+<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
+<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
 
 </body>
 </html>

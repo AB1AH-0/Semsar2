@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, reverse_lazy
 from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
 from django.views.generic import TemplateView
@@ -31,18 +31,29 @@ urlpatterns = [
     # login API endpoint
     path('api/login/', login_user, name='api_login'),
 
-    # front-end
-    path('', TemplateView.as_view(template_name='home.html'),       name='home'),
-    path('about/',  TemplateView.as_view(template_name='about.html'), name='about'),
-    path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
-    path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
-    path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
+    # front-end - root level
+    path('', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
+    path('register/', TemplateView.as_view(template_name='reg1.html'), name='register'),
+    
+    # user-specific URLs
+    path('user/', include(([
+        path('about/', TemplateView.as_view(template_name='User/about-user.html'), name='about'),
+        path('brokers/', TemplateView.as_view(template_name='User/brokers.html'), name='brokers'),
+        # Add other user-specific URLs here
+    ], 'user'))),
     path('payment/', payment_page, name='payment'),
     path('process_payment/', process_payment, name='process_payment'),
+
+    # User/Broker specific home pages
+    path('broker/home/', TemplateView.as_view(template_name='Broker/home-broker.html'), name='home_broker'),
+    path('user/home/', TemplateView.as_view(template_name='User/home-user.html'), name='home_user'),
 ]
 
 # Serve static files during development when DEBUG is True
 if settings.DEBUG:
-    # This uses the STATICFILES_DIRS setting from your settings.py
-    # and serves files from the STATIC_URL path.
-    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT)
+    from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    # Serve static files from STATICFILES_DIRS
+    urlpatterns += staticfiles_urlpatterns()
+    # Also serve media files if needed
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -25,6 +25,9 @@
     <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 
     <style>
+      .inner-section-area {
+        --about-inner-bg-image: url('{% static "assets/img/all-images/img.jpg" %}');
+      }
       .social-links-mobile-menu ul {
   list-style: none;
   padding: 0;
@@ -199,7 +202,7 @@
 
 <!--===== HERO AREA STARTS =======-->
 
-<div class="inner-section-area" style="background-image: linear-gradient(rgb(0, 0, 0), rgba(4, 10, 30, 0.201)), url('assets/img/all-images/img.jpg'); background-size: cover; background-position: center center; min-height: 300px;">
+<div class="inner-section-area" style="background-image: linear-gradient(rgb(0, 0, 0), rgba(4, 10, 30, 0.201)), var(--about-inner-bg-image); background-size: cover; background-position: center center; min-height: 300px;">
   
     <div class="container">
         <div class="row">
