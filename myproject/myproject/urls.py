@@ -47,6 +47,12 @@ urlpatterns = [
     # User/Broker specific home pages
     path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home_broker'),
     path('home-user/', TemplateView.as_view(template_name='home-user.html'), name='home_user'),
+
+    # Additional template views
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about_general'),
+    path('about-broker/', TemplateView.as_view(template_name='about-broker.html'), name='about_broker'),
+    path('customers/', TemplateView.as_view(template_name='customers.html'), name='customers'),
+    path('property-broker/', TemplateView.as_view(template_name='property-broker.html'), name='property_broker'),
 ]
 
 # Serve static files during development when DEBUG is True

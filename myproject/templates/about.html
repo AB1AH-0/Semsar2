@@ -402,7 +402,7 @@
                   <div class="space16"></div>
                   <p>Finding the perfect rental property can be challenging, but with Semsar, it’s a breeze. Whether you’re looking for a short-term lease or a long-term rental, we have a diverse selection of properties to meet with Our experienced agents .</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="{% url 'login' %}" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -489,8 +489,8 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4">
         <div class="cta-btn-area">
-          <a href="login.html" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
-          <a href="login.html" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+          <a href="{% url 'login' %}" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+          <a href="{% url 'login' %}" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
         </div>
       </div>
     </div>
@@ -523,9 +523,9 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
             
 
           </ul>
