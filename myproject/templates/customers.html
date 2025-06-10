@@ -233,15 +233,17 @@
                     <td>
                         {% if not inquiry.broker_post %}
                             <button class="btn btn-success btn-sm me-2 accept-btn" data-inquiry-id="{{ inquiry.id }}">
-                                <i class="fa fa-check"></i> Accept
+                              <i class="fa-solid fa-circle-check me-1"></i> Accept
                             </button>
                             <button class="btn btn-danger btn-sm reject-btn" data-inquiry-id="{{ inquiry.id }}">
-                                <i class="fa fa-times"></i> Reject
+                              <i class="fa-solid fa-circle-xmark me-1"></i> Reject
                             </button>
                         {% else %}
-                            <span class="text-muted">
-                                <i class="fa fa-check-circle text-success"></i> Completed
-                            </span>
+                            <span class="badge bg-success">Accepted</span><br>
+                            <small class="text-muted">
+                                Broker: {{ inquiry.broker_post.broker_name }}<br>
+                                Commission: {{ inquiry.broker_post.commission }}%
+                            </small>
                         {% endif %}
                     </td>
                 </tr>
