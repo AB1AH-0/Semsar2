@@ -7,22 +7,22 @@
      <title>Our Properties </title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/aos.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
-    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
-    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
+    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 
     <style>
       .social-links-mobile-menu ul {
@@ -103,23 +103,18 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="./index2.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+                <a href="{% url 'home-user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home </a>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property-user.html">Property <i class="fa-solid fa-angle-down"></i></a>
-                    <ul class="dropdown-padding">
-                      <li><a href="property-user.html">Apartment</a></li>
-                      <li><a href="property-location.html">villas</a></li>
-                    </ul>
-                  </li>
-                  <li><a href="brokers.html">Brokers</a></li>
+                  <li><a href="{% url 'home-user' %}">Home </a></li>
+                  <li><a href="{% url 'about-user' %}">About</a></li>
+                  <li><a href="{% url 'property-user' %}">Property</a></li>
+                  <li><a href="{% url 'brokers' %}">Brokers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="property-user.html" class="header-btn1">Search Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                <a href="{% url 'property-user' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -127,7 +122,7 @@
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
+                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     </form>
                 </div>
             </div>
@@ -147,7 +142,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="index.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+          <a href="{% url 'home-user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -160,7 +155,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="index.html"><img src="assets/img/logo/logo1.png" alt=""></a>
+        <a href="{% url 'home-user' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -168,18 +163,10 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html" >Home </a>
-       
-          </li>
-        
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property-user.html">Property</a>
-        <ul class="sub-menu">
-          <li><a href="property-location.html">Apartment</a></li>
-          <li><a href="property-sell-rent.html">Villas </a></li>
-        </ul>
-      </li>
-      <li><a href="brokers.html">Brokers</a></li>
+      <li><a href="{% url 'home-user' %}" >Home </a></li>
+      <li><a href="{% url 'about-user' %}">About</a></li>
+      <li><a href="{% url 'property-user' %}">Property</a></li>
+      <li><a href="{% url 'brokers' %}">Brokers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
@@ -230,7 +217,7 @@
       <div class="row">
         <div class="col-lg-4 m-auto">
           <div class="property-header text-center heading6">
-            <h5 class="text-anim"><img src="assets/img/icons/logo-icon2.svg" alt="">Properties</h5>
+            <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon2.svg' %}" alt="">Properties</h5>
             <h2 class="text-anime-style-3">Our Properties</h2>
           </div>
         </div>
@@ -240,63 +227,63 @@
           <div class="property-slider-area owl-carousel">
             <div class="property-boxarea">
               <div class="img1 image-anime reveal">
-                <img src="./prime-residence-new-cairo.jpg" alt=""  style="height: 430px;">
+                <img src="{% static 'assets/img/prime-residence-new-cairo.jpg' %}" alt=""  style="height: 430px;">
               </div>
   
               <div class="content-area">
                 <h2>3,000 EGP / Month</h2>
                 <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">170 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">2 Baths</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/sqft.svg' %}" alt="">170 sqm</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/bed.svg' %}" alt="">3 Beds</a></li>
+                  <li class="m-0"><a href="#"><img src="{% static 'assets/img/icons/bath.svg' %}" alt="">2 Baths</a></li>
                 </ul>
                 <p>Apartment in Al Lebeny Axis, El Mariouteya, Faisal</p>
                 <div class="space16"></div>
                 <p> Located in Al Lebeny Axis, El Mariouteya, Faisal, Hay El Haram, Giza</p>
                 <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Rent Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
+                  <a href="" class="header-btn1">Rent Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
                 </div>
               </div>
             </div>
   
             <div class="property-boxarea">
               <div class="img1 image-anime reveal">
-                <img src="New-giza-compound.jpg" alt="" style="height: 430px;">
+                <img src="{% static 'assets/img/New-giza-compound.jpg' %}" alt="" style="height: 430px;">
               </div>
   
               <div class="content-area">
                 <h2>8,000,000 EGP</h2>
                 <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">390 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">5 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">4 Baths</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/sqft.svg' %}" alt="">390 sqm</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/bed.svg' %}" alt="">5 Beds</a></li>
+                  <li class="m-0"><a href="#"><img src="{% static 'assets/img/icons/bath.svg' %}" alt="">4 Baths</a></li>
                 </ul>
                 <p>Luxury Independent Villa in Al Yasmine Compound, Sheikh Zayed</p>
                 <div class="space16"></div>
                 <p>Al Yasmine, Sheikh Zayed, Giza</p>
                 <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Buy Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
+                  <a href="" class="header-btn1">Buy Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
                 </div>
               </div>
             </div>
   
             <div class="property-boxarea">
               <div class="img1 image-anime reveal">
-                <img src="./home3.jpg" alt=""  style="height: 430px;" >
+                <img src="{% static 'assets/img/home3.jpg' %}" alt=""  style="height: 430px;" >
               </div>
   
               <div class="content-area">
                 <h2>35,000 EGP / Month</h2>
                 <ul>
-                  <li><a href="#"><img src="assets/img/icons/sqft.svg" alt="">210 sqm</a></li>
-                  <li><a href="#"><img src="assets/img/icons/bed.svg" alt="">3 Beds</a></li>
-                  <li class="m-0"><a href="#"><img src="assets/img/icons/bath.svg" alt="">3 Baths</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/sqft.svg' %}" alt="">210 sqm</a></li>
+                  <li><a href="#"><img src="{% static 'assets/img/icons/bed.svg' %}" alt="">3 Beds</a></li>
+                  <li class="m-0"><a href="#"><img src="{% static 'assets/img/icons/bath.svg' %}" alt="">3 Baths</a></li>
                 </ul>
                 <p> Furnished Apartment in Lake View Residence, New Cairo</p>
                 <div class="space16"></div>
                 <p>Lake View Residence, 5th Settlement, New Cairo City</p>
                 <div class="btn-area1">
-                  <a href="detail.html" class="header-btn1">Rent Now <img src="assets/img/icons/arrow-img5.svg" alt=""></a>
+                  <a href="" class="header-btn1">Rent Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
                 </div>
               </div>
             </div>
@@ -695,8 +682,8 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4">
         <div class="cta-btn-area">
-          <a href="contact.html" class="header-btn1">Request a Broker<img src="assets/img/icons/arrow1.svg" alt=""></a>
-          <a href="#" class="header-btn1 btn1">Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+          <a href="{% url 'brokers' %}" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+          <a href="{% url 'property-user' %}" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
         </div>
       </div>
     </div>
@@ -710,7 +697,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="assets/img/logo/logo1.png" alt="">
+          <img src="{% static 'assets/img/logo/logo1.png' %}" alt="">
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
@@ -729,10 +716,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="./index2.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="property.html">Properties</a></li>
-            <li><a href="Brokers.html">Brokers</a></li>
+            <li><a href="{% url 'home-user' %}">Home</a></li>
+            <li><a href="{% url 'about-user' %}">About Us</a></li>
+            <li><a href="{% url 'property-user' %}">Properties</a></li>
+            <li><a href="{% url 'brokers' %}">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -742,8 +729,8 @@
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
-            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
+            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
             
           </ul>
         </div>
@@ -766,22 +753,22 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/fontawesome.js"></script>
-<script src="assets/js/plugins/aos.js"></script>
-<script src="assets/js/plugins/counter.js"></script>
-<script src="assets/js/plugins/sidebar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/mobilemenu.js"></script>
-<script src="assets/js/plugins/owlcarousel.min.js"></script>
-<script src="assets/js/plugins/nice-select.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/slick-slider.js"></script>
-<script src="assets/js/plugins/circle-progress.js"></script>
-<script src="assets/js/plugins/gsap.min.js"></script>
-<script src="assets/js/plugins/ScrollTrigger.min.js"></script>
-<script src="assets/js/plugins/Splitetext.js"></script>
-<script src="assets/js/main.js"></script>
+<script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
+<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
+<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
+<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
+<script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
+<script src="{% static 'assets/js/plugins/owlcarousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
+<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
+<script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
+<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
+<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const areas = {

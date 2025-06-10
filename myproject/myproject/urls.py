@@ -36,7 +36,19 @@ urlpatterns = [
     path('about/',  TemplateView.as_view(template_name='about.html'), name='about'),
     path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
     path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
+    
+    
+    # User-specific pages
+    path('home-user/', TemplateView.as_view(template_name='home-user.html'), name='home-user'),
+    path('about-user/', TemplateView.as_view(template_name='about-user.html'), name='about-user'),
+    path('property-user/', TemplateView.as_view(template_name='property-user.html'), name='property-user'),
     path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
+    
+    # Broker-specific pages
+    path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
+    path('about-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
+    path('add-property/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
+    path('customer/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
     path('payment/', payment_page, name='payment'),
     path('process_payment/', process_payment, name='process_payment'),
 ]
