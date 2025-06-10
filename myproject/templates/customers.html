@@ -222,21 +222,13 @@
                             {{ inquiry.get_transaction_type_display }}
                         </span>
                     </td>
-                    <td>{{ inquiry.city|default:"N/A" }}</td>
-                    <td>{{ inquiry.area|default:"N/A" }}</td>
-                    <td>{{ inquiry.property_type|default:"N/A" }}</td>
-                    <td>{{ inquiry.bedrooms|default:"N/A" }}</td>
-                    <td>{{ inquiry.bathrooms|default:"N/A" }}</td>
+                    <td>{{ inquiry.city }}</td>
+                    <td>{{ inquiry.area }}</td>
+                    <td>{{ inquiry.property_type }}</td>
+                    <td>{{ inquiry.bedrooms }}</td>
+                    <td>{{ inquiry.bathrooms }}</td>
                     <td>
-                        {% if inquiry.min_price and inquiry.max_price %}
-                            {{ inquiry.min_price|floatformat:0 }} - {{ inquiry.max_price|floatformat:0 }} EGP
-                        {% elif inquiry.min_price %}
-                            From {{ inquiry.min_price|floatformat:0 }} EGP
-                        {% elif inquiry.max_price %}
-                            Up to {{ inquiry.max_price|floatformat:0 }} EGP
-                        {% else %}
-                            N/A
-                        {% endif %}
+                        {{ inquiry.min_price|floatformat:0 }} - {{ inquiry.max_price|floatformat:0 }} EGP
                     </td>
                     <td>
                         {% if not inquiry.broker_post %}
