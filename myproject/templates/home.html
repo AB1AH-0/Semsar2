@@ -4,10 +4,9 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Real Estate - Broker</title>
+     <title>Semsar</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
     <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
@@ -21,19 +20,8 @@
     <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
     <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
     <style>
       .social-links-mobile-menu ul {
@@ -114,8 +102,7 @@
           <div class="col-lg-12">
             <div class="header-elements" style="display: flex;align-items: center;justify-content: center; position: relative;transition: all 0.4s;border-radius: 42px;padding: 0 20px;">
               <div class="site-logo" style=" flex: 1;text-align: left;">
-                <a href=""><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
-                <a href=""><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+                <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
               </div>
               <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
                 <ul>
@@ -130,7 +117,6 @@
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     </form>
                 </div>
@@ -150,8 +136,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href=""><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
-          <a href=""><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -164,8 +149,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href=""><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
-        <a href=""><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+        <a href="{% url 'home' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -225,13 +209,10 @@
   <div class="hero2-section-area">
     <div class="image" ><img src="{% static 'assets/img/all-images/home1.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
     <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
-    <div class="image" ><img src="{% static 'assets/img/all-images/home1.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
-    <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
       <div class="container">
           <div class="row align-items-center">
               <div class="col-lg-5">
                   <div class="hero-header heading3">
-                      <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h5><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h1>Find Your Dream Home Today!</h1>
                       <div class="space20"></div>
@@ -246,7 +227,6 @@
               <div class="col-lg-4">
                 <div class="images" style="height: 400px; width: 445px;">
                   <img src="{% static 'assets/img/all-images/home7.jpg' %}" alt="">
-                  <img src="{% static 'assets/img/all-images/home7.jpg' %}" alt="">
                 </div>
               </div>
           </div>
@@ -256,13 +236,10 @@
   <div class="hero2-section-area">
     <div><img src="{% static 'assets/img/all-images/home2.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
     <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
-    <div><img src="{% static 'assets/img/all-images/home2.jpg' %}" alt="" class="header-img2" style="height: 700px; width: 605px;"></div>
-    <img src="{% static 'assets/img/elements/header-bg1.png' %}" alt="" class="header-bg1">
       <div class="container">
           <div class="row align-items-center">
               <div class="col-lg-5">
                   <div class="hero-header heading3">
-                      <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">REAL ESTATE AGENCY</h5>
                       <h1 class="text-anim">Your Home In Your Pocket!</h1>
                       <div class="space20"></div>
@@ -272,12 +249,10 @@
                           <a href="login.html" class="header-btn2">Request a Broker <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span aria-label="Slide 2 of 3">02/03</span>
-                      <span aria-label="Slide 2 of 3">02/03</span>
                   </div>
               </div>
               <div class="col-lg-5">
                 <div class="images">
-                  <img src="{% static 'assets/img/all-images/home.jpg' %}" alt="" style="height: 400px; width: 600px;">
                   <img src="{% static 'assets/img/all-images/home.jpg' %}" alt="" style="height: 400px; width: 600px;">
                 </div>
               </div>
@@ -285,12 +260,7 @@
       </div>
   </div>
 
-  
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+
 <!--===== HERO AREA ENDS =======-->
 
 <!--===== ABOUT AREA STARTS =======-->
@@ -301,10 +271,8 @@
                 <div class="about3-images-area">
                     <div class="img1 reveal">
                         <img src="{% static 'assets/img/all-images/ab2.jpg' %}" alt="" style="height: 500px; width: 481px;">
-                        <img src="{% static 'assets/img/all-images/ab2.jpg' %}" alt="" style="height: 500px; width: 481px;">
                     </div>
                     <div class="img2 reveal">
-                        <img src="{% static 'assets/img/all-images/ab.jpg' %}" alt=""style="height: 400px; width: 350px;">
                         <img src="{% static 'assets/img/all-images/ab.jpg' %}" alt=""style="height: 400px; width: 350px;">
                     </div>
                    
@@ -314,7 +282,6 @@
             <div class="col-lg-6">
                 <div class="about-content-area heading6">
           <h5 class="text-anim" style="color: #164D59;"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">About Real Estate Agency</h5>
-          <h5 class="text-anim" style="color: #164D59;"><img src="{% static 'assets/img/icons/logo-icon1.svg' %}" alt="">About Real Estate Agency</h5>
                     <h2 class="text-anime-style-3">Discover Our Commitment To Excellence And Integrity</h2>
                     <div class="space24"></div>
                     <p class="text-anim">Welcome to Semsar, where we transform real estate dreams into reality. With passion for excellence, our team of dedicated professionals is committed to providing exceptional service and expert guidance.</p>
@@ -322,8 +289,7 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="about.html" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
-                        <a href="about.html" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                        <a href="{% url 'about' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -332,27 +298,6 @@
 </div>
 <!--===== ABOUT AREA ENDS =======-->
 
-<!--===== SERVICE AREA ENDS =======-->
-
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-<div class="space24"></div>
-
 <!--===== FOOTER AREA STARTS =======-->
 
 <div class="footer2-section-area">
@@ -360,7 +305,6 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="{% static 'assets/img/logo/logo2.png' %}" alt="">
           <img src="{% static 'assets/img/logo/logo2.png' %}" alt="">
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
@@ -380,13 +324,9 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Login</a></li>
-            
-
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
           </ul>
         </div>
       </div>
@@ -398,10 +338,7 @@
            <h3>   Info   </h3>
           <ul>
             <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
-            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">57th Street, Al-Bashaer District.6th october</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:(925)683-1469">+0201020017477</a></li>
-            
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:+0201020017477">+0201020017477</a></li>
           </ul>
         </div>
       </div>
