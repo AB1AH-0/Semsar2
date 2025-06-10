@@ -1,0 +1,61 @@
+<!-- Broker Offers Section -->
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <h2 class="mb-4 text-center">Broker Offers for Your Requests</h2>
+            <div id="broker-offers-message-container"></div>
+            
+            <div class="table-responsive">
+                <table id="broker-offers-table" class="table table-bordered table-striped">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Request ID</th>
+                            <th>Transaction</th>
+                            <th>Location</th>
+                            <th>Property</th>
+                            <th>Your Budget</th>
+                            <th>Request Date</th>
+                            <th>Broker Offer</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="broker-offers-tbody">
+                        <!-- Loaded via JavaScript -->
+                    </tbody>
+                </table>
+                
+                <div id="no-broker-offers-message" class="text-center py-5" style="display: none;">
+                    <div class="alert alert-info">
+                        <i class="fa fa-handshake"></i>
+                        <h5>No Broker Offers Yet</h5>
+                        <p>When brokers respond to your requests, their offers will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customer Response Modal -->
+<div class="modal fade" id="customerResponseModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Respond to Broker Offer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div id="broker-offer-details"></div>
+                <div class="mt-3">
+                    <label for="customer-response-notes" class="form-label">Notes (Optional)</label>
+                    <textarea class="form-control" id="customer-response-notes" rows="3" placeholder="Comments for the broker..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-danger" id="reject-broker-offer">Reject</button>
+                <button type="button" class="btn btn-success" id="accept-broker-offer">Accept</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,11 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings # Add this import
-from django.conf.urls.static import static # Add this import
+from django.conf import settings 
+from django.conf.urls.static import static 
 from django.views.generic import TemplateView
 
-from inquiries.views import login_user, payment_page, process_payment, logout_user
+from inquiries.views import (
+    register_user, login_user, payment_page, process_payment, logout_user,
+    create_inquiry, customers_view, get_inquiries_api, accept_inquiry, reject_inquiry
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -49,9 +52,15 @@ urlpatterns = [
     path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
     path('about-broker/', TemplateView.as_view(template_name='about-broker.html'), name='about-broker'),
     path('add-property/', TemplateView.as_view(template_name='property-broker.html'), name='add-property'),
-    path('customer/', TemplateView.as_view(template_name='customers.html'), name='customer'),
+    path('customer/', customers_view, name='customer'),
     path('payment/', payment_page, name='payment'),
     path('process_payment/', process_payment, name='process_payment'),
+    
+    # API endpoints
+    path('api/inquiries/', create_inquiry, name='create_inquiry'),
+    path('api/inquiries/list/', get_inquiries_api, name='get_inquiries'),
+    path('api/inquiries/accept/', accept_inquiry, name='accept_inquiry'),
+    path('api/inquiries/reject/', reject_inquiry, name='reject_inquiry'),
 ]
 
 # Serve static files during development when DEBUG is True

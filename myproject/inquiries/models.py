@@ -259,3 +259,38 @@ class PaymentLog(models.Model):
 
     def __str__(self):
         return f"Payment of {self.amount} by {self.broker.full_name} on {self.payment_date.strftime('%Y-%m-%d')}"
+
+
+class BrokerPost(models.Model):
+    """
+    Stores broker posts when they accept inquiries with their details and commission.
+    """
+    inquiry = models.OneToOneField(
+        Inquiry, 
+        on_delete=models.CASCADE,
+        related_name='broker_post',
+        help_text="The inquiry that was accepted"
+    )
+    broker_name = models.CharField(
+        max_length=100,
+        help_text="Name of the broker who accepted the inquiry"
+    )
+    commission = models.DecimalField(
+        max_digits=5,
+        decimal_places=2,
+        help_text="Commission percentage (0.00 to 100.00)"
+    )
+    notes = models.TextField(
+        blank=True,
+        help_text="Additional notes from the broker"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Broker Post'
+        verbose_name_plural = 'Broker Posts'
+
+    def __str__(self):
+        return f"{self.broker_name} - {self.inquiry} ({self.commission}%)"
