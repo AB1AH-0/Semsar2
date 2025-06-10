@@ -1,27 +1,27 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Semsar</title>
+     <title>Brokers</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
+    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/aos.css">
+    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
+    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
+    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
+    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
+    <link rel="stylesheet" href="assets/css/main.css">
 
     <!--=====  JS SCRIPT LINK =======-->
+    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
 </head>
 <body class="homepage1-body">
 
@@ -81,25 +81,27 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="home-user.html"><img src="assets/img/logo/logo2.png" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="{% url 'home_user' %}">Home</a></li>
-                  <li><a href="{% url 'user:about' %}">About</a></li>
-                  <li><a href="{% url 'user:property' %}">Property</a></li>
-                  <li><a href="{% url 'user:brokers' %}">Brokers</a></li> 
+                  <li><a href="home-user.html">Home </a></li>
+                  <li><a href="about-user.html">About</a></li>
+                  <li><a href="property-user.html">Property</a></li>
+                  <li><a href="brokers.html">Brokers</a></li>
+
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="{% url 'user:property' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="property-user.html" class="header-btn1">Search Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
               </div>
+
               <div class="header-search-form-wrapper">
                 <div class="tx-search-close tx-close"><i class="fa-solid fa-xmark"></i></div>
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
+                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
                     </form>
                 </div>
             </div>
@@ -118,7 +120,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="{% url 'home_user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href=""><img src="assets/img/logo/logo2.png" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -131,7 +133,7 @@
 <div class="mobile-sidebar mobile-sidebar1">
   <div class="logosicon-area">
     <div class="logos">
-      <img src="{% static 'assets/img/logo/logo2.png' %}" alt="">
+      <img src="assets/img/logo/logo2.png" alt="">
     </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -139,10 +141,10 @@
    </div>
    <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="{% url 'home_user' %}">Home</a></li>
-      <li><a href="{% url 'user:about' %}">About</a></li>
-      <li><a href="{% url 'user:property' %}">Property</a></li>
-      <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+      <li><a href="home-user.html" >Home </a></li>
+      <li><a href="about-user.html">About</a></li>
+      <li><a href="property-user.html">Property</a></li>
+      <li><a href="brokers.html">Brokers</a></li>
     </ul>
   </div>
     <div class="allmobilesection">
@@ -200,7 +202,7 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="{% url 'home_user' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
+                    <a href="home-user.html">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
                     <div class="space20"></div>
                     <h2>Brokers</h2>
                 </div>
@@ -393,7 +395,7 @@
   <div class="space24"></div>
 
   <div class="btn-area1">
-    <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+    <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
   </div>
 </div>
 </div>
@@ -570,7 +572,7 @@
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="assets/img/icons/search2.svg" alt=""> Send To Brokers</button>
 </div>
 </div>
 <div id="inquiry-list" class="space24"></div>
@@ -602,7 +604,7 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="{% static 'assets/img/logo/logo1.png' %}" alt="">
+          <img src="assets/img/logo/logo1.png" alt="">
           <div class="space32"></div>
           <h4>Your dream property comes true</h4>
           <div class="space16"></div>
@@ -621,10 +623,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="{% url 'home_user' %}">Home</a></li>
-            <li><a href="{% url 'user:about' %}">About Us</a></li>
-            <li><a href="{% url 'user:property' %}">Properties</a></li>
-            <li><a href="{% url 'user:brokers' %}">Brokers</a></li>
+            <li><a href="home-user.html">Home</a></li>
+            <li><a href="about-user.html">About Us</a></li>
+            <li><a href="property-user.html">Properties</a></li>
+            <li><a href="brokers.html">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -632,8 +634,8 @@
         <div class="footer-header">
           <h3>   Info   </h3>
           <ul>
-            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
+            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
+            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:0123456789">+20123456789</a></li>
             
           </ul>
         </div>
@@ -647,34 +649,45 @@
           <div class="pera">
             <p>ⓒCopyright 2025 Semsar . All rights reserved</p>
           </div>
+          
         </div>
       </div>
     </div>
   </div>
 </div>
+
+
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
-<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
-<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
-<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
-<script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
-<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
-<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
-<script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
-<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
-<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
-<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
+<script src="assets/js/plugins/bootstrap.min.js"></script>
+<script src="assets/js/plugins/fontawesome.js"></script>
+<script src="assets/js/plugins/aos.js"></script>
+<script src="assets/js/plugins/counter.js"></script>
+<script src="assets/js/plugins/sidebar.js"></script>
+<script src="assets/js/plugins/magnific-popup.js"></script>
+<script src="assets/js/plugins/mobilemenu.js"></script>
+<script src="assets/js/plugins/owlcarousel.min.js"></script>
+<script src="assets/js/plugins/waypoints.js"></script>
+<script src="assets/js/plugins/slick-slider.js"></script>
+<script src="assets/js/plugins/circle-progress.js"></script>
+<script src="assets/js/plugins/gsap.min.js"></script>
+<script src="assets/js/plugins/ScrollTrigger.min.js"></script>
+<script src="assets/js/plugins/Splitetext.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="assets/js/plugins/nice-select.js"></script>
+
 
 <script>
   $(function () {
+    // Initialize nice-select for all select elements
     $('select.nice-select').niceSelect();
     
+    // Store all area options for each dropdown
     const allAreaOptions = {};
     
+    // Function to store original options
     function storeOriginalOptions(areaSelector) {
         const $area = $(areaSelector);
         allAreaOptions[areaSelector] = [];
@@ -713,7 +726,7 @@
                         value: option.value,
                         text: option.text,
                         disabled: option.disabled && !option.city, // Keep default option disabled
-                        selected: option.selected
+                        selected: false // Reset selection
                     });
                     
                     if (option.city) {
@@ -769,19 +782,8 @@ $(function(){
 
   $('.send-to-brokers').on('click', function(e){
     e.preventDefault();
-    const $button = $(this);
-    const $panel = $button.closest('.tab-pane');
-    const $tabContent = $panel.closest('.tab-content');
+    const $panel = $(this).closest('.tab-pane');
     const data = {};
-
-    // Determine transaction_type based on the active panel's ID
-    let transaction_type = '';
-    if ($panel.attr('id') === 'pills-home') {
-      transaction_type = 'rent';
-    } else if ($panel.attr('id') === 'pills-profile') {
-      transaction_type = 'sale';
-    }
-    data['transaction_type'] = transaction_type;
     $panel.find('input, select').each(function(){
       const $el = $(this);
       const name = $el.attr('name');
@@ -792,7 +794,7 @@ $(function(){
         data[name] = $el.val();
       }
     });
-    fetch('/inquiries/create/', {
+    fetch('/api/inquiries/', {
       method: 'POST',
       headers:{
         'Content-Type':'application/json',
@@ -801,17 +803,6 @@ $(function(){
       body: JSON.stringify(data)
     }).then(r => r.json()).then(function(resp){
       console.log('saved', resp);
-      // Empty the form panel's content
-      $panel.empty();
-      // Show a success message inside the panel
-      $panel.append('<div class="alert alert-success" role="alert" style="margin-top: 20px;">Your inquiry has been successfully submitted! Brokers will contact you soon.<br><br><button class="btn btn-primary" onclick="window.location.reload();">Make Another Inquiry</button></div>');
-      // Ensure the panel is visible if it was hidden by other logic (though unlikely here)
-      $panel.show();
-      // Optionally, remove the success message after a few seconds
-      // setTimeout(function() {
-      //     $tabContent.find('.alert-success').remove();
-      //     // Optionally, show the form again or redirect
-      // }, 5000);
     }).catch(function(err){
       console.error('error', err);
     });
