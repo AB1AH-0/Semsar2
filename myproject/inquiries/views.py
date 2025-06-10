@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import UserProfile, PaymentInfo
+from .models import UserProfile, PaymentInfo, Inquiry
 from django.utils import timezone
 
 @csrf_exempt
@@ -57,12 +57,10 @@ def register_user(request):
         user.save()
         
         messages.success(request, 'Registration successful!')
-        return redirect('login')  # Redirect to login page after registration
+        return redirect('/login')  # Redirect to login page after registration
 
     return render(request, 'reg1.html')
 
-
-from .models import Inquiry
 
 def new_page(request):
     return render(request, 'brokers.html')
@@ -121,7 +119,7 @@ def login_user(request):
         return JsonResponse({
             'success': True,
             'user_type': user.user_type,
-            'redirect_url': '/home-broker.html' if user.user_type == 'broker' else '/home-user.html'
+            'redirect_url': '/home-broker/' if user.user_type == 'broker' else '/home-user/'
         })
     else:
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
@@ -142,7 +140,7 @@ def process_payment(request):
         required_fields = [user_email, card_holder_name, card_number, exp_month, exp_year, cvv]
         if not all(required_fields):
             messages.error(request, 'All payment fields are required')
-            return redirect('payment')
+            return redirect('/payment')
         
         try:
             user = UserProfile.objects.get(email=user_email)
@@ -150,27 +148,40 @@ def process_payment(request):
             # For brokers: extend trial period after payment
             if user.user_type == user.USER_TYPE_BROKER:
                 user.has_paid = True
-                # Set new trial end date (1 year from now)
-                user.trial_end_date = timezone.now() + timezone.timedelta(days=365)
+                user.trial_end_date = timezone.now() + timezone.timedelta(days=365)  # 1 year access
                 user.save()
             
-            # Create payment info record with proper encryption
+            # Save payment information
             payment_info = PaymentInfo(
                 user=user,
                 card_holder_name=card_holder_name,
-                encrypted_card_number=PaymentInfo.encrypt_value(card_number),
-                encrypted_expiry_date=PaymentInfo.encrypt_value(f"{exp_month}/{exp_year}"),
-                encrypted_cvv=PaymentInfo.encrypt_value(cvv)
+                card_number=card_number[-4:],  # Only store last 4 digits
+                exp_month=exp_month,
+                exp_year=exp_year,
+                payment_date=timezone.now()
             )
             payment_info.save()
             
             messages.success(request, 'Payment successful! Your account has been activated.')
-            return redirect('home-broker.html')
+            return redirect('/home-broker')
         except UserProfile.DoesNotExist:
             messages.error(request, 'User not found')
         except Exception as e:
-            messages.error(request, f'Payment failed: {str(e)}')
+            messages.error(request, f'Payment processing failed: {str(e)}')
         
-        return redirect('payment')
+        return redirect('/payment')
     
-    return redirect('payment')
+    return redirect('/payment')
+
+def logout_user(request):
+    """
+    Logout view that clears session data and redirects to login page
+    """
+    # Clear any session data
+    request.session.flush()
+    
+    # Add a success message
+    messages.success(request, 'You have been successfully logged out.')
+    
+    # Redirect to login page
+    return redirect('/login')

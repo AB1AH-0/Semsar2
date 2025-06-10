@@ -1,27 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Semsar</title>
+     <title>Customer</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
-    <link rel="stylesheet" href="assets/css/plugins/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/aos.css">
-    <link rel="stylesheet" href="assets/css/plugins/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/plugins/magnific-popup.css">
-    <link rel="stylesheet" href="assets/css/plugins/mobile.css">
-    <link rel="stylesheet" href="assets/css/plugins/owlcarousel.min.css">
-    <link rel="stylesheet" href="assets/css/plugins/sidebar.css">
-    <link rel="stylesheet" href="assets/css/plugins/slick-slider.css">
-    <link rel="stylesheet" href="assets/css/plugins/nice-select.css">
-    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/mobile.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/owlcarousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/sidebar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/slick-slider.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="assets/js/plugins/jquery-3-6-0.min.js"></script>
+    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 </head>
 <body class="homepage1-body">
 
@@ -81,18 +82,19 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="./home-broker.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+                <a href="{% url 'home-broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="./home-broker.html">Home </a>
-                  <li><a href="about-broker.html">About</a></li>
-                  <li><a href="property.html">Property</a></li>
-                  <li><a href="Brokers.html">Brokers</a></li>
+                  <li><a href="{% url 'home-broker' %}">Home</a></li>
+                  <li><a href="{% url 'about-broker' %}">About</a></li>
+                  <li><a href="{% url 'add-property' %}">Property</a></li>
+                  <li><a href="{% url 'customer' %}">Customers</a></li>
                 </ul>
               </div>
+              
               <div class="btn-area">
-                <a href="property.html" class="header-btn1">Search Our Property <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                <a href="{% url 'logout' %}" class="header-btn1">Logout <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -100,7 +102,7 @@
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
+                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     </form>
                 </div>
             </div>
@@ -119,7 +121,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="./home-broker.html"><img src="assets/img/logo/logo2.png" alt=""></a>
+          <a href="{% url 'home-broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -132,7 +134,7 @@
 <div class="mobile-sidebar mobile-sidebar1">
   <div class="logosicon-area">
     <div class="logos">
-      <img src="assets/img/logo/logo2.png" alt="">
+      <img src="{% static 'assets/img/logo/logo2.png' %}" alt="">
     </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -140,10 +142,10 @@
    </div>
    <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="./home-broker.html" >Home </a></li>
-      <li><a href="property.html">Property Listing</a></li>
-      <li><a href="about-broker.html">About</a></li>
-      <li><a href="customers.html">Customers</a></li>
+      <li><a href="{% url 'home-broker' %}" >Home </a></li>
+      <li><a href="{% url 'about-broker' %}">About</a></li>
+      <li><a href="{% url 'add-property' %}">Property</a></li>
+      <li><a href="{% url 'customer' %}">Customers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
@@ -183,7 +185,7 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="./home-broker.html">Home <i class="fa-solid fa-angle-right"></i> <span>Customers </span></a>
+                    <a href="{% url 'home-broker' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Customers </span></a>
                     <div class="space20"></div>
                     <h2>Customers</h2>
                 </div>
@@ -263,14 +265,14 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="footer-logo-area">
-          <img src="assets/img/logo/logo1.png" alt="">
+          <img src="{% static 'assets/img/logo/logo1.png' %}" alt="">
           <div class="space32"></div>
           <h4>inquiries</h4>
           <div class="space16"></div>
           <p>Need to ask questions? Don't hesitate to contact us.</p>
           <form>
             <input type="text" placeholder="Enter Your Email">
-            <button type="submit" class="header-btn1">Send <img src="assets/img/icons/arrow1.svg" alt=""></button>
+            <button type="submit" class="header-btn1">Send <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></button>
           </form>
           <ul>
             <li><a href="#"><i class="fa-brands fa-facebook-f"></i></a></li>
@@ -285,9 +287,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="property.html">Listings</a></li>
-            <li><a href="about-broker.html">About Us</a></li>
-            <li><a href="customers.html">Customers</a></li>
+            <li><a href="{% url 'home-broker' %}">Home</a></li>
+            <li><a href="{% url 'add-property' %}">Property></li>
+            <li><a href="{% url 'about-broker' %}">About Us</a></li>
+            <li><a href="{% url 'customer' %}">Customers</a></li>
           </ul>
         </div>
       </div>
@@ -302,9 +305,9 @@
         <div class="footer-header">
           <h3>Contact Info</h3>
           <ul>
-            <li><span><img src="assets/img/icons/location1.svg" alt=""></span><a href="#">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
-            <li><span><img src="assets/img/icons/call1.svg" alt=""></span><a href="tel:0123456789">0123456789</a></li>
-            <li><span><img src="assets/img/icons/mail1.svg" alt=""></span><a href="mailto:social@semsar.com">social@semsar.com</a></li>
+            <li><span><img src="{% static 'assets/img/icons/location1.svg' %}" alt=""></span><a href="#">82 Beside Banque Misr, Maadi, Cairo, Egypt</a></li>
+            <li><span><img src="{% static 'assets/img/icons/call1.svg' %}" alt=""></span><a href="tel:0123456789">0123456789</a></li>
+            <li><span><img src="{% static 'assets/img/icons/mail1.svg' %}" alt=""></span><a href="mailto:social@semsar.com">social@semsar.com</a></li>
           </ul>
         </div>
       </div>
@@ -331,25 +334,23 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="assets/js/plugins/bootstrap.min.js"></script>
-<script src="assets/js/plugins/fontawesome.js"></script>
-<script src="assets/js/plugins/aos.js"></script>
-<script src="assets/js/plugins/counter.js"></script>
-<script src="assets/js/plugins/sidebar.js"></script>
-<script src="assets/js/plugins/magnific-popup.js"></script>
-<script src="assets/js/plugins/mobilemenu.js"></script>
-<script src="assets/js/plugins/owlcarousel.min.js"></script>
-<script src="assets/js/plugins/waypoints.js"></script>
-<script src="assets/js/plugins/slick-slider.js"></script>
-<script src="assets/js/plugins/circle-progress.js"></script>
-<script src="assets/js/plugins/gsap.min.js"></script>
-<script src="assets/js/plugins/ScrollTrigger.min.js"></script>
-<script src="assets/js/plugins/Splitetext.js"></script>
-<script src="assets/js/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="assets/js/plugins/nice-select.js"></script>
-
+<script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
+<script src="{% static 'assets/js/plugins/aos.js' %}"></script>
+<script src="{% static 'assets/js/plugins/counter.js' %}"></script>
+<script src="{% static 'assets/js/plugins/sidebar.js' %}"></script>
+<script src="{% static 'assets/js/plugins/magnific-popup.js' %}"></script>
+<script src="{% static 'assets/js/plugins/mobilemenu.js' %}"></script>
+<script src="{% static 'assets/js/plugins/owlcarousel.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/waypoints.js' %}"></script>
+<script src="{% static 'assets/js/plugins/slick-slider.js' %}"></script>
+<script src="{% static 'assets/js/plugins/circle-progress.js' %}"></script>
+<script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
+<script src="{% static 'assets/js/main.js' %}"></script>
+<script src="{% static 'https://code.jquery.com/jquery-3.7.1.min.js' %}"></script>
+<script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
 
 </body>
-
 </html>

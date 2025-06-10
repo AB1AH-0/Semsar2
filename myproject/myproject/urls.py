@@ -20,7 +20,7 @@ from django.conf import settings # Add this import
 from django.conf.urls.static import static # Add this import
 from django.views.generic import TemplateView
 
-from inquiries.views import login_user, payment_page, process_payment
+from inquiries.views import login_user, payment_page, process_payment, logout_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -36,6 +36,7 @@ urlpatterns = [
     path('about/',  TemplateView.as_view(template_name='about.html'), name='about'),
     path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
     path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
+    path('logout/', logout_user, name='logout'),
     
     
     # User-specific pages
@@ -46,9 +47,9 @@ urlpatterns = [
     
     # Broker-specific pages
     path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
-    path('about-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
-    path('add-property/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
-    path('customer/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
+    path('about-broker/', TemplateView.as_view(template_name='about-broker.html'), name='about-broker'),
+    path('add-property/', TemplateView.as_view(template_name='property-broker.html'), name='add-property'),
+    path('customer/', TemplateView.as_view(template_name='customers.html'), name='customer'),
     path('payment/', payment_page, name='payment'),
     path('process_payment/', process_payment, name='process_payment'),
 ]
