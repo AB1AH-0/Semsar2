@@ -108,9 +108,9 @@
               <div class="main-menu" style="flex: 1;text-align: center;padding-right: 350px;margin: 25px auto;" >
                  <div class="header-right">
                 <ul>
-                  <li><a href="home.html">Home</a></li>
-                  <li><a href="about.html">About</a></li>
-                  <li><a href="login.html">Login</a></li>
+                  <li><a href="{% url 'home' %}">Home</a></li>
+                  <li><a href="{% url 'about' %}">About</a></li>
+                  <li><a href="{% url 'login' %}">Login</a></li>
                   </ul>
                   </div>
               </div>
@@ -151,9 +151,9 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home.html" >Home </a></li>
-      <li><a href="about.html">About</a></li>
-      <li><a href="login.html">Login</a></li>
+      <li><a href="{% url 'home' %}" >Home </a></li>
+      <li><a href="{% url 'about' %}">About</a></li>
+      <li><a href="{% url 'login' %}">Login</a></li>
     <div class="allmobilesection">
       <div class="single-footer">
         <h3>Contact Info</h3>
@@ -205,7 +205,7 @@
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="home.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="{% url 'home' %}">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                      <div class="space16"></div>
@@ -310,7 +310,7 @@
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+                            <a href="{% url 'login' %}" class="header-btn1">Request a Broker <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
@@ -342,7 +342,7 @@
                           <p>We are a team of experienced and passionate real estate professionals who are committed to making your real estate journey smooth and successful. Our deep understanding of the local market, combined with our innovative strategies, ensures that you receive the best possible service and list of our featured Properties.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="login.html" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+                            <a href="{% url 'login' %}" class="header-btn1">View Our Properties <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
                           </div>
                       </div>
                   </div>
@@ -380,11 +380,11 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Buying A Home</a>
+                  <a href="{% url 'login' %}">Buying A Home</a>
                   <div class="space16"></div>
                   <p>At Semsar, we understand that buying a home is one of the most significant investments you'll ever make. Our experienced agents are here to guide you through every step of the home-buying process.</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="{% url 'login' %}" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -395,11 +395,11 @@
                 </div>
                 <div class="space24"></div>
                 <div class="content-area">
-                  <a href="login.html">Renting A Home</a>
+                  <a href="{% url 'login' %}">Renting A Home</a>
                   <div class="space16"></div>
                   <p>Finding the perfect rental property can be challenging, but with Semsar, it’s a breeze. Whether you’re looking for a short-term lease or a long-term rental, we have a diverse selection of properties to meet with Our experienced agents .</p>
                   <div class="space24"></div>
-                  <a href="login.html" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
+                  <a href="{% url 'login' %}" class="readmore">View Properties <i class="fa-solid fa-arrow-right"></i></a>
                 </div>
               </div>
             </div>
@@ -486,8 +486,8 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-4">
         <div class="cta-btn-area">
-          <a href="login.html" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
-          <a href="login.html" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+          <a href="{% url 'login' %}" class="header-btn1">Request a Broker<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
+          <a href="{% url 'login' %}" class="header-btn1 btn1">Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt="Arrow Icon"></a>
         </div>
       </div>
     </div>
@@ -520,9 +520,9 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="login.html">Login</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
             
 
           </ul>
