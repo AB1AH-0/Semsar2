@@ -294,3 +294,104 @@ class BrokerPost(models.Model):
 
     def __str__(self):
         return f"{self.broker_name} - {self.inquiry} ({self.commission}%)"
+
+class Property(models.Model):
+    """
+    Stores property listings created by brokers.
+    """
+    TRANSACTION_RENT = 'rent'
+    TRANSACTION_SALE = 'sale'
+    TRANSACTION_CHOICES = [
+        (TRANSACTION_RENT, 'For Rent'),
+        (TRANSACTION_SALE, 'For Sale'),
+    ]
+    
+    PROPERTY_TYPE_CHOICES = [
+        ('Roof', 'Roof'),
+        ('Apartment', 'Apartment'),
+        ('Duplex', 'Duplex'),
+        ('Villa', 'Villa'),
+    ]
+    
+    FURNISHED_CHOICES = [
+        ('Furnished', 'Furnished'),
+        ('Not-Furnished', 'Not Furnished'),
+    ]
+    
+    FINISH_CHOICES = [
+        ('Finished', 'Finished'),
+        ('Unfinished', 'Unfinished'),
+        ('Semi-Finished', 'Semi-Finished'),
+    ]
+    
+    # Basic property information
+    broker = models.ForeignKey(
+        UserProfile,
+        on_delete=models.CASCADE,
+        related_name='properties',
+        limit_choices_to={'user_type': UserProfile.USER_TYPE_BROKER},
+        help_text="The broker who listed this property"
+    )
+    transaction_type = models.CharField(
+        max_length=10,
+        choices=TRANSACTION_CHOICES,
+        help_text="Whether this property is for rent or sale"
+    )
+    
+    # Location
+    city = models.CharField(max_length=50, help_text="City/Governorate")
+    area = models.CharField(max_length=100, help_text="Specific area within the city")
+    
+    # Property details
+    property_type = models.CharField(
+        max_length=20,
+        choices=PROPERTY_TYPE_CHOICES,
+        help_text="Type of property"
+    )
+    bedrooms = models.PositiveIntegerField(help_text="Number of bedrooms")
+    bathrooms = models.PositiveIntegerField(help_text="Number of bathrooms")
+    size = models.PositiveIntegerField(help_text="Size in square meters")
+    
+    # Pricing
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        help_text="Price in EGP"
+    )
+    
+    # Property condition/features
+    furnished = models.CharField(
+        max_length=20,
+        choices=FURNISHED_CHOICES,
+        help_text="Furnished status"
+    )
+    finish = models.CharField(
+        max_length=20,
+        choices=FINISH_CHOICES,
+        blank=True,
+        null=True,
+        help_text="Finish status (for sale properties)"
+    )
+    
+    # Media
+    media_files = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of uploaded media file paths"
+    )
+    
+    # Metadata
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether this property listing is active"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Property'
+        verbose_name_plural = 'Properties'
+    
+    def __str__(self):
+        return f"{self.property_type} in {self.area}, {self.city} - {self.get_transaction_type_display()}"

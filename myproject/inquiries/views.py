@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost
+from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property
 from django.utils import timezone
 
 @csrf_exempt
@@ -348,3 +348,72 @@ def logout_user(request):
     
     # Redirect to login page
     return redirect('/login')
+
+
+@csrf_exempt
+def create_property(request):
+    """
+    API endpoint to create a new property listing from broker form
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            
+            # Determine transaction type based on form field names
+            transaction_type = 'rent'
+            if any(key.endswith('-sale') for key in data.keys()):
+                transaction_type = 'sale'
+            
+            # Extract field values based on transaction type
+            suffix = f'-{transaction_type}'
+            
+            # Get broker from session (you may need to adjust this based on your auth system)
+            # For now, we'll use a placeholder - you should implement proper broker identification
+            broker_id = request.session.get('user_id')  # Adjust based on your session structure
+            if not broker_id:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Broker not authenticated'
+                }, status=401)
+            
+            try:
+                broker = UserProfile.objects.get(id=broker_id, user_type='broker')
+            except UserProfile.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Invalid broker'
+                }, status=400)
+            
+            # Create property listing
+            property_listing = Property.objects.create(
+                broker=broker,
+                transaction_type=transaction_type,
+                city=data.get(f'broker-city{suffix}', ''),
+                area=data.get(f'broker-area{suffix}', ''),
+                property_type=data.get(f'broker-Type{suffix}', ''),
+                bedrooms=int(data.get(f'broker-bedrooms{suffix}', 0) or 0),
+                bathrooms=int(data.get(f'broker-bathrooms{suffix}', 0) or 0),
+                size=int(data.get(f'broker-size{suffix}', 0) or 0),
+                price=float(data.get(f'broker-price{suffix}', 0) or 0),
+                furnished=data.get(f'broker-Furnished{suffix}', ''),
+                finish=data.get(f'broker-Finish{suffix}', '') if transaction_type == 'sale' else None,
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'property_id': property_listing.id,
+                'message': 'Property listing created successfully'
+            })
+            
+        except ValueError as e:
+            return JsonResponse({
+                'success': False,
+                'error': f'Invalid data format: {str(e)}'
+            }, status=400)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)

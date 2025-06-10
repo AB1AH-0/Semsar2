@@ -260,7 +260,7 @@
                       <div class="listing-input">
                         <select id="broker-area-rent" name="broker-area-rent" class="area-select nice-select">
                           <option value="" disabled selected>Area</option>
-  
+
                           <!-- CAIRO -->
                           
                           <option value="shubra"          data-city="cairo">Shubra</option>
@@ -720,7 +720,7 @@ inputmode="numeric">
     // }
   });
 
-  // Capture search data and send to backend (assuming .send-to-brokers class and /api/inquiries/ endpoint)
+  // Capture search data and send to backend (assuming .send-to-brokers class and /api/properties/ endpoint)
   $(function(){
     function getCookie(name) {
       let cookieValue = null;
@@ -751,7 +751,7 @@ inputmode="numeric">
           data[name] = $el.val();
         }
       });
-      fetch('/api/inquiries/', {
+      fetch('/api/properties/', {
         method: 'POST',
         headers:{
           'Content-Type':'application/json',
@@ -759,11 +759,22 @@ inputmode="numeric">
         },
         body: JSON.stringify(data)
       }).then(r => r.json()).then(function(resp){
-        console.log('Inquiry saved:', resp);
-        // Optionally, display a success message to the user
+        console.log('Property listing saved:', resp);
+        if(resp.success) {
+          alert('Property listing created successfully!');
+          // Optionally reset the form
+          $panel.find('input[type="text"], input[type="number"], select').val('');
+          $panel.find('input[type="file"]').val('');
+          // Refresh nice-select dropdowns
+          $panel.find('.nice-select').each(function() {
+            $(this).trigger('change');
+          });
+        } else {
+          alert('Error: ' + (resp.error || 'Failed to create property listing'));
+        }
       }).catch(function(err){
-        console.error('Error saving inquiry:', err);
-        // Optionally, display an error message to the user
+        console.error('Error saving property listing:', err);
+        alert('Error: Failed to create property listing. Please try again.');
       });
     });
   });
