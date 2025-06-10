@@ -107,16 +107,16 @@
               <div class="main-menu">
                 <ul>
                   <li><a href="{% url 'home_broker' %}">Home </a></li>
-                  <li><a href="{% url 'broker:about' %}">About</a></li>
-                  <li><a href="{% url 'broker:add_property' %}">Property</a></li>
-                  <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+                  <li><a href="{% url 'about_broker' %}">About</a></li>
+                  <li><a href="{% url 'property_broker' %}">Property</a></li>
+                  <li><a href="{% url 'customers' %}">Customers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
                 <div class="search-icon header__search header-search-btn">
                   <img src="{% static 'assets/img/icons/search1.svg' %}" alt="">
                 </div>
-                <a href="{% url 'broker:add_property' %}" class="header-btn2">Add New Property <i class="fa-solid fa-angle-right"></i></a>
+                <a href="{% url 'property_broker' %}" class="header-btn2">Add New Property <i class="fa-solid fa-angle-right"></i></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -165,9 +165,9 @@
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
       <li><a href="{% url 'home_broker' %}">Home </a></li>
-      <li><a href="{% url 'broker:about' %}">About</a></li>
-      <li><a href="{% url 'broker:add_property' %}">Property</a></li>
-      <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+      <li><a href="{% url 'about_broker' %}">About</a></li>
+      <li><a href="{% url 'property_broker' %}">Property</a></li>
+      <li><a href="{% url 'customers' %}">Customers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
@@ -226,7 +226,7 @@
                       <p>Browse our customer needs to help them find the ideal property with excellent deal and ofcourse the most experienced one .</p>
                       <div class="space32"></div>
                       <div class="btn-area1">
-                          <a href="{% url 'broker:customers' %}" class="header-btn2">View Buyer`s Requests <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'customers' %}" class="header-btn2">View Buyer`s Requests <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>01/03</span>
                   </div>
@@ -253,7 +253,7 @@
                       <p class="text-anim">add to us a property from the most experienced brokers to find the perfect property that suits every buyer`s or renter`s needs</p>
                       <div class="space32"></div>
                       <div class="btn-area1 text-anim">
-                          <a href="{% url 'broker:add_property' %}" class="header-btn2"> Add Your Property <i class="fa-solid fa-angle-right"></i></a>
+                          <a href="{% url 'property_broker' %}" class="header-btn2"> Add Your Property <i class="fa-solid fa-angle-right"></i></a>
                       </div>
                       <span>02/03</span>
                   </div>
@@ -297,7 +297,7 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="{% url 'broker:about' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                        <a href="{% url 'about_broker' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                     </div>
                 </div>
             </div>
@@ -340,9 +340,9 @@
           <h3>Quick Links</h3>
           <ul>
             <li><a href="{% url 'home_broker' %}">Home</a></li>
-            <li><a href="{% url 'broker:about' %}">About Us</a></li>
-             <li><a href="{% url 'broker:add_property' %}">Add Property</a></li>
-             <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+            <li><a href="{% url 'about_broker' %}">About Us</a></li>
+             <li><a href="{% url 'property_broker' %}">Add Property</a></li>
+             <li><a href="{% url 'customers' %}">Customers</a></li>
           </ul>
         </div>
       </div>
