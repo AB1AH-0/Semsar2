@@ -370,7 +370,7 @@
       <div class="row">
         <div class="col-lg-12">                 
           <div class="listing-input">
-            <select name="broker-Furnished-sale" class="nice-select">
+            <select name="broker-Furnished-rent" class="nice-select">
                 <option value="" selected disabled>Furnish</option>
                 <option value="Furnished">Furnished</option>
                 <option value="Not-Furnished">Not Furnished</option>
@@ -616,7 +616,6 @@ inputmode="numeric">
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
-<script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
 <script src="{% static 'assets/js/plugins/aos.js' %}"></script>
@@ -721,7 +720,7 @@ inputmode="numeric">
     // }
   });
 
-  // Capture search data and send to backend (assuming .send-to-brokers class and /api/properties/ endpoint)
+  // Capture search data and send to backend (assuming .send-to-brokers class and /api/inquiries/ endpoint)
   $(function(){
     function getCookie(name) {
       let cookieValue = null;
@@ -740,8 +739,15 @@ inputmode="numeric">
 
     $('.send-to-brokers').on('click', function(e){
       e.preventDefault();
-      const $panel = $(this).closest('.tab-pane');
+      const $button = $(this);
+      const $panel = $button.closest('.tab-pane');
       const data = {};
+      
+      // Include the button's name to determine transaction type
+      if ($button.attr('name')) {
+        data[$button.attr('name')] = true;
+      }
+      
       $panel.find('input, select').each(function(){
         const $el = $(this);
         const name = $el.attr('name');
@@ -760,22 +766,23 @@ inputmode="numeric">
         },
         body: JSON.stringify(data)
       }).then(r => r.json()).then(function(resp){
-        console.log('Property listing saved:', resp);
-        if(resp.success) {
+        console.log('Property listing created:', resp);
+        if (resp.success) {
           alert('Property listing created successfully!');
           // Optionally reset the form
-          $panel.find('input[type="text"], input[type="number"], select').val('');
-          $panel.find('input[type="file"]').val('');
-          // Refresh nice-select dropdowns
-          $panel.find('.nice-select').each(function() {
-            $(this).trigger('change');
+          $panel.find('input, select').each(function(){
+            if ($(this).attr('type') !== 'file') {
+              $(this).val('');
+            }
           });
+          // Refresh nice-select dropdowns
+          $panel.find('select').niceSelect('update');
         } else {
           alert('Error: ' + (resp.error || 'Failed to create property listing'));
         }
       }).catch(function(err){
-        console.error('Error saving property listing:', err);
-        alert('Error: Failed to create property listing. Please try again.');
+        console.error('Error creating property:', err);
+        alert('Error creating property listing. Please try again.');
       });
     });
   });

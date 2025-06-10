@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Inquiry, UserProfile, PaymentLog
+from .models import Inquiry, UserProfile, PaymentLog, Property
 
 # Register your models here.
 class InquiryAdmin(admin.ModelAdmin):
@@ -20,8 +20,33 @@ class InquiryAdmin(admin.ModelAdmin):
         }),
     )
 
+class PropertyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'broker', 'transaction_type', 'city', 'area', 'property_type', 'price', 'created_at')
+    list_filter = ('transaction_type', 'property_type', 'city', 'furnished', 'created_at')
+    search_fields = ('city', 'area', 'property_type', 'broker__full_name')
+    list_select_related = ('broker',)
+    readonly_fields = ('created_at', 'updated_at')
+    
+    fieldsets = (
+        ('Basic Information', {
+            'fields': ('broker', 'transaction_type', 'city', 'area', 'property_type')
+        }),
+        ('Property Details', {
+            'fields': ('bedrooms', 'bathrooms', 'size', 'price', 'furnished', 'finish')
+        }),
+        ('Media', {
+            'fields': ('media_files',),
+            'classes': ('collapse',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        }),
+    )
+
 admin.site.register(Inquiry, InquiryAdmin)
 admin.site.register(UserProfile)
+admin.site.register(Property, PropertyAdmin)
 
 # New Admin class for PaymentLog
 class PaymentLogAdmin(admin.ModelAdmin):
