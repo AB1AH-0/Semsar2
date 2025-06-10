@@ -4,10 +4,10 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Real Estate - Broker</title>
+     <title>Semsar</title>
 
      <!--=====FAB ICON=======-->
-    <link rel="shortcut icon" href="assets/img/logo/fav-logo1.png" type="image/x-icon">
+    <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
 
     <!--===== CSS LINK =======-->
     <link rel="stylesheet" href="{% static 'assets/css/plugins/bootstrap.min.css' %}">
@@ -117,7 +117,7 @@
                 <div class="header-search-container">
                     <form role="search" class="search-form">
                     <input type="search"  class="search-field" placeholder="Search …" value="" name="s">
-                    <button type="submit" class="search-submit"><img src="assets/img/icons/search1.svg" alt=""></button>
+                    <button type="submit" class="search-submit"><img src="{% static 'assets/img/icons/search1.svg' %}" alt=""></button>
                     </form>
                 </div>
             </div>
@@ -296,7 +296,7 @@
                     <p class="text-anim">We specialize in helping clients Buy, Rent and invest in properties, ensuring each transaction is smooth and successful. Our deep knowledge of the local market, combined with our personalized approach, allows us to tailor our services to meet your unique needs</p>
                     <div class="space32"></div>
                     <div class="bnt-area1 text-anim">
-                        <a href="{% url 'about' %}" class="header-btn3" >Discover More <img src="assets/img/icons/arrow1.svg" alt=""></a>
+                        <a href="{% url 'about' %}" class="header-btn3" >Discover More <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                     </div>
                 </div>
             </div>

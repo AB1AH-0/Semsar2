@@ -4,7 +4,7 @@
 <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Semsar</title>
+     <title>Brokers</title>
 
      <!--=====FAB ICON=======-->
     <link rel="shortcut icon" href="{% static 'assets/img/logo/fav-logo1.png' %}" type="image/x-icon">
@@ -82,18 +82,18 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="./index2.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="{% url 'home-broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="home-user.html">Home </a>
-                  <li><a href="about-user.html">About</a></li>
-                  <li><a href="property-user.html">Property</a></li>
-                  <li><a href="brokers.html">Brokers</a></li>
+                  <li><a href="{% url 'home-user' %}">Home </a>
+                  <li><a href="{% url 'about-user' %}">About</a></li>
+                  <li><a href="{% url 'property-user' %}">Property</a></li>
+                  <li><a href="{% url 'brokers' %}">Brokers</a></li>
                 </ul>
               </div>
               <div class="btn-area">
-                <a href="property.html" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="{% url 'brokers' %}" class="header-btn1">Search Our Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -120,7 +120,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="./index2.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="{% url 'home-user' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu">
           <i class="fa-solid fa-bars-staggered"></i>
@@ -141,10 +141,10 @@
    </div>
    <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="home-user.html" >Home </a></li>
-      <li><a href="about-user.html">About</a></li>
-      <li><a href="property-user.html">Property Listing</a></li>
-      <li><a href="brokers.html">Brokers</a></li>
+      <li><a href="{% url 'home-user' %}" >Home </a></li>
+      <li><a href="{% url 'about-user' %}">About</a></li>
+      <li><a href="{% url 'property-user' %}">Property</a></li>
+      <li><a href="{% url 'brokers' %}">Brokers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
@@ -201,7 +201,7 @@
         <div class="row">
             <div class="col-lg-5 m-auto">
                 <div class="inner-header heading1 text-center">
-                    <a href="home-user.html">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
+                    <a href="{% url 'home-user' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Brokers </span></a>
                     <div class="space20"></div>
                     <h2>Brokers</h2>
                 </div>
@@ -612,10 +612,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="home-user.html">Home</a></li>
-            <li><a href="about-user.html">About Us</a></li>
-            <li><a href="property-user.html">Properties</a></li>
-            <li><a href="brokers.html">Brokers</a></li>
+            <li><a href="{% url 'home-user' %}">Home</a></li>
+            <li><a href="{% url 'about-user' %}">About Us</a></li>
+            <li><a href="{% url 'property-user' %}">Properties</a></li>
+            <li><a href="{% url 'brokers' %}">Brokers</a></li>
           </ul>
         </div>
       </div>
@@ -746,12 +746,8 @@
     // For RENT tab - link city-rent and area-rent
     linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
     
-    // For SALE tab - link city-sale and area-sale (when you add them)
-    // linkCityAreaDropdowns('#city-sale', '#area-sale');
-  linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
-
-  // For SALE tab - link city-sale and area-sale (when you add them)
-  // linkCityAreaDropdowns('#city-sale', '#area-sale');
+    // For SALE tab - link city-sale and area-sale
+    linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
 });
 
 // Capture search data and send to backend
