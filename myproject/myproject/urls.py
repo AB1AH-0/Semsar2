@@ -34,10 +34,10 @@ urlpatterns = [
     # front-end - root level
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('login/', TemplateView.as_view(template_name='login.html'), name='login'),
-    path('register/', TemplateView.as_view(template_name='reg1.html'), name='register'),
+    path('register/', TemplateView.as_view(template_name='register.html'), name='register'),
     
     # user-specific URLs
-    path('about-user/', TemplateView.as_view(template_name='about-user.html'), name='about'),
+    path('about-user/', TemplateView.as_view(template_name='about-user.html'), name='about_user'),
     path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
     path('property-user/', TemplateView.as_view(template_name='property-user.html'), name='property-user'),
     # Add other user-specific URLs here
@@ -49,7 +49,7 @@ urlpatterns = [
     path('home-user/', TemplateView.as_view(template_name='home-user.html'), name='home_user'),
 
     # Additional template views
-    path('about/', TemplateView.as_view(template_name='about.html'), name='about_general'),
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('about-broker/', TemplateView.as_view(template_name='about-broker.html'), name='about_broker'),
     path('customers/', TemplateView.as_view(template_name='customers.html'), name='customers'),
     path('property-broker/', TemplateView.as_view(template_name='property-broker.html'), name='property_broker'),
