@@ -103,21 +103,21 @@
           <div class="col-lg-12">
             <div class="header-elements">
               <div class="site-logo">
-                <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+                <a href="home-broker.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
               </div>
               <div class="main-menu">
                 <ul>
-                  <li><a href="{% url 'home_broker' %}">Home </a></li>
-                  <li><a href="{% url 'broker:about' %}">About</a></li>
-                  <li><a href="{% url 'broker:add_property' %}">Property</a></li>
-                  <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+                  <li><a href="home-broker.html">Home </a></li>
+                  <li><a href="about-broker.html">About</a></li>
+                  <li><a href="property-broker.html">Property</a></li>
+                  <li><a href="customers.html">Customers</a></li>
                 </ul>   
               </div>
               <div class="btn-area">
                 <div class="search-icon header__search header-search-btn">
                   <img src="{% static 'assets/img/icons/search1.svg' %}" alt="">
                 </div>
-                <a href="{% url 'broker:add_property' %}" class="header-btn1">Add New Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                <a href="property-broker.html" class="header-btn1">Add New Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
               </div>
 
               <div class="header-search-form-wrapper">
@@ -144,7 +144,7 @@
     <div class="col-12">
       <div class="mobile-header-elements">
         <div class="mobile-logo">
-          <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
+          <a href="home-broker.html"><img src="{% static 'assets/img/logo/logo2.png' %}" alt=""></a>
         </div>
         <div class="mobile-nav-icon dots-menu"  style="color: rgb(255, 255, 255); ">
           <i class="fa-solid fa-bars-staggered" style="color: rgb(255, 255, 255); "></i>
@@ -157,7 +157,7 @@
 <div class="mobile-sidebar mobile-sidebar2">
   <div class="logosicon-area">
      <div class="site-logo">
-        <a href="{% url 'home_broker' %}"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
+        <a href="home-broker.html"><img src="{% static 'assets/img/logo/logo1.png' %}" alt=""></a>
         </div>
     <div class="menu-close">
       <i class="fa-solid fa-xmark"></i>
@@ -165,10 +165,10 @@
    </div>
   <div class="mobile-nav mobile-nav1">
     <ul class="mobile-nav-list nav-list1">
-      <li><a href="{% url 'home_broker' %}" >Home </a></li>
-      <li><a href="{% url 'broker:about' %}">About</a></li>
-      <li><a href="{% url 'broker:add_property' %}">Property</a></li>
-      <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+      <li><a href="home-broker.html">Home </a></li>
+      <li><a href="about-broker.html">About</a></li>
+      <li><a href="property-broker.html">Property</a></li>
+      <li><a href="customers.html">Customers</a></li>
     </ul>
     <div class="allmobilesection">
       <div class="single-footer">
@@ -212,12 +212,11 @@
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
-<div class="inner-section-area" style="background-image:linear-gradient(rgb(0, 0, 0),rgba(4, 10, 30, 0.201)), url('{% static 'assets/img/img.jpg' %}')">
     <div class="container">
         <div class="row">
             <div class="col-lg-5">
                 <div class="inner-header heading1">
-                    <a href="{% url 'home_broker' %}">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
+                    <a href="home-broker.html">Home <i class="fa-solid fa-angle-right"></i> <span>About Us</span></a>
                     <div class="space20"></div>
                     <h2>A Team Of Experts Ready To Help</h2>
                     <div class="space16"></div>
@@ -317,7 +316,7 @@
                           <p>Our mission is to provide exceptional real estate services that exceed your expectations & finding your desired property. We aim to build lasting relationships based on trust with professional brokers helping you, integrity, and outstanding results. Whether you're buying or Renting, we are here to guide you through every step of the process.</p>
                           <div class="space32"></div>
                           <div class="btn-area1">
-                            <a href="{% url 'broker:customers' %}" class="header-btn1">View Buyer`s Requests <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+                            <a href="customers.html" class="header-btn1">View Buyer`s Requests <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
                           </div>
                       </div>
                       <div class="space30 d-lg-none d-block"></div>
@@ -428,8 +427,8 @@
       </div>
       <div class="col-lg-6">
         <div class="cta-btn-area">
-          <a href="{% url 'broker:customers' %}" class="header-btn1">View Buyer`s Requests<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
-          <a href="{% url 'broker:add_property' %}" class="header-btn1 btn1">Add Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+          <a href="customers.html" class="header-btn1">View Buyer`s Requests<img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
+          <a href="property-broker.html" class="header-btn1 btn1">Add Property <img src="{% static 'assets/img/icons/arrow1.svg' %}" alt=""></a>
         </div>
       </div>
     </div>
@@ -460,10 +459,10 @@
         <div class="footer-header padding-left1">
           <h3>Quick Links</h3>
           <ul>
-            <li><a href="{% url 'home_broker' %}">Home</a></li>
-            <li><a href="{% url 'broker:about' %}">About Us</a></li>
-            <li><a href="{% url 'broker:add_property' %}">Add Property</a></li>
-            <li><a href="{% url 'broker:customers' %}">Customers</a></li>
+            <li><a href="home-broker.html">Home </a></li>
+            <li><a href="about-broker.html">About</a></li>
+            <li><a href="property-broker.html">Add Property</a></li>
+            <li><a href="customers.html">Customers</a></li>
           </ul>
         </div>
       </div>
