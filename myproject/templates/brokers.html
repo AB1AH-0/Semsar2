@@ -609,17 +609,26 @@
           <div id="broker-offers-message-container"></div>
           
           <div class="table-responsive">
-              <table id="broker-offers-table" class="table table-bordered table-striped">
-                  <thead class="table-dark">
-                      <tr>
-                          <th>Request ID</th>
-                          <th>Transaction</th>
-                          <th>Location</th>
-                          <th>Property</th>
-                          <th>Your Budget</th>
-                          <th>Request Date</th>
-                          <th>Broker Offer</th>
-                          <th>Actions</th>
+            <table id="broker-offers-table" class="table table-bordered table-striped">
+              <thead class="table-dark">
+                  <tr>
+                      <th>Request ID</th>
+                      <th>Transaction Type</th>
+                      <th>City</th>
+                      <th>Area</th>
+                      <th>Property Type</th>
+                      <th>Bedrooms</th>
+                      <th>Bathrooms</th>
+                      <th>Your Budget</th>
+                      <th>Request Date</th>
+                      <th>Broker Response</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody id="broker-offers-tbody">
+                  <!-- Loaded via JavaScript -->
+              </tbody>
+          </table>
                       </tr>
                   </thead>
                   <tbody id="broker-offers-tbody">
@@ -1000,15 +1009,33 @@ function loadBrokerOffers() {
             priceRange = `Up to ${Number(inquiry.max_price).toLocaleString()} EGP`;
           }
           
-          // Format broker offer
-          const brokerOffer = `
-            <div class="small">
-              <strong>Broker:</strong> ${inquiry.broker_post.broker_name}<br>
-              <strong>Commission:</strong> ${inquiry.broker_post.commission}%<br>
-              <strong>Offered:</strong> ${new Date(inquiry.broker_post.accepted_at).toLocaleDateString()}
-              ${inquiry.broker_post.notes ? '<br><strong>Notes:</strong> ' + inquiry.broker_post.notes : ''}
-            </div>
-          `;
+          row.innerHTML = `
+  <td>${inquiry.id}</td>
+  <td><span class="badge bg-${inquiry.transaction_type === 'rent' ? 'primary' : 'success'}">${inquiry.transaction_type}</span></td>
+  <td>${inquiry.city || 'N/A'}</td>
+  <td>${inquiry.area || 'N/A'}</td>
+  <td>${inquiry.property_type || 'N/A'}</td>
+  <td>${inquiry.bedrooms || 'N/A'}</td>
+  <td>${inquiry.bathrooms || 'N/A'}</td>
+  <td>${priceRange}</td>
+  <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
+  <td>
+    <div class="small bg-light p-2 rounded">
+      <div class="mb-1"><strong>Broker:</strong> ${inquiry.broker_post.broker_name}</div>
+      <div class="mb-1"><strong>Commission:</strong> ${inquiry.broker_post.commission}%</div>
+      <div class="mb-1"><strong>Accepted:</strong> ${new Date(inquiry.broker_post.accepted_at).toLocaleDateString()}</div>
+      ${inquiry.broker_post.notes ? '<div><strong>Notes:</strong> ' + inquiry.broker_post.notes + '</div>' : ''}
+    </div>
+  </td>
+  <td>
+    <button class="btn btn-success btn-sm me-2 accept-offer-btn" data-inquiry-id="${inquiry.id}" data-broker-name="${inquiry.broker_post.broker_name}">
+      <i class="fa fa-check"></i> Accept
+    </button>
+    <button class="btn btn-danger btn-sm reject-offer-btn" data-inquiry-id="${inquiry.id}" data-broker-name="${inquiry.broker_post.broker_name}">
+      <i class="fa fa-times"></i> Reject
+    </button>
+  </td>
+`;
           
           row.innerHTML = `
             <td>${inquiry.id}</td>
