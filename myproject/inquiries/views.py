@@ -71,6 +71,10 @@ def create_inquiry(request):
     """
     API endpoint to create a new inquiry from user search
     """
+    if request.method == 'GET':
+        # Delegate GET requests to the existing list endpoint logic
+        return get_inquiries_api(request)
+
     if request.method == 'POST':
         try:
             data = json.loads(request.body)

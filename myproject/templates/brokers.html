@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}">
 
     <!--=====  JS SCRIPT LINK =======-->
-    <script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body class="homepage1-body">
 
@@ -600,6 +600,9 @@
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
 
 <!-- Broker Offers Section -->
 <div class="container my-5">
@@ -728,9 +731,7 @@
 <script src="{% static 'assets/js/plugins/ScrollTrigger.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/nice-select.js' %}"></script>
-
 
 <script>
   $(function () {
@@ -846,8 +847,11 @@ $(function(){
     data['transaction_type'] = transaction_type;
     $panel.find('input, select').each(function(){
       const $el = $(this);
-      const name = $el.attr('name');
+      let name = $el.attr('name');
       if(!name) return;
+      // Normalize field names: strip -rent/-sale suffix and map Type -> property_type
+      name = name.replace(/-(rent|sale)$/,'').toLowerCase();
+      if(name === 'type') name = 'property_type';
       if($el.attr('type') === 'checkbox'){
         data[name] = $el.is(':checked');
       } else {
@@ -890,18 +894,21 @@ $(function(){
 
   // Load customer inquiries on page load
   function loadCustomerInquiries() {
+    // Early exit if the inquiries table is not present on this page
+    const tbody = document.getElementById('inquiries-tbody');
+    const noInquiriesMessage = document.getElementById('no-inquiries-message');
+    const table = document.getElementById('customer-inquiries-table');
+    if(!tbody || !noInquiriesMessage || !table) {
+      return; // Elements not found, skip loading
+    }
     fetch('/api/inquiries/')
       .then(response => response.json())
       .then(data => {
-        const tbody = document.getElementById('inquiries-tbody');
-        const noInquiriesMessage = document.getElementById('no-inquiries-message');
-        const table = document.getElementById('customer-inquiries-table');
+        tbody.innerHTML = '';
+        table.style.display = 'table';
+        noInquiriesMessage.style.display = 'none';
         
         if (data.inquiries && data.inquiries.length > 0) {
-          tbody.innerHTML = '';
-          table.style.display = 'table';
-          noInquiriesMessage.style.display = 'none';
-          
           data.inquiries.forEach(inquiry => {
             const row = document.createElement('tr');
             
