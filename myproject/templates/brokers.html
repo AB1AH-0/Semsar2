@@ -1044,24 +1044,6 @@ function loadBrokerOffers() {
   </td>
 `;
           
-          row.innerHTML = `
-            <td>${inquiry.id}</td>
-            <td><span class="badge bg-${inquiry.transaction_type === 'rent' ? 'primary' : 'success'}">${inquiry.transaction_type}</span></td>
-            <td>${location}</td>
-            <td>${propertyDetails}</td>
-            <td>${priceRange}</td>
-            <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
-            <td>${brokerOffer}</td>
-            <td>
-              <button class="btn btn-success btn-sm me-2 accept-offer-btn" data-inquiry-id="${inquiry.id}" data-broker-name="${inquiry.broker_post.broker_name}">
-                <i class="fa fa-check"></i> Accept
-              </button>
-              <button class="btn btn-danger btn-sm reject-offer-btn" data-inquiry-id="${inquiry.id}" data-broker-name="${inquiry.broker_post.broker_name}">
-                <i class="fa fa-times"></i> Reject
-              </button>
-            </td>
-          `;
-          
           tbody.appendChild(row);
         });
         

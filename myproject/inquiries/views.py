@@ -143,14 +143,19 @@ def get_inquiries_api(request):
                 'broker_post': None
             }
             
-            # Check if inquiry has been accepted (has broker post)
-            if hasattr(inquiry, 'broker_post'):
+            # Correctly check if the inquiry has an associated broker post
+            try:
+                broker_post = inquiry.broker_post  # Will raise BrokerPost.DoesNotExist if none exists
+            except BrokerPost.DoesNotExist:
+                broker_post = None
+
+            if broker_post is not None:
                 inquiry_data['is_accepted'] = True
                 inquiry_data['broker_post'] = {
-                    'broker_name': inquiry.broker_post.broker_name,
-                    'commission': float(inquiry.broker_post.commission),
-                    'notes': inquiry.broker_post.notes,
-                    'accepted_at': inquiry.broker_post.created_at.strftime('%Y-%m-%d %H:%M')
+                    'broker_name': broker_post.broker_name,
+                    'commission': float(broker_post.commission),
+                    'notes': broker_post.notes,
+                    'accepted_at': broker_post.created_at.strftime('%Y-%m-%d %H:%M')
                 }
             
             inquiries_data.append(inquiry_data)
