@@ -532,7 +532,7 @@
 <div class="space24"></div>
 
 <div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search Your Property</button>
 </div>
 </div>
 </div>
@@ -709,7 +709,7 @@
 <div class="col-lg-4">
 <div class="space24"></div>
 <div class="btn-area1">
-<button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Send To Brokers</button>
+<button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search Your Property</button>
 </div>
 </div>
 <div id="inquiry-list" class="space24"></div>
@@ -767,7 +767,7 @@
       <div class="property-content">
         <div class="property-info">
           <h3 class="property-title"></h3>
-          <p class="property-location"><i class="fa-solid fa-location-dot"></i> <span class="location-text"></span></p>
+          <p class="property-location"><i class="fa-solid fa-location-dot"></i> <span class="location-text"></span> &nbsp;|&nbsp; <i class="fa-solid fa-tag"></i> <span class="property-type"></span></p>
           <div class="property-details">
             <span><i class="fa-solid fa-bed"></i> <span class="bedrooms"></span> Beds</span>
             <span><i class="fa-solid fa-bath"></i> <span class="bathrooms"></span> Baths</span>
@@ -776,7 +776,8 @@
           <div class="property-meta">
             <div class="price"></div>
             <div class="broker-info">
-              <i class="fa-solid fa-user"></i> <span class="broker-name"></span>
+              <i class="fa-solid fa-user"></i> <span class="broker-name"></span><br>
+              <i class="fa-solid fa-phone"></i> <span class="broker-phone"></span>
             </div>
           </div>
         </div>
@@ -964,6 +965,8 @@ function createPropertyCard(property) {
   card.querySelector('.area').textContent = property.size;
   card.querySelector('.price').textContent = property.price;
   card.querySelector('.broker-name').textContent = property.broker_name;
+  card.querySelector('.broker-phone').textContent = property.broker_phone;
+  card.querySelector('.property-type').textContent = property.property_type;
   
   // Add data attribute for filtering
   const cardElement = card.querySelector('.col-lg-4');

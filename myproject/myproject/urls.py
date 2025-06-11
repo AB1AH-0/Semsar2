@@ -24,7 +24,8 @@ from inquiries.views import (
     register_user, new_page, create_inquiry, customers_view, get_inquiries_api,
     accept_inquiry, reject_inquiry, login_user, payment_page, process_payment, 
     logout_user, properties_api, accept_broker_offer, 
-    reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status
+    reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status,
+    broker_properties_api
 )
 
 urlpatterns = [
@@ -63,6 +64,8 @@ urlpatterns = [
     path('api/inquiries/accept/', accept_inquiry, name='accept_inquiry'),
     path('api/inquiries/reject/', reject_inquiry, name='reject_inquiry'),
     path('api/properties/', properties_api, name='properties_api'),
+    path('api/broker-properties/', broker_properties_api, name='broker_properties_api'),
+    path('api/broker-properties/<int:property_id>/', broker_properties_api, name='broker_properties_api_detail'),
     path('api/deals/accept/<int:inquiry_id>/', accept_broker_offer, name='accept_broker_offer'),
     path('api/deals/reject/<int:inquiry_id>/', reject_broker_offer, name='reject_broker_offer'),
     path('api/deals/review/<int:deal_id>/', submit_broker_review, name='submit_broker_review'),

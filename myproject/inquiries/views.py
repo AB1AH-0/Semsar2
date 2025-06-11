@@ -411,7 +411,12 @@ def properties_api(request):
     - POST: Creates a new property listing.
     """
     if request.method == 'GET':
-        properties = Property.objects.filter(is_active=True).select_related('broker').values(
+        # Optional: filter by broker id to support broker-specific lists
+        broker_id = request.GET.get('broker_id')
+        qs = Property.objects.filter(is_active=True)
+        if broker_id:
+            qs = qs.filter(broker_id=broker_id)
+        properties = qs.select_related('broker').values(
             'id', 'broker__full_name', 'transaction_type', 'city', 'area',
             'property_type', 'bedrooms', 'bathrooms', 'size', 'price',
             'furnished', 'finish', 'is_active', 'created_at', 'media_files'
@@ -525,6 +530,83 @@ def properties_api(request):
                 'error': f'An unexpected error occurred: {str(e)}',
                 'traceback': traceback.format_exc()
             }, status=500)
+
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def broker_properties_api(request, property_id=None):
+    """
+    API endpoint for brokers to manage *their* property listings.
+    - GET  /api/broker-properties/ -> list current broker's properties
+    - PUT  /api/broker-properties/<id>/ -> update a property
+    - DELETE /api/broker-properties/<id>/ -> delete a property
+
+    NOTE: Current implementation uses the *first* broker account in the
+    database as authentication is not yet implemented. Replace with
+    session-based auth when ready.
+    """
+    # Obtain the "current" broker (placeholder until auth is ready)
+    broker = UserProfile.objects.filter(user_type='broker').first()
+    if not broker:
+        return JsonResponse({'success': False, 'error': 'Broker account not found.'}, status=400)
+
+    # ------------------- LIST PROPERTIES --------------------
+    if request.method == 'GET':
+        props_qs = Property.objects.filter(broker=broker).values(
+            'id', 'transaction_type', 'city', 'area', 'property_type',
+            'bedrooms', 'bathrooms', 'size', 'price', 'furnished',
+            'finish', 'is_active', 'created_at', 'media_files'
+        )
+        props = []
+        for p in props_qs:
+            props.append({
+                'id': p['id'],
+                'transaction_type': p['transaction_type'],
+                'city': p['city'],
+                'area': p['area'],
+                'property_type': p['property_type'],
+                'bedrooms': p['bedrooms'],
+                'bathrooms': p['bathrooms'],
+                'size': p['size'],
+                'price': float(p['price']) if p['price'] is not None else 0.0,
+                'furnished': p['furnished'],
+                'finish': p['finish'],
+                'is_active': p['is_active'],
+                'images': p['media_files'] if p['media_files'] else [],
+                'created_at': p['created_at'].strftime('%Y-%m-%d %H:%M:%S'),
+            })
+        return JsonResponse({'success': True, 'count': len(props), 'properties': props})
+
+    # ------------------- UPDATE PROPERTY --------------------
+    if request.method in ['PUT', 'PATCH'] and property_id is not None:
+        try:
+            data = json.loads(request.body.decode() or '{}')
+            prop = Property.objects.get(id=property_id, broker=broker)
+        except Property.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Property not found'}, status=404)
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON'}, status=400)
+
+        # Allowed updatable fields
+        allowed = [
+            'transaction_type', 'city', 'area', 'property_type', 'bedrooms',
+            'bathrooms', 'size', 'price', 'furnished', 'finish', 'is_active'
+        ]
+        for field in allowed:
+            if field in data:
+                setattr(prop, field, data[field])
+        prop.save()
+        return JsonResponse({'success': True, 'message': 'Property updated successfully'})
+
+    # ------------------- DELETE PROPERTY --------------------
+    if request.method == 'DELETE' and property_id is not None:
+        try:
+            prop = Property.objects.get(id=property_id, broker=broker)
+            prop.delete()
+            return JsonResponse({'success': True, 'message': 'Property deleted successfully'})
+        except Property.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Property not found'}, status=404)
 
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
