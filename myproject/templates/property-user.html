@@ -940,7 +940,12 @@ function createPropertyCard(property) {
   // Set property image from database
   const img = card.querySelector('.property-img img');
   if (property.images && property.images.length > 0) {
-    img.src = `/media/${property.images[0]}`;
+    let src = property.images[0];
+    // If already absolute or starts with /media, keep as-is otherwise prefix
+    if (!src.startsWith('http') && !src.startsWith('/')) {
+      src = `/media/${src}`;
+    }
+    img.src = src;
   } else {
     img.src = '{% static "assets/img/placeholder-property.jpg" %}';
   }
@@ -956,7 +961,7 @@ function createPropertyCard(property) {
   card.querySelector('.location-text').textContent = `${property.city}, ${property.area}`;
   card.querySelector('.bedrooms').textContent = property.bedrooms;
   card.querySelector('.bathrooms').textContent = property.bathrooms;
-  card.querySelector('.area').textContent = property.area_size;
+  card.querySelector('.area').textContent = property.size;
   card.querySelector('.price').textContent = property.price;
   card.querySelector('.broker-name').textContent = property.broker_name;
   
