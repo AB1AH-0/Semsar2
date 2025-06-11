@@ -360,7 +360,7 @@
             </div>
             <div class="col-lg-12">
               <div class="listing-input">
-                <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_rent" name="property_media_rent" accept="image/*" multiple data-min-files="1" data-max-files="15">
+                <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_rent" name="media_files" accept="image/*" multiple data-min-files="1" data-max-files="15">
               </div>
               <div class="space24"></div>
           </div>
@@ -518,7 +518,7 @@ inputmode="numeric">
 </div>
 <div class="col-lg-12">
   <div class="listing-input">
-  <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_sale" name="property_media_sale" accept="image/*" multiple data-min-files="1" data-max-files="15">
+  <input placeholder="Add Media (1-15 photos)" type="file" id="property_media_sale" name="media_files" accept="image/*" multiple data-min-files="1" data-max-files="15">
   </div>
   <div class="space24"></div>
   </div>
@@ -720,7 +720,7 @@ inputmode="numeric">
     // }
   });
 
-  // Capture search data and send to backend (assuming .send-to-brokers class and /api/inquiries/ endpoint)
+  // Capture form data and send including media files
   $(function(){
     function getCookie(name) {
       let cookieValue = null;
@@ -741,42 +741,50 @@ inputmode="numeric">
       e.preventDefault();
       const $button = $(this);
       const $panel = $button.closest('.tab-pane');
-      const data = {};
-      
+      // Use FormData for both text fields and files
+      const formData = new FormData();
+
       // Include the button's name to determine transaction type
       if ($button.attr('name')) {
-        data[$button.attr('name')] = true;
+        formData.append($button.attr('name'), true);
       }
-      
+
+      // Append all inputs/selects (textual values)
       $panel.find('input, select').each(function(){
         const $el = $(this);
         const name = $el.attr('name');
         if(!name) return;
-        if($el.attr('type') === 'checkbox'){
-          data[name] = $el.is(':checked');
+
+        if($el.attr('type') === 'file'){
+          const files = $el[0].files;
+          if(files && files.length){
+            for(let i=0; i<files.length; i++){
+              formData.append('media_files', files[i]);
+            }
+          }
+        } else if($el.attr('type') === 'checkbox'){
+          formData.append(name, $el.is(':checked'));
         } else {
-          data[name] = $el.val();
+          formData.append(name, $el.val());
         }
       });
+
       fetch('/api/properties/', {
         method: 'POST',
         headers:{
-          'Content-Type':'application/json',
           'X-CSRFToken': getCookie('csrftoken')
         },
-        body: JSON.stringify(data)
+        body: formData
       }).then(r => r.json()).then(function(resp){
         console.log('Property listing created:', resp);
         if (resp.success) {
           alert('Property listing created successfully!');
-          // Optionally reset the form
-          $panel.find('input, select').each(function(){
-            if ($(this).attr('type') !== 'file') {
-              $(this).val('');
-            }
+          // Optionally reset the form except nice-select selects
+          $panel.find('input').not('[type="file"]').val('');
+          $panel.find('input[type="file"]').val('');
+          $panel.find('select').each(function(){
+            $(this).val('').niceSelect('update');
           });
-          // Refresh nice-select dropdowns
-          $panel.find('select').niceSelect('update');
         } else {
           alert('Error: ' + (resp.error || 'Failed to create property listing'));
         }

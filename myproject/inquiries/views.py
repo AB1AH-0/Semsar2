@@ -7,6 +7,8 @@ from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property, Dea
 from django.utils import timezone
 import random
 import string
+from django.core.files.storage import default_storage
+import os
 
 @csrf_exempt
 def register_user(request):
@@ -443,8 +445,14 @@ def properties_api(request):
 
     elif request.method == 'POST':
         try:
-            data = json.loads(request.body.decode('utf-8'))
-            
+            # Support both JSON (application/json) and file uploads (multipart/form-data)
+            if request.content_type and request.content_type.startswith('multipart'):
+                data = request.POST
+                uploaded_files = request.FILES.getlist('media_files')
+            else:
+                data = json.loads(request.body.decode('utf-8'))
+                uploaded_files = []
+
             transaction_type = 'sale' if 'list-property-sale' in data else 'rent'
             
             broker = UserProfile.objects.filter(user_type='broker').first()
@@ -488,7 +496,20 @@ def properties_api(request):
                     property_data['price'] = 0.0
 
             property_listing = Property.objects.create(**property_data)
-            
+
+            # Handle media file saving
+            if uploaded_files:
+                saved_paths = []
+                for file_obj in uploaded_files:
+                    # Save under media/property_media/<property_id>/filename
+                    path = default_storage.save(
+                        os.path.join('property_media', str(property_listing.id), file_obj.name),
+                        file_obj
+                    )
+                    saved_paths.append(default_storage.url(path))
+                property_listing.media_files = saved_paths
+                property_listing.save(update_fields=['media_files'])
+
             return JsonResponse({
                 'success': True,
                 'property_id': property_listing.id,
