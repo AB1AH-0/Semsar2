@@ -925,7 +925,7 @@ inputmode="numeric">
       cardFragment.querySelector('.bedrooms').textContent = prop.bedrooms;
       cardFragment.querySelector('.bathrooms').textContent = prop.bathrooms;
       cardFragment.querySelector('.area').textContent = prop.size;
-      cardFragment.querySelector('.price').textContent = prop.price;
+      cardFragment.querySelector('.price').textContent = prop.price + ' EGP';
 
       cardFragment.querySelector('.delete-property-btn').addEventListener('click', () => deleteProperty(prop.id, cardCol));
 
