@@ -112,7 +112,34 @@ def customers_view(request):
     Display customer inquiries for brokers with broker post information
     """
     inquiries = Inquiry.objects.select_related('broker_post').all().order_by('-created_at')
-    return render(request, 'customers.html', {'inquiries': inquiries})
+    
+    # Get current broker information
+    # TODO: Replace this with proper session-based authentication
+    # For now, get the first broker or create a default one
+    try:
+        current_broker = UserProfile.objects.filter(user_type='broker').first()
+        if not current_broker:
+            # Create a default broker if none exists
+            current_broker = UserProfile.objects.create(
+                user_type='broker',
+                full_name='Default Broker',
+                email='broker@example.com',
+                national_id='12345678901234',
+                phone='+20 123 456 7890',
+                password='defaultpassword'
+            )
+    except Exception as e:
+        # Fallback broker data
+        current_broker = {
+            'full_name': 'Default Broker',
+            'phone': '+20 123 456 7890'
+        }
+    
+    context = {
+        'inquiries': inquiries,
+        'current_broker': current_broker
+    }
+    return render(request, 'customers.html', context)
 
 
 @csrf_exempt
@@ -175,14 +202,15 @@ def accept_inquiry(request):
             data = json.loads(request.body)
             inquiry_id = data.get('inquiry_id')
             broker_name = data.get('broker_name')
+            broker_phone = data.get('broker_phone')
             commission = data.get('commission')
             notes = data.get('notes', '')
             
             # Validate required fields
-            if not inquiry_id or not broker_name or commission is None:
+            if not inquiry_id or not broker_name or not broker_phone or commission is None:
                 return JsonResponse({
                     'success': False,
-                    'error': 'Missing required fields: inquiry_id, broker_name, and commission'
+                    'error': 'Missing required fields: inquiry_id, broker_name, broker_phone, and commission'
                 }, status=400)
             
             inquiry = Inquiry.objects.get(id=inquiry_id)
@@ -198,6 +226,7 @@ def accept_inquiry(request):
             broker_post = BrokerPost.objects.create(
                 inquiry=inquiry,
                 broker_name=broker_name,
+                broker_phone=broker_phone,
                 commission=commission,
                 notes=notes
             )

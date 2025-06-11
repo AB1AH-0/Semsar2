@@ -275,6 +275,11 @@ class BrokerPost(models.Model):
         max_length=100,
         help_text="Name of the broker who accepted the inquiry"
     )
+    broker_phone = models.CharField(
+        max_length=15,
+        default='+20 000 000 0000',
+        help_text="Phone number of the broker who accepted the inquiry"
+    )
     commission = models.DecimalField(
         max_digits=5,
         decimal_places=2,

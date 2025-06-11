@@ -322,15 +322,24 @@
         <form id="brokerDetailsForm">
           <div class="mb-3">
             <label for="brokerName" class="form-label">Broker Name *</label>
-            <input type="text" class="form-control" id="brokerName" name="broker_name" required>
+            <input type="text" class="form-control" id="brokerName" name="broker_name" required value="{{ current_broker.full_name }}">
+          </div>
+          <div class="mb-3">
+            <label for="brokerPhone" class="form-label">Phone Number *</label>
+            <input type="tel" class="form-control" id="brokerPhone" name="broker_phone" required value="{{ current_broker.phone }}">
           </div>
           <div class="mb-3">
             <label for="commission" class="form-label">Commission (%) *</label>
             <input type="number" class="form-control" id="commission" name="commission" min="0" max="100" step="0.1" required>
           </div>
           <div class="mb-3">
-            <label for="brokerNotes" class="form-label">Additional Notes</label>
-            <textarea class="form-control" id="brokerNotes" name="notes" rows="3" placeholder="Any additional information..."></textarea>
+            <label for="brokerNotes" class="form-label">Description</label>
+            <textarea class="form-control" id="brokerNotes" name="notes" rows="3" placeholder="Describe your services and experience..."></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="brokerMedia" class="form-label">Media (Optional)</label>
+            <input type="file" class="form-control" id="brokerMedia" name="media" accept="image/*,video/*" multiple>
+            <div class="form-text">Upload images or videos to showcase your work</div>
           </div>
           <input type="hidden" id="modalInquiryId" name="inquiry_id">
         </form>
@@ -482,6 +491,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Set the inquiry ID in the modal
             document.getElementById('modalInquiryId').value = inquiryId;
             
+            // Auto-fill broker information (this should be replaced with actual logged-in broker data)
+            // For now, using placeholder data - replace with session/auth data when available
+            document.getElementById('brokerName').value = '{{ current_broker.full_name }}';
+            document.getElementById('brokerPhone').value = '{{ current_broker.phone }}';
+            
+            // Clear the editable fields
+            document.getElementById('commission').value = '';
+            document.getElementById('brokerNotes').value = '';
+            document.getElementById('brokerMedia').value = '';
+            
             // Show the broker details modal
             const modal = new bootstrap.Modal(document.getElementById('brokerDetailsModal'));
             modal.show();
@@ -494,12 +513,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const formData = new FormData(form);
         
         const brokerName = formData.get('broker_name');
+        const brokerPhone = formData.get('broker_phone');
         const commission = formData.get('commission');
         const notes = formData.get('notes');
+        const media = formData.get('media');
         const inquiryId = formData.get('inquiry_id');
         
         // Validate required fields
-        if (!brokerName || !commission) {
+        if (!brokerName || !brokerPhone || !commission) {
             showMessage('Please fill in all required fields', 'danger');
             return;
         }
@@ -514,6 +535,7 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({
                 inquiry_id: inquiryId,
                 broker_name: brokerName,
+                broker_phone: brokerPhone,
                 commission: parseFloat(commission),
                 notes: notes
             })
