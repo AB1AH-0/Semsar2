@@ -43,6 +43,128 @@
   font-size: 20px; 
 }
 
+.property-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transition: transform 0.3s;
+    margin-bottom: 30px;
+  }
+  
+  .property-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .property-img {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+  }
+  
+  .property-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .property-tag {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+  }
+  
+  .property-tag .transaction-type {
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  
+  .transaction-type.rent {
+    background: #007bff;
+    color: white;
+  }
+  
+  .transaction-type.sale {
+    background: #28a745;
+    color: white;
+  }
+  
+  .property-content {
+    padding: 20px;
+  }
+  
+  .property-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+  
+  .property-location {
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .property-details {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: #444;
+  }
+  
+  .property-details span {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  
+  .property-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+  
+  .price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #007bff;
+  }
+  
+  .broker-info {
+    color: #666;
+    font-size: 14px;
+  }
+
+  .property-filter .btn-group {
+    background: #fff;
+    padding: 5px;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .btn-filter {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 25px !important;
+    color: #666;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 0 5px;
+    background: transparent;
+  }
+  
+  .btn-filter:hover {
+    color: #007bff;
+    background: rgba(0,123,255,0.1);
+  }
+  
+  .btn-filter.active {
+    background: #007bff;
+    color: white;
+  }
     </style>
 </head>
 <body class="homepage1-body">
@@ -596,14 +718,77 @@
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
 
 <!--===== PROPERTY AREA ENDS =======-->
 
+<!--===== PROPERTY LISTINGS SECTION =======-->
+<div class="property-listings-section sp1">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-title text-center mb-4">
+          <h2>Available Properties</h2>
+          <p>Browse through our collection of properties listed by trusted brokers</p>
+        </div>
+        
+        <!-- Property Type Filter -->
+        <div class="property-filter text-center mb-5">
+          <div class="btn-group" role="group" aria-label="Property type filter">
+            <button type="button" class="btn btn-filter active" data-filter="all">
+              All Properties
+            </button>
+            <button type="button" class="btn btn-filter" data-filter="For Rent">
+              For Rent
+            </button>
+            <button type="button" class="btn btn-filter" data-filter="For Sale">
+              For Sale
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" id="property-cards-container">
+      <!-- Property cards will be dynamically inserted here -->
+    </div>
+  </div>
+</div>
+
+<!--===== PROPERTY CARD TEMPLATE =======-->
+<template id="property-card-template">
+  <div class="col-lg-4 col-md-6 mb-4">
+    <div class="property-card">
+      <div class="property-img">
+        <img src="" alt="Property Image" class="img-fluid">
+        <div class="property-tag">
+          <span class="transaction-type"></span>
+        </div>
+      </div>
+      <div class="property-content">
+        <div class="property-info">
+          <h3 class="property-title"></h3>
+          <p class="property-location"><i class="fa-solid fa-location-dot"></i> <span class="location-text"></span></p>
+          <div class="property-details">
+            <span><i class="fa-solid fa-bed"></i> <span class="bedrooms"></span> Beds</span>
+            <span><i class="fa-solid fa-bath"></i> <span class="bathrooms"></span> Baths</span>
+            <span><i class="fa-solid fa-ruler-combined"></i> <span class="area"></span> sqm</span>
+          </div>
+          <div class="property-meta">
+            <div class="price"></div>
+            <div class="broker-info">
+              <i class="fa-solid fa-user"></i> <span class="broker-name"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<!--===== PROPERTY LISTINGS SECTION =======-->
+
 <!--===== CTA AREA STARTS =======-->
-<div class="cta1-section-area sp1">
+<div class="cta1-section-area">
   <div class="container">
     <div class="row align-items-center">
       <div class="col-lg-5">
@@ -685,6 +870,7 @@
 <!--===== FOOTER AREA ENDS =======-->
 
 <!--===== JS SCRIPT LINK =======-->
+<script src="{% static 'assets/js/plugins/jquery-3-6-0.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
 <script src="{% static 'assets/js/plugins/aos.js' %}"></script>
@@ -730,6 +916,113 @@
       }
     });
   });
+</script>
+
+<script>
+// Function to fetch properties from the backend
+async function fetchProperties() {
+  try {
+    const response = await fetch('/api/properties/');
+    if (!response.ok) throw new Error('Failed to fetch properties');
+    const data = await response.json();
+    return data.properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    return [];
+  }
+}
+
+// Function to create property card from template
+function createPropertyCard(property) {
+  const template = document.getElementById('property-card-template');
+  const card = template.content.cloneNode(true);
+  
+  // Set property image from database
+  const img = card.querySelector('.property-img img');
+  if (property.images && property.images.length > 0) {
+    img.src = `/media/${property.images[0]}`;
+  } else {
+    img.src = '{% static "assets/img/placeholder-property.jpg" %}';
+  }
+  img.alt = property.title;
+  
+  // Set transaction type with appropriate styling
+  const transactionType = card.querySelector('.transaction-type');
+  transactionType.textContent = property.transaction_type;
+  transactionType.classList.add(property.transaction_type.toLowerCase().replace(' ', '-'));
+  
+  // Set property details
+  card.querySelector('.property-title').textContent = property.title;
+  card.querySelector('.location-text').textContent = `${property.city}, ${property.area}`;
+  card.querySelector('.bedrooms').textContent = property.bedrooms;
+  card.querySelector('.bathrooms').textContent = property.bathrooms;
+  card.querySelector('.area').textContent = property.area_size;
+  card.querySelector('.price').textContent = property.price;
+  card.querySelector('.broker-name').textContent = property.broker_name;
+  
+  // Add data attribute for filtering
+  const cardElement = card.querySelector('.col-lg-4');
+  cardElement.setAttribute('data-type', property.transaction_type);
+  
+  return card;
+}
+
+// Function to render properties with optional filter
+async function renderProperties(filter = 'all') {
+  const container = document.getElementById('property-cards-container');
+  const properties = await fetchProperties();
+  
+  container.innerHTML = ''; // Clear existing cards
+  
+  if (properties.length === 0) {
+    container.innerHTML = `
+      <div class="col-12 text-center">
+        <p>No properties available at the moment.</p>
+      </div>
+    `;
+    return;
+  }
+  
+  const filteredProperties = filter === 'all' 
+    ? properties 
+    : properties.filter(p => p.transaction_type === filter);
+    
+  if (filteredProperties.length === 0) {
+    container.innerHTML = `
+      <div class="col-12 text-center">
+        <p>No ${filter.toLowerCase()} properties available.</p>
+      </div>
+    `;
+    return;
+  }
+  
+  filteredProperties.forEach(property => {
+    container.appendChild(createPropertyCard(property));
+  });
+}
+
+// Initialize filter buttons
+function initializeFilters() {
+  const filterButtons = document.querySelectorAll('.btn-filter');
+  
+  filterButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      // Update active state
+      filterButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      
+      // Apply filter
+      const filter = button.getAttribute('data-filter');
+      renderProperties(filter);
+    });
+  });
+}
+
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+  renderProperties('all');
+  initializeFilters();
+});
 </script>
 </body>
 </html>

@@ -362,19 +362,40 @@ def logout_user(request):
 @csrf_exempt
 def list_properties(request):
     """
-    Debug endpoint to list all properties in the database
+    API endpoint to list all active properties with their details
     """
-    properties = Property.objects.all().values(
-        'id', 'broker__full_name', 'transaction_type', 'city', 'area', 
-        'property_type', 'price', 'created_at'
+    properties = Property.objects.filter(is_active=True).select_related('broker').values(
+        'id', 'broker__full_name', 'transaction_type', 'city', 'area',
+        'property_type', 'bedrooms', 'bathrooms', 'size', 'price',
+        'furnished', 'media_files', 'created_at'
     )
-    properties_list = list(properties)
-    print(f"Found {len(properties_list)} properties in database")
+    
+    # Format the properties for the frontend
+    formatted_properties = []
+    for prop in properties:
+        formatted_properties.append({
+            'id': prop['id'],
+            'title': f"{prop['property_type']} in {prop['area']}, {prop['city']}",
+            'transaction_type': 'For Rent' if prop['transaction_type'] == 'rent' else 'For Sale',
+            'city': prop['city'],
+            'area': prop['area'],
+            'property_type': prop['property_type'],
+            'bedrooms': prop['bedrooms'],
+            'bathrooms': prop['bathrooms'],
+            'area_size': prop['size'],
+            'price': f"EGP {prop['price']:,.2f}",
+            'furnished': prop['furnished'],
+            'broker_name': prop['broker__full_name'],
+            'images': prop['media_files'] if prop['media_files'] else [],
+            'created_at': prop['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+        })
+
     return JsonResponse({
         'success': True,
-        'count': len(properties_list),
-        'properties': properties_list
+        'count': len(formatted_properties),
+        'properties': formatted_properties
     })
+
 
 @csrf_exempt
 def create_property(request):

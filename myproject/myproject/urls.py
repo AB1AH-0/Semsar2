@@ -35,13 +35,15 @@ urlpatterns = [
     # login API endpoint
     path('api/login/', login_user, name='api_login'),
 
+    # Properties API
+    path('api/properties/', list_properties, name='list_properties'),
+
     # front-end
     path('', TemplateView.as_view(template_name='home.html'),       name='home'),
     path('about/',  TemplateView.as_view(template_name='about.html'), name='about'),
     path('login/',  TemplateView.as_view(template_name='login.html'),  name='login'),
     path('register/', TemplateView.as_view(template_name='reg1.html'),  name='register'),
     path('logout/', logout_user, name='logout'),
-    
     
     # User-specific pages
     path('home-user/', TemplateView.as_view(template_name='home-user.html'), name='home-user'),
@@ -71,3 +73,7 @@ if settings.DEBUG:
     # This uses the STATICFILES_DIRS setting from your settings.py
     # and serves files from the STATIC_URL path.
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0] if settings.STATICFILES_DIRS else settings.STATIC_ROOT)
+
+# Add media files serving in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
