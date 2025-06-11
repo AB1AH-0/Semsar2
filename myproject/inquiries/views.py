@@ -147,10 +147,11 @@ def customers_view(request):
 @csrf_exempt
 def get_inquiries_api(request):
     """
-    API endpoint to get all inquiries as JSON
+    API endpoint to get all inquiries as JSON, including broker post and deal status.
     """
     if request.method == 'GET':
-        inquiries = Inquiry.objects.all().order_by('-created_at')
+        # Eager load related models to optimize queries
+        inquiries = Inquiry.objects.select_related('broker_post', 'deal').all().order_by('-created_at')
         inquiries_data = []
         
         for inquiry in inquiries:
@@ -169,24 +170,34 @@ def get_inquiries_api(request):
                 'furnished': inquiry.furnished,
                 'created_at': inquiry.created_at.strftime('%Y-%m-%d %H:%M'),
                 'is_accepted': False,
-                'broker_post': None
+                'broker_post': None,
+                'deal_status': None, # To track the deal lifecycle
+                'deal_id': None,
+                'deal_rating': None,
             }
             
-            # Correctly check if the inquiry has an associated broker post
-            try:
-                broker_post = inquiry.broker_post  # Will raise BrokerPost.DoesNotExist if none exists
-            except BrokerPost.DoesNotExist:
-                broker_post = None
-
-            if broker_post is not None:
+            # Check for associated broker post
+            if hasattr(inquiry, 'broker_post'):
                 inquiry_data['is_accepted'] = True
+                broker_post = inquiry.broker_post
                 inquiry_data['broker_post'] = {
                     'broker_name': broker_post.broker_name,
                     'commission': float(broker_post.commission),
                     'notes': broker_post.notes,
                     'accepted_at': broker_post.created_at.strftime('%Y-%m-%d %H:%M')
                 }
-            
+
+                # Check for associated deal, which tracks customer actions
+                if hasattr(inquiry, 'deal'):
+                    deal = inquiry.deal
+                    inquiry_data['deal_status'] = deal.status
+                    inquiry_data['deal_id'] = deal.id
+                    if deal.status == 'completed':
+                        inquiry_data['deal_rating'] = deal.broker_rating
+                else:
+                    # Broker has accepted, but customer hasn't acted yet
+                    inquiry_data['deal_status'] = 'offer_pending'
+
             inquiries_data.append(inquiry_data)
         
         return JsonResponse({'inquiries': inquiries_data})

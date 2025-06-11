@@ -716,6 +716,79 @@
 
 <!--===== FOOTER AREA ENDS =======-->
 
+<!-- Broker Registration Modal -->
+<div class="modal fade" id="brokerRegistrationModal" tabindex="-1" aria-labelledby="brokerRegistrationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="brokerRegistrationModalLabel">Offer Accepted!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <p>Thank you for accepting the offer. Here is your unique Broker Registration Number:</p>
+        <h3 id="broker-registration-number" class="text-primary"></h3>
+        <p class="mt-3">An interview will be scheduled with the broker. You will be able to review the broker in 1 minute.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interview Review Modal -->
+<div class="modal fade" id="interviewReviewModal" tabindex="-1" aria-labelledby="interviewReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="interviewReviewModalLabel">Broker Interview Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please rate your experience with the broker and confirm the commission payment.</p>
+        <div class="mb-3">
+          <label for="broker-rating" class="form-label">Rating</label>
+          <div class="star-rating">
+            <i class="fa-solid fa-star" data-value="1"></i>
+            <i class="fa-solid fa-star" data-value="2"></i>
+            <i class="fa-solid fa-star" data-value="3"></i>
+            <i class="fa-solid fa-star" data-value="4"></i>
+            <i class="fa-solid fa-star" data-value="5"></i>
+          </div>
+          <input type="hidden" id="broker-rating" name="rating" value="0">
+        </div>
+        <div class="mb-3 form-check">
+          <input type="checkbox" class="form-check-input" id="commission-paid">
+          <label class="form-check-label" for="commission-paid">I have paid the commission.</label>
+        </div>
+        <input type="hidden" id="deal-id-for-review">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="submit-review-btn">Submit Review</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .star-rating {
+    cursor: pointer;
+  }
+  .star-rating i {
+    font-size: 2rem;
+    color: #d3d3d3; /* Light gray for unselected stars */
+  }
+  .star-rating i.selected,
+  .star-rating i:hover,
+  .star-rating i:hover ~ i {
+    color: #f39c12; /* Yellow for selected/hovered stars */
+  }
+  .star-rating i:hover ~ i {
+    color: #d3d3d3;
+  }
+</style>
+
 <!--===== JS SCRIPT LINK =======-->
 <script src="{% static 'assets/js/plugins/bootstrap.min.js' %}"></script>
 <script src="{% static 'assets/js/plugins/fontawesome.js' %}"></script>
@@ -981,108 +1054,226 @@ $(function(){
   // Refresh inquiries every 30 seconds to show new broker responses
   setInterval(loadCustomerInquiries, 30000); 
 
-// Load broker offers for customer to accept/reject
+// --- Main Data Loading and Rendering ---
 function loadBrokerOffers() {
-  fetch('/api/inquiries/')
-    .then(response => response.json())
-    .then(data => {
-      const tbody = document.getElementById('broker-offers-tbody');
-      const noOffersMessage = document.getElementById('no-broker-offers-message');
-      const table = document.getElementById('broker-offers-table');
-      
-      // Filter only inquiries that have broker responses
-      const offersData = data.inquiries ? data.inquiries.filter(inquiry => inquiry.is_accepted && inquiry.broker_post) : [];
-      
-      if (offersData.length > 0) {
-        tbody.innerHTML = '';
-        table.style.display = 'table';
-        noOffersMessage.style.display = 'none';
-        
-        offersData.forEach(inquiry => {
-          const row = document.createElement('tr');
-          
-          // Format location
-          const location = `${inquiry.city || 'N/A'}${inquiry.area ? ', ' + inquiry.area : ''}`;
-          
-          // Format property details
-          const propertyDetails = `${inquiry.property_type || 'N/A'} - ${inquiry.bedrooms || 'N/A'} BR, ${inquiry.bathrooms || 'N/A'} Bath`;
-          
-          // Format price range
-          let priceRange = 'N/A';
-          if (inquiry.min_price && inquiry.max_price) {
-            priceRange = `${Number(inquiry.min_price).toLocaleString()} - ${Number(inquiry.max_price).toLocaleString()} EGP`;
-          } else if (inquiry.min_price) {
-            priceRange = `From ${Number(inquiry.min_price).toLocaleString()} EGP`;
-          } else if (inquiry.max_price) {
-            priceRange = `Up to ${Number(inquiry.max_price).toLocaleString()} EGP`;
-          }
-          
-          row.innerHTML = `
-  <td>${inquiry.id}</td>
-  <td><span class="badge bg-${inquiry.transaction_type === 'rent' ? 'primary' : 'success'}">${inquiry.transaction_type}</span></td>
-  <td>${inquiry.city || 'N/A'}</td>
-  <td>${inquiry.area || 'N/A'}</td>
-  <td>${inquiry.property_type || 'N/A'}</td>
-  <td>${inquiry.bedrooms || 'N/A'}</td>
-  <td>${inquiry.bathrooms || 'N/A'}</td>
-  <td>${priceRange}</td>
-  <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
-  <td>
-    <div class="small bg-light p-2 rounded">
-      <div class="mb-1"><strong>Broker:</strong> ${inquiry.broker_post.broker_name}</div>
-      <div class="mb-1"><strong>Commission:</strong> ${inquiry.broker_post.commission}%</div>
-      <div class="mb-1"><strong>Accepted:</strong> ${new Date(inquiry.broker_post.accepted_at).toLocaleDateString()}</div>
-      ${inquiry.broker_post.notes ? '<div><strong>Notes:</strong> ' + inquiry.broker_post.notes + '</div>' : ''}
-    </div>
-  </td>
-  <td>
-    <button class="btn btn-success btn-sm me-2 accept-offer-btn" data-inquiry-id="${inquiry.id}">
-      <i class="fa-solid fa-check"></i> Accept
-    </button>
-    <button class="btn btn-danger btn-sm reject-offer-btn" data-inquiry-id="${inquiry.id}">
-      <i class="fa-solid fa-times"></i> Reject
-    </button>
-  </td>
-`;
-          
-          tbody.appendChild(row);
-        });
+    fetch('/api/inquiries/')
+        .then(response => response.json())
+        .then(data => {
+            const tbody = document.getElementById('broker-offers-tbody');
+            const noOffersMessage = document.getElementById('no-broker-offers-message');
+            const table = document.getElementById('broker-offers-table');
 
-        // Add event listeners for accept/reject buttons
-        document.querySelectorAll('.accept-offer-btn').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const inquiryId = this.getAttribute('data-inquiry-id');
-            acceptOffer(inquiryId);
-          });
+            const offersData = data.inquiries ? data.inquiries.filter(inquiry => 
+                inquiry.is_accepted && inquiry.broker_post && inquiry.deal_status !== 'rejected'
+            ) : [];
+
+            if (offersData.length > 0) {
+                tbody.innerHTML = '';
+                table.style.display = 'table';
+                noOffersMessage.style.display = 'none';
+
+                offersData.forEach(inquiry => {
+                    const row = document.createElement('tr');
+                    let priceRange = 'N/A';
+                    if (inquiry.min_price && inquiry.max_price) {
+                        priceRange = `${Number(inquiry.min_price).toLocaleString()} - ${Number(inquiry.max_price).toLocaleString()} EGP`;
+                    } else if (inquiry.min_price) {
+                        priceRange = `From ${Number(inquiry.min_price).toLocaleString()} EGP`;
+                    } else if (inquiry.max_price) {
+                        priceRange = `Up to ${Number(inquiry.max_price).toLocaleString()} EGP`;
+                    }
+
+                    let actionsHtml = '';
+                    switch (inquiry.deal_status) {
+                        case 'offer_pending':
+                            actionsHtml = `
+                                <button class="btn btn-success btn-sm me-2 accept-offer-btn" data-inquiry-id="${inquiry.id}">
+                                    <i class="fa-solid fa-check"></i> Accept
+                                </button>
+                                <button class="btn btn-danger btn-sm reject-offer-btn" data-inquiry-id="${inquiry.id}">
+                                    <i class="fa-solid fa-times"></i> Reject
+                                </button>
+                            `;
+                            break;
+                        case 'pending_review':
+                            actionsHtml = `<span class="badge bg-info text-dark">Review Pending...</span>`;
+                            break;
+                        case 'completed':
+                            let starsHtml = '';
+                            for (let i = 1; i <= 5; i++) {
+                                starsHtml += `<i class="fa-solid fa-star ${i <= inquiry.deal_rating ? 'text-warning' : 'text-secondary'}"></i>`;
+                            }
+                            actionsHtml = `<div class="text-success small"><strong>Completed</strong><br>${starsHtml}</div>`;
+                            break;
+                        default:
+                            actionsHtml = '<span class="text-muted">Processing...</span>';
+                    }
+
+                    row.innerHTML = `
+                        <td>${inquiry.id}</td>
+                        <td><span class="badge bg-${inquiry.transaction_type.toLowerCase() === 'rent' ? 'primary' : 'success'}">${inquiry.transaction_type}</span></td>
+                        <td>${inquiry.city || 'N/A'}</td>
+                        <td>${inquiry.area || 'N/A'}</td>
+                        <td>${inquiry.property_type || 'N/A'}</td>
+                        <td>${inquiry.bedrooms || 'N/A'}</td>
+                        <td>${inquiry.bathrooms || 'N/A'}</td>
+                        <td>${priceRange}</td>
+                        <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
+                        <td>
+                            <div class="small bg-light p-2 rounded">
+                                <div class="mb-1"><strong>Broker:</strong> ${inquiry.broker_post.broker_name}</div>
+                                <div class="mb-1"><strong>Commission:</strong> ${inquiry.broker_post.commission}%</div>
+                                <div class="mb-1"><strong>Accepted:</strong> ${new Date(inquiry.broker_post.accepted_at).toLocaleDateString()}</div>
+                                ${inquiry.broker_post.notes ? '<div><strong>Notes:</strong> ' + inquiry.broker_post.notes + '</div>' : ''}
+                            </div>
+                        </td>
+                        <td class="action-cell">${actionsHtml}</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } else {
+                table.style.display = 'none';
+                noOffersMessage.style.display = 'block';
+            }
+        })
+        .catch(error => {
+            console.error('Error loading broker offers:', error);
+            document.getElementById('broker-offers-message-container').innerHTML = 
+                '<div class="alert alert-danger">Error loading broker offers. Please refresh the page.</div>';
         });
-        
-        document.querySelectorAll('.reject-offer-btn').forEach(btn => {
-          btn.addEventListener('click', function() {
-            const inquiryId = this.getAttribute('data-inquiry-id');
-            rejectOffer(inquiryId);
-          });
-        });
-        
-      } else {
-        table.style.display = 'none';
-        noOffersMessage.style.display = 'block';
-      }
-    })
-    .catch(error => {
-      console.error('Error loading broker offers:', error);
-      document.getElementById('broker-offers-message-container').innerHTML = 
-        '<div class="alert alert-danger">Error loading broker offers. Please refresh the page.</div>';
+}
+
+// --- Event Delegation for Actions ---
+document.getElementById('broker-offers-tbody').addEventListener('click', function(event) {
+    const target = event.target.closest('button');
+    if (!target) return;
+
+    const inquiryId = target.dataset.inquiryId;
+    if (target.classList.contains('accept-offer-btn')) {
+        acceptOffer(inquiryId);
+    } else if (target.classList.contains('reject-offer-btn')) {
+        rejectOffer(inquiryId);
+    }
+});
+
+// --- API Call Functions ---
+function acceptOffer(inquiryId) {
+    const csrfToken = getCookie('csrftoken');
+    $.ajax({
+        url: `/api/deals/accept/${inquiryId}/`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ inquiry_id: inquiryId }),
+        beforeSend: xhr => xhr.setRequestHeader('X-CSRFToken', csrfToken),
+        success: response => {
+            if (response.success) {
+                $('#broker-registration-number').text(response.broker_registration_number);
+                const registrationModal = new bootstrap.Modal(document.getElementById('brokerRegistrationModal'));
+                registrationModal.show();
+
+                // Schedule the review modal to appear after 1 minute (60000 ms)
+                setTimeout(() => {
+                    $('#deal-id-for-review').val(response.deal_id);
+                    const reviewModal = new bootstrap.Modal(document.getElementById('interviewReviewModal'));
+                    reviewModal.show();
+                }, 60000);
+
+                loadBrokerOffers();
+            } else {
+                alert('Error: ' + response.error);
+            }
+        },
+        error: () => alert('An error occurred while accepting the offer.')
     });
 }
 
-// Load broker offers when page loads
-loadBrokerOffers();
+function rejectOffer(inquiryId) {
+    if (!confirm('Are you sure you want to reject this offer?')) return;
 
-// Refresh broker offers every 30 seconds
-setInterval(loadBrokerOffers, 30000);
-  </script>
+    const csrfToken = getCookie('csrftoken');
+    $.ajax({
+        url: `/api/deals/reject/${inquiryId}/`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ inquiry_id: inquiryId }),
+        beforeSend: xhr => xhr.setRequestHeader('X-CSRFToken', csrfToken),
+        success: response => {
+            if (response.success) {
+                loadBrokerOffers();
+            } else {
+                alert('Error: ' + response.error);
+            }
+        },
+        error: () => alert('An error occurred while rejecting the offer.')
+    });
+}
 
-  {% include 'broker_deal_modals.html' %}
+// --- Star Rating Logic ---
+const stars = document.querySelectorAll('.star-rating .fa-star');
+const ratingInput = document.getElementById('broker-rating');
+
+function resetStars() {
+    stars.forEach(star => star.classList.remove('selected'));
+}
+
+function setStars(rating) {
+    resetStars();
+    for (let i = 0; i < rating; i++) {
+        stars[i].classList.add('selected');
+    }
+}
+
+stars.forEach(star => {
+    star.addEventListener('mouseover', () => setStars(star.dataset.value));
+    star.addEventListener('mouseout', () => setStars(ratingInput.value));
+    star.addEventListener('click', () => {
+        ratingInput.value = star.dataset.value;
+        setStars(ratingInput.value);
+    });
+});
+
+// --- Review Submission ---
+$('#submit-review-btn').on('click', function() {
+    const dealId = $('#deal-id-for-review').val();
+    const rating = $('#broker-rating').val();
+    const commissionPaid = $('#commission-paid').is(':checked');
+    const csrfToken = getCookie('csrftoken');
+
+    if (rating === '0') {
+        alert('Please select a rating from 1 to 5 stars.');
+        return;
+    }
+
+    $.ajax({
+        url: `/api/deals/review/${dealId}/`,
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            deal_id: dealId,
+            rating: rating,
+            commission_paid: commissionPaid
+        }),
+        beforeSend: xhr => xhr.setRequestHeader('X-CSRFToken', csrfToken),
+        success: response => {
+            if (response.success) {
+                const reviewModal = bootstrap.Modal.getInstance(document.getElementById('interviewReviewModal'));
+                reviewModal.hide();
+                loadBrokerOffers();
+            } else {
+                alert('Error: ' + response.error);
+            }
+        },
+        error: () => alert('An error occurred while submitting the review.')
+    });
+});
+
+// --- Initial Load and Refresh ---
+$(document).ready(function() {
+    loadBrokerOffers();
+    setInterval(loadBrokerOffers, 30000); // Refresh every 30 seconds
+});
+
+</script>
 </body>
 
 </html>
