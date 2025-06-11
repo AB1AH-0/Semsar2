@@ -417,7 +417,7 @@ def properties_api(request):
         if broker_id:
             qs = qs.filter(broker_id=broker_id)
         properties = qs.select_related('broker').values(
-            'id', 'broker__full_name', 'transaction_type', 'city', 'area',
+            'id', 'broker__full_name', 'broker__phone', 'transaction_type', 'city', 'area',
             'property_type', 'bedrooms', 'bathrooms', 'size', 'price',
             'furnished', 'finish', 'is_active', 'created_at', 'media_files'
         )
@@ -427,6 +427,7 @@ def properties_api(request):
             formatted_properties.append({
                 'id': prop['id'],
                 'broker_name': prop['broker__full_name'],
+                'broker_phone': prop['broker__phone'],
                 'transaction_type': prop['transaction_type'],
                 'city': prop['city'],
                 'area': prop['area'],
