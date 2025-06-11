@@ -391,101 +391,56 @@ def logout_user(request):
 
 
 @csrf_exempt
-def list_properties(request):
+def properties_api(request):
     """
-    API endpoint to list all active properties with their details
+    API endpoint for listing and creating properties.
+    - GET: Returns a list of active properties.
+    - POST: Creates a new property listing.
     """
-    properties = Property.objects.filter(is_active=True).select_related('broker').values(
-        'id', 'broker__full_name', 'transaction_type', 'city', 'area',
-        'property_type', 'bedrooms', 'bathrooms', 'size', 'price',
-        'furnished', 'media_files', 'created_at'
-    )
-    
-    # Format the properties for the frontend
-    formatted_properties = []
-    for prop in properties:
-        formatted_properties.append({
-            'id': prop['id'],
-            'title': f"{prop['property_type']} in {prop['area']}, {prop['city']}",
-            'transaction_type': 'For Rent' if prop['transaction_type'] == 'rent' else 'For Sale',
-            'city': prop['city'],
-            'area': prop['area'],
-            'property_type': prop['property_type'],
-            'bedrooms': prop['bedrooms'],
-            'bathrooms': prop['bathrooms'],
-            'area_size': prop['size'],
-            'price': f"EGP {prop['price']:,.2f}",
-            'furnished': prop['furnished'],
-            'broker_name': prop['broker__full_name'],
-            'images': prop['media_files'] if prop['media_files'] else [],
-            'created_at': prop['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+    if request.method == 'GET':
+        properties = Property.objects.filter(is_active=True).select_related('broker').values(
+            'id', 'broker__full_name', 'transaction_type', 'city', 'area',
+            'property_type', 'bedrooms', 'bathrooms', 'size', 'price',
+            'furnished', 'finish', 'is_active', 'created_at', 'media_files'
+        )
+
+        formatted_properties = []
+        for prop in properties:
+            formatted_properties.append({
+                'id': prop['id'],
+                'broker_name': prop['broker__full_name'],
+                'transaction_type': prop['transaction_type'],
+                'city': prop['city'],
+                'area': prop['area'],
+                'property_type': prop['property_type'],
+                'bedrooms': prop['bedrooms'],
+                'bathrooms': prop['bathrooms'],
+                'size': prop['size'],
+                'price': float(prop['price']) if prop['price'] is not None else 0.0,
+                'furnished': prop['furnished'],
+                'finish': prop['finish'],
+                'is_active': prop['is_active'],
+                'images': prop['media_files'] if prop['media_files'] else [],
+                'created_at': prop['created_at'].strftime('%Y-%m-%d %H:%M:%S')
+            })
+
+        return JsonResponse({
+            'success': True,
+            'count': len(formatted_properties),
+            'properties': formatted_properties
         })
 
-    return JsonResponse({
-        'success': True,
-        'count': len(formatted_properties),
-        'properties': formatted_properties
-    })
-
-
-@csrf_exempt
-def create_property(request):
-    """
-    API endpoint to create a new property listing from broker form
-    """
-    print("\n=== New Property Creation Request ===")
-    print(f"Method: {request.method}")
-    print(f"Content-Type: {request.content_type}")
-    
-    if request.method == 'POST':
+    elif request.method == 'POST':
         try:
-            # Print raw request body for debugging
-            raw_body = request.body.decode('utf-8')
-            print(f"Raw request body: {raw_body}")
+            data = json.loads(request.body.decode('utf-8'))
             
-            try:
-                data = json.loads(raw_body)
-                print("Parsed JSON data:", data)
-            except json.JSONDecodeError as e:
-                print(f"JSON decode error: {e}")
-                return JsonResponse({
-                    'success': False,
-                    'error': 'Invalid JSON data'
-                }, status=400)
-            
-            # Determine transaction type
             transaction_type = 'sale' if 'list-property-sale' in data else 'rent'
-            print(f"Transaction type: {transaction_type}")
             
-            # Get or create test broker
-            try:
-                broker = UserProfile.objects.filter(user_type='broker').first()
-                if not broker:
-                    print("Creating test broker...")
-                    broker = UserProfile.objects.create(
-                        user_type='broker',
-                        full_name='Test Broker',
-                        email='testbroker@example.com',
-                        national_id='12345678901234',
-                        phone='+201234567890',
-                        password='testpassword123'
-                    )
-                    print(f"Created test broker with ID: {broker.id}")
-                else:
-                    print(f"Using existing broker ID: {broker.id}")
-            except Exception as e:
-                error_msg = f"Broker setup error: {str(e)}"
-                print(error_msg)
-                return JsonResponse({
-                    'success': False,
-                    'error': error_msg
-                }, status=500)
-            
-            # Prepare property data
+            broker = UserProfile.objects.filter(user_type='broker').first()
+            if not broker:
+                return JsonResponse({'success': False, 'error': 'No broker account found.'}, status=400)
+
             suffix = f'-{transaction_type}'
-            print(f"Using field suffix: {suffix}")
-            
-            # Map form fields to model fields
             field_mapping = {
                 'city': f'broker-city{suffix}',
                 'area': f'broker-area{suffix}',
@@ -502,78 +457,43 @@ def create_property(request):
             
             property_data = {'broker': broker, 'transaction_type': transaction_type}
             
-            # Log field mapping
-            print("\nField mapping:")
             for model_field, form_field in field_mapping.items():
-                value = data.get(form_field, 'NOT FOUND')
-                print(f"  {form_field} -> {model_field}: {value} (type: {type(value).__name__})")
-                if value != 'NOT FOUND':
+                value = data.get(form_field)
+                if value is not None:
                     property_data[model_field] = value
-            
+
             # Convert numeric fields
             for field in ['bedrooms', 'bathrooms', 'size']:
-                if field in property_data:
+                if field in property_data and property_data[field] is not None:
                     try:
-                        property_data[field] = int(property_data[field] or 0)
-                    except (ValueError, TypeError) as e:
-                        print(f"Warning: Could not convert {field} to int: {e}")
+                        property_data[field] = int(property_data[field])
+                    except (ValueError, TypeError):
                         property_data[field] = 0
             
-            # Convert price to float
-            if 'price' in property_data:
+            if 'price' in property_data and property_data['price'] is not None:
                 try:
-                    property_data['price'] = float(property_data['price'] or 0)
-                except (ValueError, TypeError) as e:
-                    print(f"Warning: Could not convert price to float: {e}")
+                    property_data['price'] = float(property_data['price'])
+                except (ValueError, TypeError):
                     property_data['price'] = 0.0
+
+            property_listing = Property.objects.create(**property_data)
             
-            print("\nFinal property data:", property_data)
-            
-            # Create property listing
-            try:
-                property_listing = Property.objects.create(**property_data)
-                print(f"Successfully created property listing ID: {property_listing.id}")
-                
-                # Verify the property exists in the database
-                if Property.objects.filter(id=property_listing.id).exists():
-                    print("Verified: Property exists in database")
-                else:
-                    print("ERROR: Property was not saved to database!")
-                
-                return JsonResponse({
-                    'success': True,
-                    'property_id': property_listing.id,
-                    'message': f'Property listing created successfully! (ID: {property_listing.id})',
-                    'debug': {
-                        'transaction_type': transaction_type,
-                        'broker_id': broker.id,
-                        'broker_name': broker.full_name,
-                        'fields_received': list(data.keys())
-                    }
-                })
-                
-            except Exception as e:
-                error_msg = f"Error creating property: {str(e)}"
-                print(error_msg)
-                import traceback
-                traceback.print_exc()
-                return JsonResponse({
-                    'success': False,
-                    'error': error_msg,
-                    'traceback': traceback.format_exc()
-                }, status=500)
-            
-        except Exception as e:
-            error_msg = f"Unexpected error: {str(e)}"
-            print(error_msg)
-            import traceback
-            traceback.print_exc()
             return JsonResponse({
-                'success': False,
-                'error': error_msg,
+                'success': True,
+                'property_id': property_listing.id,
+                'message': f'Property listing created successfully! (ID: {property_listing.id})'
+            })
+
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data'}, status=400)
+        except Exception as e:
+            import traceback
+            return JsonResponse({
+                'success': False, 
+                'error': f'An unexpected error occurred: {str(e)}',
                 'traceback': traceback.format_exc()
             }, status=500)
-    
+
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
