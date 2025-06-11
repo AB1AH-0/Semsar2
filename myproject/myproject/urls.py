@@ -23,7 +23,7 @@ from django.views.generic import TemplateView
 from inquiries.views import (
     register_user, new_page, create_inquiry, customers_view, get_inquiries_api,
     accept_inquiry, reject_inquiry, login_user, payment_page, process_payment, 
-    logout_user, create_property, list_properties, accept_broker_offer, 
+    logout_user, properties_api, accept_broker_offer, 
     reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status
 )
 
@@ -35,9 +35,6 @@ urlpatterns = [
 
     # login API endpoint
     path('api/login/', login_user, name='api_login'),
-
-    # Properties API
-    path('api/properties/', list_properties, name='list_properties'),
 
     # front-end
     path('', TemplateView.as_view(template_name='home.html'),       name='home'),
@@ -65,8 +62,7 @@ urlpatterns = [
     path('api/inquiries/list/', get_inquiries_api, name='get_inquiries'),
     path('api/inquiries/accept/', accept_inquiry, name='accept_inquiry'),
     path('api/inquiries/reject/', reject_inquiry, name='reject_inquiry'),
-    path('api/properties/', create_property, name='create_property'),
-    path('api/properties/list/', list_properties, name='list_properties'),
+    path('api/properties/', properties_api, name='properties_api'),
     path('api/deals/accept/', accept_broker_offer, name='accept_broker_offer'),
     path('api/deals/reject/', reject_broker_offer, name='reject_broker_offer'),
     path('api/deals/review/', submit_broker_review, name='submit_broker_review'),
