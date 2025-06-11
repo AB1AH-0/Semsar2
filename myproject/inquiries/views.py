@@ -543,17 +543,22 @@ def generate_registration_number():
 
 
 @csrf_exempt
-def accept_broker_offer(request):
+def accept_broker_offer(request, inquiry_id=None):
     """
     Enhanced API endpoint for customers to accept broker offers
     Creates a Deal record and shows broker registration number
     """
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            inquiry_id = data.get('inquiry_id')
-            customer_notes = data.get('customer_notes', '')
-            
+            # Support both URL param and JSON body for inquiry_id
+            if inquiry_id is None:
+                data = json.loads(request.body or '{}')
+                inquiry_id = data.get('inquiry_id')
+                customer_notes = data.get('customer_notes', '')
+            else:
+                data = json.loads(request.body or '{}')
+                customer_notes = data.get('customer_notes', '')
+
             if not inquiry_id:
                 return JsonResponse({
                     'success': False,
@@ -632,17 +637,22 @@ def accept_broker_offer(request):
 
 
 @csrf_exempt
-def reject_broker_offer(request):
+def reject_broker_offer(request, inquiry_id=None):
     """
     Enhanced API endpoint for customers to reject broker offers
     Creates a rejection record and notifies broker
     """
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            inquiry_id = data.get('inquiry_id')
-            customer_notes = data.get('customer_notes', '')
-            
+            # Support both URL param and JSON body for inquiry_id
+            if inquiry_id is None:
+                data = json.loads(request.body or '{}')
+                inquiry_id = data.get('inquiry_id')
+                customer_notes = data.get('customer_notes', '')
+            else:
+                data = json.loads(request.body or '{}')
+                customer_notes = data.get('customer_notes', '')
+
             if not inquiry_id:
                 return JsonResponse({
                     'success': False,
@@ -691,18 +701,23 @@ def reject_broker_offer(request):
 
 
 @csrf_exempt
-def submit_broker_review(request):
+def submit_broker_review(request, deal_id=None):
     """
     API endpoint for customers to submit broker rating and pay commission
     """
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            deal_id = data.get('deal_id')
+            # Support both URL param and JSON body for deal_id
+            if deal_id is None:
+                data = json.loads(request.body or '{}')
+                deal_id = data.get('deal_id')
+            else:
+                data = json.loads(request.body or '{}')
+
             rating = data.get('rating')
             rating_notes = data.get('rating_notes', '')
             commission_amount = data.get('commission_amount')
-            
+
             if not all([deal_id, rating, commission_amount]):
                 return JsonResponse({
                     'success': False,

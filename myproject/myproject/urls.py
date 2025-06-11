@@ -63,9 +63,9 @@ urlpatterns = [
     path('api/inquiries/accept/', accept_inquiry, name='accept_inquiry'),
     path('api/inquiries/reject/', reject_inquiry, name='reject_inquiry'),
     path('api/properties/', properties_api, name='properties_api'),
-    path('api/deals/accept/', accept_broker_offer, name='accept_broker_offer'),
-    path('api/deals/reject/', reject_broker_offer, name='reject_broker_offer'),
-    path('api/deals/review/', submit_broker_review, name='submit_broker_review'),
+    path('api/deals/accept/<int:inquiry_id>/', accept_broker_offer, name='accept_broker_offer'),
+    path('api/deals/reject/<int:inquiry_id>/', reject_broker_offer, name='reject_broker_offer'),
+    path('api/deals/review/<int:deal_id>/', submit_broker_review, name='submit_broker_review'),
     path('api/deals/rejections/', get_broker_rejections, name='get_broker_rejections'),
     path('api/deals/status/', get_deals_status, name='get_deals_status'),
 ]
