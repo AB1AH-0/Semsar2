@@ -700,6 +700,7 @@ def accept_broker_offer(request, inquiry_id=None):
                 'deal_id': deal.id,
                 'broker_registration_number': registration.registration_number if broker else registration_number,
                 'broker_name': broker_post.broker_name,
+                'broker_phone': broker_post.broker_phone,
                 'commission': float(broker_post.commission),
                 'interview_scheduled_at': deal.interview_scheduled_at.isoformat(),
                 'show_registration_modal': True

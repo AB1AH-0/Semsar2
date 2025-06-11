@@ -725,27 +725,38 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body text-center">
-        <p>Thank you for accepting the offer. Here is your unique Broker Registration Number:</p>
-        <h3 id="broker-registration-number" class="text-primary"></h3>
-        <p class="mt-3">An interview will be scheduled with the broker. You will be able to review the broker in 1 minute.</p>
+        <div class="mb-4">
+          <i class="fa-solid fa-check-circle text-success" style="font-size: 3rem;"></i>
+        </div>
+        <h6>Your offer has been accepted successfully!</h6>
+        <div class="mt-3">
+          <p><strong>Broker Registration Number:</strong></p>
+          <p class="fs-5 fw-bold text-primary" id="broker-registration-number">BR-2024-000000</p>
+        </div>
+        <div class="mt-3">
+          <p><strong>Broker Phone Number:</strong></p>
+          <p class="fs-5 fw-bold text-success" id="broker-phone-number">+20 000 000 0000</p>
+        </div>
+        <div class="mt-3">
+          <p class="text-muted">You will receive an interview review in 1 minute to rate your experience.</p>
+        </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Got it!</button>
       </div>
     </div>
   </div>
 </div>
-
-<!-- Interview Review Modal -->
+<!-- Broker Review Modal -->
 <div class="modal fade" id="interviewReviewModal" tabindex="-1" aria-labelledby="interviewReviewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="interviewReviewModalLabel">Broker Interview Review</h5>
+        <h5 class="modal-title" id="interviewReviewModalLabel">Broker Review</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Please rate your experience with the broker and confirm the commission payment.</p>
+        <p>Please rate your experience with the broker and confirm if you have done a deal.</p>
         <div class="mb-3">
           <label for="broker-rating" class="form-label">Rating</label>
           <div class="star-rating">
@@ -758,14 +769,14 @@
           <input type="hidden" id="broker-rating" name="rating" value="0">
         </div>
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="commission-paid">
-          <label class="form-check-label" for="commission-paid">I have paid the commission.</label>
+          <input type="checkbox" class="form-check-input" id="deal-done">
+          <label class="form-check-label" for="deal-done">I have done a deal.</label>
         </div>
         <input type="hidden" id="deal-id-for-review">
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="submit-review-btn">Submit Review</button>
+      <div id="office-visit-message" class="alert alert-info" style="display: none;">
+        <i class="fa-solid fa-map-marker-alt me-2"></i>
+        <strong>Visit our office:</strong> 82 Beside Banque Misr, Maadi, Cairo, Egypt
       </div>
     </div>
   </div>
@@ -1168,6 +1179,7 @@ function acceptOffer(inquiryId) {
         beforeSend: xhr => xhr.setRequestHeader('X-CSRFToken', csrfToken),
         success: response => {
             if (response.success) {
+              $('#broker-phone-number').text(response.broker_phone);
                 $('#broker-registration-number').text(response.broker_registration_number);
                 const registrationModal = new bootstrap.Modal(document.getElementById('brokerRegistrationModal'));
                 registrationModal.show();
@@ -1273,7 +1285,14 @@ $(document).ready(function() {
     loadBrokerOffers();
     setInterval(loadBrokerOffers, 30000); // Refresh every 30 seconds
 });
-
+// Add event listener for deal done checkbox
+$('#deal-done').change(function() {
+    if (this.checked) {
+        $('#office-visit-message').show();
+    } else {
+        $('#office-visit-message').hide();
+    }
+});
 </script>
 </body>
 
