@@ -400,3 +400,147 @@ class Property(models.Model):
     
     def __str__(self):
         return f"{self.property_type} in {self.area}, {self.city} - {self.get_transaction_type_display()}"
+
+
+class Deal(models.Model):
+    """
+    Stores deals when customers accept broker offers
+    """
+    DEAL_STATUS_PENDING = 'pending'
+    DEAL_STATUS_INTERVIEW_PENDING = 'interview_pending'
+    DEAL_STATUS_COMPLETED = 'completed'
+    DEAL_STATUS_CANCELLED = 'cancelled'
+    
+    DEAL_STATUS_CHOICES = [
+        (DEAL_STATUS_PENDING, 'Pending'),
+        (DEAL_STATUS_INTERVIEW_PENDING, 'Interview Pending'),
+        (DEAL_STATUS_COMPLETED, 'Completed'),
+        (DEAL_STATUS_CANCELLED, 'Cancelled'),
+    ]
+    
+    inquiry = models.OneToOneField(
+        Inquiry,
+        on_delete=models.CASCADE,
+        related_name='deal',
+        help_text="The inquiry that was accepted by customer"
+    )
+    broker_post = models.OneToOneField(
+        BrokerPost,
+        on_delete=models.CASCADE,
+        related_name='deal',
+        help_text="The broker post that was accepted"
+    )
+    customer_notes = models.TextField(
+        blank=True,
+        help_text="Customer's notes when accepting the deal"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=DEAL_STATUS_CHOICES,
+        default=DEAL_STATUS_PENDING,
+        help_text="Current status of the deal"
+    )
+    broker_rating = models.PositiveIntegerField(
+        null=True,
+        blank=True,
+        help_text="Customer rating for broker (1-5 stars)"
+    )
+    rating_notes = models.TextField(
+        blank=True,
+        help_text="Customer's notes about the broker rating"
+    )
+    commission_paid = models.BooleanField(
+        default=False,
+        help_text="Whether commission has been paid"
+    )
+    commission_amount = models.DecimalField(
+        max_digits=10,
+        decimal_places=2,
+        null=True,
+        blank=True,
+        help_text="Actual commission amount paid"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    interview_scheduled_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        help_text="When the interview review is scheduled"
+    )
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Deal'
+        verbose_name_plural = 'Deals'
+    
+    def __str__(self):
+        return f"Deal #{self.id} - {self.inquiry} - {self.get_status_display()}"
+
+
+class BrokerRegistration(models.Model):
+    """
+    Stores broker registration numbers and details
+    """
+    broker = models.OneToOneField(
+        UserProfile,
+        on_delete=models.CASCADE,
+        related_name='registration',
+        limit_choices_to={'user_type': UserProfile.USER_TYPE_BROKER},
+        help_text="The broker this registration belongs to"
+    )
+    registration_number = models.CharField(
+        max_length=20,
+        unique=True,
+        help_text="Unique broker registration number"
+    )
+    registration_date = models.DateField(
+        help_text="Date when broker was registered"
+    )
+    license_expiry = models.DateField(
+        null=True,
+        blank=True,
+        help_text="License expiry date"
+    )
+    is_active = models.BooleanField(
+        default=True,
+        help_text="Whether the registration is currently active"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Broker Registration'
+        verbose_name_plural = 'Broker Registrations'
+    
+    def __str__(self):
+        return f"{self.broker.full_name} - {self.registration_number}"
+
+
+class BrokerRejection(models.Model):
+    """
+    Stores broker rejection notifications
+    """
+    broker_post = models.OneToOneField(
+        BrokerPost,
+        on_delete=models.CASCADE,
+        related_name='rejection',
+        help_text="The broker post that was rejected"
+    )
+    customer_notes = models.TextField(
+        blank=True,
+        help_text="Customer's reason for rejection"
+    )
+    notified = models.BooleanField(
+        default=False,
+        help_text="Whether broker has been notified of rejection"
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Broker Rejection'
+        verbose_name_plural = 'Broker Rejections'
+    
+    def __str__(self):
+        return f"Rejection for {self.broker_post.broker_name} - Inquiry #{self.broker_post.inquiry.id}"

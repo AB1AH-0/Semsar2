@@ -3,8 +3,10 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property
+from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property, Deal, BrokerRegistration, BrokerRejection
 from django.utils import timezone
+import random
+import string
 
 @csrf_exempt
 def register_user(request):
@@ -571,5 +573,296 @@ def create_property(request):
                 'error': error_msg,
                 'traceback': traceback.format_exc()
             }, status=500)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+def generate_registration_number():
+    """Generate a unique broker registration number"""
+    while True:
+        # Generate format: BR-YYYY-XXXXXX (BR-2025-123456)
+        year = timezone.now().year
+        random_part = ''.join(random.choices(string.digits, k=6))
+        reg_number = f"BR-{year}-{random_part}"
+        
+        # Check if this number already exists
+        if not BrokerRegistration.objects.filter(registration_number=reg_number).exists():
+            return reg_number
+
+
+@csrf_exempt
+def accept_broker_offer(request):
+    """
+    Enhanced API endpoint for customers to accept broker offers
+    Creates a Deal record and shows broker registration number
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            inquiry_id = data.get('inquiry_id')
+            customer_notes = data.get('customer_notes', '')
+            
+            if not inquiry_id:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Missing inquiry_id'
+                }, status=400)
+            
+            # Get the inquiry and its broker post
+            inquiry = Inquiry.objects.get(id=inquiry_id)
+            
+            try:
+                broker_post = inquiry.broker_post
+            except BrokerPost.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'No broker offer found for this inquiry'
+                }, status=404)
+            
+            # Check if deal already exists
+            if hasattr(inquiry, 'deal'):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'This offer has already been accepted'
+                }, status=400)
+            
+            # Get or create broker registration
+            broker = UserProfile.objects.filter(
+                full_name=broker_post.broker_name,
+                user_type='broker'
+            ).first()
+            
+            if broker:
+                registration, created = BrokerRegistration.objects.get_or_create(
+                    broker=broker,
+                    defaults={
+                        'registration_number': generate_registration_number(),
+                        'registration_date': timezone.now().date(),
+                        'is_active': True
+                    }
+                )
+            else:
+                # Create a default registration for unknown broker
+                registration_number = generate_registration_number()
+            
+            # Create the deal
+            deal = Deal.objects.create(
+                inquiry=inquiry,
+                broker_post=broker_post,
+                customer_notes=customer_notes,
+                status=Deal.DEAL_STATUS_PENDING,
+                interview_scheduled_at=timezone.now() + timezone.timedelta(minutes=1)  # Schedule interview in 1 minute
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Broker offer accepted successfully!',
+                'deal_id': deal.id,
+                'broker_registration_number': registration.registration_number if broker else registration_number,
+                'broker_name': broker_post.broker_name,
+                'commission': float(broker_post.commission),
+                'interview_scheduled_at': deal.interview_scheduled_at.isoformat(),
+                'show_registration_modal': True
+            })
+            
+        except Inquiry.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Inquiry not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def reject_broker_offer(request):
+    """
+    Enhanced API endpoint for customers to reject broker offers
+    Creates a rejection record and notifies broker
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            inquiry_id = data.get('inquiry_id')
+            customer_notes = data.get('customer_notes', '')
+            
+            if not inquiry_id:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Missing inquiry_id'
+                }, status=400)
+            
+            # Get the inquiry and its broker post
+            inquiry = Inquiry.objects.get(id=inquiry_id)
+            
+            try:
+                broker_post = inquiry.broker_post
+            except BrokerPost.DoesNotExist:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'No broker offer found for this inquiry'
+                }, status=404)
+            
+            # Create rejection record
+            rejection = BrokerRejection.objects.create(
+                broker_post=broker_post,
+                customer_notes=customer_notes,
+                notified=False  # Will be set to True when broker is notified
+            )
+            
+            # Delete the broker post (as per original requirement)
+            broker_post.delete()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Broker offer rejected successfully',
+                'rejection_id': rejection.id
+            })
+            
+        except Inquiry.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Inquiry not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def submit_broker_review(request):
+    """
+    API endpoint for customers to submit broker rating and pay commission
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            deal_id = data.get('deal_id')
+            rating = data.get('rating')
+            rating_notes = data.get('rating_notes', '')
+            commission_amount = data.get('commission_amount')
+            
+            if not all([deal_id, rating, commission_amount]):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Missing required fields: deal_id, rating, commission_amount'
+                }, status=400)
+            
+            if not (1 <= int(rating) <= 5):
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Rating must be between 1 and 5 stars'
+                }, status=400)
+            
+            # Get the deal
+            deal = Deal.objects.get(id=deal_id)
+            
+            # Update deal with rating and payment info
+            deal.broker_rating = int(rating)
+            deal.rating_notes = rating_notes
+            deal.commission_amount = float(commission_amount)
+            deal.commission_paid = True
+            deal.status = Deal.DEAL_STATUS_COMPLETED
+            deal.save()
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Review submitted and commission paid successfully!',
+                'deal_status': deal.get_status_display(),
+                'rating': deal.broker_rating
+            })
+            
+        except Deal.DoesNotExist:
+            return JsonResponse({
+                'success': False,
+                'error': 'Deal not found'
+            }, status=404)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=400)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def get_broker_rejections(request):
+    """
+    API endpoint for brokers to get their rejection notifications
+    """
+    if request.method == 'GET':
+        # TODO: Get current broker from session
+        # For now, get all rejections
+        rejections = BrokerRejection.objects.select_related(
+            'broker_post__inquiry'
+        ).filter(notified=False).order_by('-created_at')
+        
+        rejections_data = []
+        for rejection in rejections:
+            rejections_data.append({
+                'id': rejection.id,
+                'inquiry_id': rejection.broker_post.inquiry.id,
+                'broker_name': rejection.broker_post.broker_name,
+                'customer_notes': rejection.customer_notes,
+                'rejected_at': rejection.created_at.strftime('%Y-%m-%d %H:%M'),
+                'inquiry_details': {
+                    'city': rejection.broker_post.inquiry.city,
+                    'area': rejection.broker_post.inquiry.area,
+                    'property_type': rejection.broker_post.inquiry.property_type,
+                    'transaction_type': rejection.broker_post.inquiry.get_transaction_type_display()
+                }
+            })
+        
+        # Mark as notified
+        rejections.update(notified=True)
+        
+        return JsonResponse({
+            'success': True,
+            'rejections': rejections_data,
+            'count': len(rejections_data)
+        })
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def get_deals_status(request):
+    """
+    API endpoint to get deals status for monitoring
+    """
+    if request.method == 'GET':
+        deals = Deal.objects.select_related(
+            'inquiry', 'broker_post'
+        ).order_by('-created_at')
+        
+        deals_data = []
+        for deal in deals:
+            deals_data.append({
+                'id': deal.id,
+                'inquiry_id': deal.inquiry.id,
+                'broker_name': deal.broker_post.broker_name,
+                'status': deal.get_status_display(),
+                'rating': deal.broker_rating,
+                'commission_paid': deal.commission_paid,
+                'commission_amount': float(deal.commission_amount) if deal.commission_amount else None,
+                'created_at': deal.created_at.strftime('%Y-%m-%d %H:%M'),
+                'interview_scheduled_at': deal.interview_scheduled_at.strftime('%Y-%m-%d %H:%M') if deal.interview_scheduled_at else None
+            })
+        
+        return JsonResponse({
+            'success': True,
+            'deals': deals_data,
+            'count': len(deals_data)
+        })
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)

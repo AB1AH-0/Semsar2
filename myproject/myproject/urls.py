@@ -23,7 +23,8 @@ from django.views.generic import TemplateView
 from inquiries.views import (
     register_user, new_page, create_inquiry, customers_view, get_inquiries_api,
     accept_inquiry, reject_inquiry, login_user, payment_page, process_payment, 
-    logout_user, create_property, list_properties
+    logout_user, create_property, list_properties, accept_broker_offer, 
+    reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status
 )
 
 urlpatterns = [
@@ -66,6 +67,11 @@ urlpatterns = [
     path('api/inquiries/reject/', reject_inquiry, name='reject_inquiry'),
     path('api/properties/', create_property, name='create_property'),
     path('api/properties/list/', list_properties, name='list_properties'),
+    path('api/deals/accept/', accept_broker_offer, name='accept_broker_offer'),
+    path('api/deals/reject/', reject_broker_offer, name='reject_broker_offer'),
+    path('api/deals/review/', submit_broker_review, name='submit_broker_review'),
+    path('api/deals/rejections/', get_broker_rejections, name='get_broker_rejections'),
+    path('api/deals/status/', get_deals_status, name='get_deals_status'),
 ]
 
 # Serve static files during development when DEBUG is True

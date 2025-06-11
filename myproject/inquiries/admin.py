@@ -1,76 +1,93 @@
 from django.contrib import admin
-from .models import Inquiry, UserProfile, PaymentLog, Property
+from .models import (
+    UserProfile,
+    Inquiry,
+    BrokerPost,
+    Property,
+    Deal,
+    BrokerRegistration,
+    BrokerRejection,
+    PaymentLog
+)
 
-# Register your models here.
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('full_name', 'email', 'user_type', 'phone', 'has_paid', 'is_trial_active')
+    list_filter = ('user_type', 'has_paid')
+    search_fields = ('full_name', 'email', 'phone', 'national_id')
+    readonly_fields = ('created_at', 'trial_start_date', 'trial_end_date', 'password')
+    fieldsets = (
+        ('Personal Info', {'fields': ('full_name', 'email', 'phone', 'national_id')}),
+        ('Account Type', {'fields': ('user_type', 'license_image')}),
+        ('Payment & Trial', {'fields': ('has_paid', 'trial_start_date', 'trial_end_date')}),
+        ('Security', {'fields': ('password',)}),
+    )
+
+@admin.register(Inquiry)
 class InquiryAdmin(admin.ModelAdmin):
     list_display = ('id', 'transaction_type', 'city', 'area', 'property_type', 'created_at')
-    list_filter = ('transaction_type', 'property_type', 'city', 'created_at')
-    search_fields = ('city', 'area', 'property_type')
+    list_filter = ('transaction_type', 'city', 'furnished', 'property_type')
+    search_fields = ('city', 'area')
     readonly_fields = ('created_at',)
-
     fieldsets = (
-        (None, {
-            'fields': ('transaction_type', 'city', 'area', 'property_type')
+        ('Inquiry Details', {
+            'fields': ('transaction_type', 'city', 'area', 'property_type', 'furnished')
         }),
-        ('Details', {
-            'fields': ('bedrooms', 'bathrooms', 'min_price', 'max_price', 'min_size', 'max_size', 'furnished')
+        ('Property Specifications', {
+            'fields': ('bedrooms', 'bathrooms', 'min_price', 'max_price', 'min_size', 'max_size')
         }),
         ('Timestamps', {
             'fields': ('created_at',)
         }),
     )
 
-class PropertyAdmin(admin.ModelAdmin):
-    list_display = ('id', 'broker', 'transaction_type', 'city', 'area', 'property_type', 'price', 'created_at')
-    list_filter = ('transaction_type', 'property_type', 'city', 'furnished', 'created_at')
-    search_fields = ('city', 'area', 'property_type', 'broker__full_name')
-    list_select_related = ('broker',)
+@admin.register(BrokerPost)
+class BrokerPostAdmin(admin.ModelAdmin):
+    list_display = ('id', 'inquiry', 'broker_name', 'commission', 'created_at')
+    search_fields = ('broker_name', 'inquiry__id')
     readonly_fields = ('created_at', 'updated_at')
-    
-    fieldsets = (
-        ('Basic Information', {
-            'fields': ('broker', 'transaction_type', 'city', 'area', 'property_type')
-        }),
-        ('Property Details', {
-            'fields': ('bedrooms', 'bathrooms', 'size', 'price', 'furnished', 'finish')
-        }),
-        ('Media', {
-            'fields': ('media_files',),
-            'classes': ('collapse',)
-        }),
-        ('Timestamps', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        }),
-    )
 
-admin.site.register(Inquiry, InquiryAdmin)
-admin.site.register(UserProfile)
-admin.site.register(Property, PropertyAdmin)
+@admin.register(Property)
+class PropertyAdmin(admin.ModelAdmin):
+    list_display = ('id', 'broker', 'transaction_type', 'city', 'area', 'property_type', 'price', 'is_active')
+    list_filter = ('transaction_type', 'property_type', 'city', 'furnished', 'is_active')
+    search_fields = ('city', 'area', 'broker__full_name')
+    readonly_fields = ('created_at', 'updated_at')
 
-# New Admin class for PaymentLog
+@admin.register(Deal)
+class DealAdmin(admin.ModelAdmin):
+    list_display = ('id', 'inquiry', 'get_broker_name', 'status', 'broker_rating', 'commission_paid', 'created_at')
+    list_filter = ('status', 'commission_paid')
+    search_fields = ('inquiry__id', 'broker_post__broker_name')
+    readonly_fields = ('created_at', 'updated_at', 'interview_scheduled_at')
+
+    def get_broker_name(self, obj):
+        return obj.broker_post.broker_name
+    get_broker_name.short_description = 'Broker'
+
+@admin.register(BrokerRegistration)
+class BrokerRegistrationAdmin(admin.ModelAdmin):
+    list_display = ('broker', 'registration_number', 'registration_date', 'is_active')
+    search_fields = ('broker__full_name', 'registration_number')
+    readonly_fields = ('created_at', 'updated_at')
+
+@admin.register(BrokerRejection)
+class BrokerRejectionAdmin(admin.ModelAdmin):
+    list_display = ('get_inquiry_id', 'get_broker_name', 'notified', 'created_at')
+    search_fields = ('broker_post__broker_name', 'broker_post__inquiry__id')
+    readonly_fields = ('created_at',)
+
+    def get_inquiry_id(self, obj):
+        return obj.broker_post.inquiry.id
+    get_inquiry_id.short_description = 'Inquiry ID'
+
+    def get_broker_name(self, obj):
+        return obj.broker_post.broker_name
+    get_broker_name.short_description = 'Broker'
+
+@admin.register(PaymentLog)
 class PaymentLogAdmin(admin.ModelAdmin):
-    list_display = ('id', 'broker', 'amount', 'payment_date', 'payment_method', 'status', 'transaction_id')
-    list_filter = ('status', 'payment_method', 'broker', 'payment_date')
-    search_fields = ('broker__full_name', 'broker__email', 'transaction_id')
+    list_display = ('id', 'broker', 'amount', 'payment_date', 'payment_method', 'status')
+    list_filter = ('status', 'payment_method', 'broker')
+    search_fields = ('broker__full_name', 'transaction_id')
     readonly_fields = ('created_at', 'updated_at', 'payment_date')
-    list_per_page = 25
-
-    fieldsets = (
-        (None, {
-            'fields': ('broker', 'amount', 'payment_method', 'status')
-        }),
-        ('Details', {
-            'fields': ('transaction_id', 'notes')
-        }),
-        ('Timestamps', {
-            'fields': ('payment_date', 'created_at', 'updated_at')
-        }),
-    )
-
-    def get_queryset(self, request):
-        # Ensure we only deal with brokers for the broker field
-        qs = super().get_queryset(request)
-        return qs.select_related('broker')
-
-admin.site.register(PaymentLog, PaymentLogAdmin)

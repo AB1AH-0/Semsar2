@@ -1,0 +1,586 @@
+<!-- Modals and JavaScript for Broker Deal Workflow -->
+
+<!-- Broker Registration Modal -->
+<div class="modal fade" id="brokerRegistrationModal" tabindex="-1" aria-labelledby="brokerRegistrationModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="brokerRegistrationModalLabel">Broker Offer Accepted</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>You have successfully accepted the broker's offer. Please save the broker's registration number for your records.</p>
+        <h4 class="text-center">Broker Registration Number:</h4>
+        <p id="broker-registration-number" class="text-center fw-bold fs-4"></p>
+        <p class="text-muted small">An interview review will be scheduled in 1 minute. Please be prepared to rate the broker and pay the commission.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interview Review Modal -->
+<div class="modal fade" id="interviewReviewModal" tabindex="-1" aria-labelledby="interviewReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="interviewReviewModalLabel">Interview Review</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Please rate your experience with the broker and proceed with the commission payment.</p>
+        
+        <!-- Star Rating -->
+        <div class="mb-3">
+          <label for="broker-rating" class="form-label">Rate the Broker:</label>
+          <div class="star-rating">
+            <i class="fa-solid fa-star" data-rating="1"></i>
+            <i class="fa-solid fa-star" data-rating="2"></i>
+            <i class="fa-solid fa-star" data-rating="3"></i>
+            <i class="fa-solid fa-star" data-rating="4"></i>
+            <i class="fa-solid fa-star" data-rating="5"></i>
+          </div>
+          <input type="hidden" name="rating" id="broker-rating" value="0">
+        </div>
+        
+        <!-- Commission Payment -->
+        <div class="mb-3">
+          <label for="commission-amount" class="form-label">Commission Amount (EGP):</label>
+          <input type="text" class="form-control" id="commission-amount" placeholder="Enter commission amount" required>
+        </div>
+        <div class="mb-3">
+          <label for="payment-method" class="form-label">Payment Method:</label>
+          <select class="form-select" id="payment-method">
+            <option value="credit_card">Credit Card</option>
+            <option value="paypal">PayPal</option>
+            <option value="bank_transfer">Bank Transfer</option>
+          </select>
+        </div>
+        <input type="hidden" id="review-deal-id">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="submitReview()">Submit Review & Pay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.star-rating {
+  font-size: 2rem;
+  color: #d3d3d3;
+  cursor: pointer;
+}
+.star-rating .fa-star.selected {
+  color: #ffc107;
+}
+</style>
+
+<script>
+let currentDealId = null;
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+// Function to handle accepting a broker offer
+function acceptOffer(inquiryId) {
+  fetch('/api/deals/accept/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({ inquiry_id: inquiryId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      currentDealId = data.deal_id;
+      document.getElementById('broker-registration-number').textContent = data.broker_registration_number;
+      const registrationModal = new bootstrap.Modal(document.getElementById('brokerRegistrationModal'));
+      registrationModal.show();
+      
+      // Schedule the interview review modal
+      setTimeout(() => {
+        registrationModal.hide();
+        document.getElementById('review-deal-id').value = currentDealId;
+        const reviewModal = new bootstrap.Modal(document.getElementById('interviewReviewModal'));
+        reviewModal.show();
+      }, 60000); // 1 minute
+      
+      // Refresh the offers list
+      loadBrokerOffers();
+    } else {
+      alert('Error accepting offer: ' + (data.error || 'Unknown error'));
+    }
+  })
+  .catch(error => {
+    console.error('Error accepting offer:', error);
+    alert('An error occurred. Please try again.');
+  });
+}
+
+// Function to handle rejecting a broker offer
+function rejectOffer(inquiryId) {
+  if (!confirm('Are you sure you want to reject this offer?')) {
+    return;
+  }
+  
+  fetch('/api/deals/reject/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({ inquiry_id: inquiryId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Offer rejected successfully.');
+      loadBrokerOffers(); // Refresh the list
+    } else {
+      alert('Error rejecting offer: ' + (data.error || 'Unknown error'));
+    }
+  })
+  .catch(error => {
+    console.error('Error rejecting offer:', error);
+    alert('An error occurred. Please try again.');
+  });
+}
+
+// Function to handle star rating interaction
+document.querySelectorAll('.star-rating .fa-star').forEach(star => {
+  star.addEventListener('click', function() {
+    const rating = this.getAttribute('data-rating');
+    document.getElementById('broker-rating').value = rating;
+    
+    // Update star visual state
+    document.querySelectorAll('.star-rating .fa-star').forEach(s => {
+      s.classList.remove('selected');
+      if (parseInt(s.getAttribute('data-rating')) <= parseInt(rating)) {
+        s.classList.add('selected');
+      }
+    });
+  });
+});
+
+// Function to submit the broker review and payment
+function submitReview() {
+  const dealId = document.getElementById('review-deal-id').value;
+  const rating = document.getElementById('broker-rating').value;
+  const commissionAmount = document.getElementById('commission-amount').value;
+  const paymentMethod = document.getElementById('payment-method').value;
+
+  if (rating === '0') {
+    alert('Please select a rating for the broker.');
+    return;
+  }
+  if (!commissionAmount) {
+      alert('Please enter the commission amount.');
+      return;
+  }
+
+  const data = {
+    deal_id: dealId,
+    rating: rating,
+    commission_amount: commissionAmount,
+    payment_method: paymentMethod
+  };
+  
+  fetch('/api/deals/review/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      alert('Review submitted and payment processed successfully!');
+      const reviewModal = bootstrap.Modal.getInstance(document.getElementById('interviewReviewModal'));
+      reviewModal.hide();
+      loadBrokerOffers(); // Refresh to show deal completion status
+    } else {
+      alert('Error submitting review: ' + (result.error || 'Unknown error'));
+    }
+  })
+  .catch(error => {
+    console.error('Error submitting review:', error);
+    alert('An error occurred while submitting your review. Please try again.');
+  });
+}
+</script>
+
+<!-- Broker Registration Modal -->
+<div class="modal fade" id="brokerRegistrationModal" tabindex="-1" aria-labelledby="brokerRegistrationModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="brokerRegistrationModalLabel">
+          <i class="fa fa-check-circle me-2"></i>Offer Accepted!
+        </h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+        <div class="alert alert-success">
+          <h4>Deal Created Successfully!</h4>
+          <p>Your acceptance has been recorded in our system.</p>
+        </div>
+        
+        <div class="card border-primary">
+          <div class="card-header bg-primary text-white">
+            <h6 class="mb-0"><i class="fa fa-id-card me-2"></i>Broker Registration Details</h6>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-6"><strong>Broker Name:</strong></div>
+              <div class="col-sm-6" id="modal-broker-name">-</div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-6"><strong>Registration Number:</strong></div>
+              <div class="col-sm-6">
+                <span class="badge bg-primary fs-6" id="modal-registration-number">-</span>
+              </div>
+            </div>
+            <div class="row mt-2">
+              <div class="col-sm-6"><strong>Commission:</strong></div>
+              <div class="col-sm-6" id="modal-commission">-</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-3">
+          <p class="text-muted">
+            <i class="fa fa-clock me-1"></i>
+            An interview review will be available in <strong>1 minute</strong> to rate this broker and complete the payment.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Interview Review Modal -->
+<div class="modal fade" id="interviewReviewModal" tabindex="-1" aria-labelledby="interviewReviewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-warning text-dark">
+        <h5 class="modal-title" id="interviewReviewModalLabel">
+          <i class="fa fa-star me-2"></i>Interview Review
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="alert alert-info">
+          <h6><i class="fa fa-info-circle me-2"></i>Rate Your Experience</h6>
+          <p class="mb-0">Please rate the broker and pay the agreed commission to complete this deal.</p>
+        </div>
+        
+        <form id="reviewForm">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card border-light">
+                <div class="card-header">
+                  <h6 class="mb-0">Broker Details</h6>
+                </div>
+                <div class="card-body">
+                  <p><strong>Name:</strong> <span id="review-broker-name">-</span></p>
+                  <p><strong>Registration:</strong> <span id="review-registration-number">-</span></p>
+                  <p><strong>Commission:</strong> <span id="review-commission">-</span>%</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-6">
+              <div class="mb-3">
+                <label for="brokerRating" class="form-label">Rate the Broker (1-5 Stars)</label>
+                <div class="rating-stars" id="ratingStars">
+                  <i class="fa fa-star" data-rating="1"></i>
+                  <i class="fa fa-star" data-rating="2"></i>
+                  <i class="fa fa-star" data-rating="3"></i>
+                  <i class="fa fa-star" data-rating="4"></i>
+                  <i class="fa fa-star" data-rating="5"></i>
+                </div>
+                <input type="hidden" id="selectedRating" value="0">
+              </div>
+              
+              <div class="mb-3">
+                <label for="ratingNotes" class="form-label">Additional Comments (Optional)</label>
+                <textarea class="form-control" id="ratingNotes" rows="3" placeholder="Share your experience with this broker..."></textarea>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row mt-3">
+            <div class="col-12">
+              <div class="card border-success">
+                <div class="card-header bg-success text-white">
+                  <h6 class="mb-0"><i class="fa fa-credit-card me-2"></i>Commission Payment</h6>
+                </div>
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <label for="commissionAmount" class="form-label">Commission Amount (EGP)</label>
+                      <input type="number" class="form-control" id="commissionAmount" step="0.01" min="0" required>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label">Payment Method</label>
+                      <select class="form-control" id="paymentMethod">
+                        <option value="credit_card">Credit Card</option>
+                        <option value="bank_transfer">Bank Transfer</option>
+                        <option value="cash">Cash</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-success" id="submitReviewBtn">
+          <i class="fa fa-check me-2"></i>Submit Review & Pay Commission
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.rating-stars {
+  font-size: 2rem;
+  color: #ddd;
+  cursor: pointer;
+}
+
+.rating-stars i {
+  margin-right: 5px;
+  transition: color 0.2s;
+}
+
+.rating-stars i:hover,
+.rating-stars i.active {
+  color: #ffc107;
+}
+
+.rating-stars i.active ~ i {
+  color: #ddd;
+}
+</style>
+
+<script>
+// Enhanced functions for new deal system
+function acceptBrokerOffer(inquiryId, brokerName) {
+  const customerNotes = prompt(`Accept offer from ${brokerName}?\n\nOptional notes:`);
+  if (customerNotes === null) return; // User cancelled
+  
+  fetch('/api/deals/accept/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({
+      inquiry_id: inquiryId,
+      customer_notes: customerNotes
+    })
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      // Show broker registration modal
+      showBrokerRegistrationModal(result);
+      
+      // Schedule interview review modal
+      setTimeout(() => {
+        showInterviewReviewModal(result);
+      }, 60000); // 1 minute
+      
+      // Refresh the table
+      loadBrokerOffers();
+    } else {
+      alert('Error: ' + (result.error || 'Could not accept offer'));
+    }
+  })
+  .catch(error => {
+    console.error('Error accepting offer:', error);
+    alert('Error accepting offer. Please try again.');
+  });
+}
+
+function rejectBrokerOffer(inquiryId, brokerName) {
+  const customerNotes = prompt(`Reject offer from ${brokerName}?\n\nReason (optional):`);
+  if (customerNotes === null) return; // User cancelled
+  
+  if (!confirm(`Are you sure you want to reject ${brokerName}'s offer?`)) return;
+  
+  fetch('/api/deals/reject/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCookie('csrftoken')
+    },
+    body: JSON.stringify({
+      inquiry_id: inquiryId,
+      customer_notes: customerNotes
+    })
+  })
+  .then(response => response.json())
+  .then(result => {
+    if (result.success) {
+      alert('Broker offer rejected successfully. The broker has been notified.');
+      loadBrokerOffers();
+    } else {
+      alert('Error: ' + (result.error || 'Could not reject offer'));
+    }
+  })
+  .catch(error => {
+    console.error('Error rejecting offer:', error);
+    alert('Error rejecting offer. Please try again.');
+  });
+}
+
+function showBrokerRegistrationModal(dealData) {
+  document.getElementById('modal-broker-name').textContent = dealData.broker_name;
+  document.getElementById('modal-registration-number').textContent = dealData.broker_registration_number;
+  document.getElementById('modal-commission').textContent = dealData.commission + '%';
+  
+  const modal = new bootstrap.Modal(document.getElementById('brokerRegistrationModal'));
+  modal.show();
+}
+
+function showInterviewReviewModal(dealData) {
+  document.getElementById('review-broker-name').textContent = dealData.broker_name;
+  document.getElementById('review-registration-number').textContent = dealData.broker_registration_number;
+  document.getElementById('review-commission').textContent = dealData.commission;
+  
+  // Calculate suggested commission amount (this would be based on property value in real scenario)
+  const suggestedAmount = (dealData.commission * 1000).toFixed(2); // Example calculation
+  document.getElementById('commissionAmount').value = suggestedAmount;
+  
+  // Store deal ID for submission
+  document.getElementById('submitReviewBtn').setAttribute('data-deal-id', dealData.deal_id);
+  
+  const modal = new bootstrap.Modal(document.getElementById('interviewReviewModal'));
+  modal.show();
+}
+
+// Star rating functionality
+document.addEventListener('DOMContentLoaded', function() {
+  const stars = document.querySelectorAll('#ratingStars i');
+  const ratingInput = document.getElementById('selectedRating');
+  
+  if (stars.length > 0) {
+    stars.forEach((star, index) => {
+      star.addEventListener('click', function() {
+        const rating = index + 1;
+        ratingInput.value = rating;
+        
+        // Update star display
+        stars.forEach((s, i) => {
+          if (i < rating) {
+            s.classList.add('active');
+          } else {
+            s.classList.remove('active');
+          }
+        });
+      });
+      
+      star.addEventListener('mouseover', function() {
+        const rating = index + 1;
+        stars.forEach((s, i) => {
+          if (i < rating) {
+            s.style.color = '#ffc107';
+          } else {
+            s.style.color = '#ddd';
+          }
+        });
+      });
+    });
+    
+    document.getElementById('ratingStars').addEventListener('mouseleave', function() {
+      const currentRating = parseInt(ratingInput.value);
+      stars.forEach((s, i) => {
+        if (i < currentRating) {
+          s.style.color = '#ffc107';
+        } else {
+          s.style.color = '#ddd';
+        }
+      });
+    });
+  }
+  
+  // Submit review
+  const submitBtn = document.getElementById('submitReviewBtn');
+  if (submitBtn) {
+    submitBtn.addEventListener('click', function() {
+      const dealId = this.getAttribute('data-deal-id');
+      const rating = document.getElementById('selectedRating').value;
+      const ratingNotes = document.getElementById('ratingNotes').value;
+      const commissionAmount = document.getElementById('commissionAmount').value;
+      
+      if (!rating || rating === '0') {
+        alert('Please select a rating (1-5 stars)');
+        return;
+      }
+      
+      if (!commissionAmount || parseFloat(commissionAmount) <= 0) {
+        alert('Please enter a valid commission amount');
+        return;
+      }
+      
+      fetch('/api/deals/review/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({
+          deal_id: dealId,
+          rating: rating,
+          rating_notes: ratingNotes,
+          commission_amount: commissionAmount
+        })
+      })
+      .then(response => response.json())
+      .then(result => {
+        if (result.success) {
+          alert('Review submitted and commission paid successfully!');
+          const modal = bootstrap.Modal.getInstance(document.getElementById('interviewReviewModal'));
+          modal.hide();
+          loadBrokerOffers();
+        } else {
+          alert('Error: ' + (result.error || 'Could not submit review'));
+        }
+      })
+      .catch(error => {
+        console.error('Error submitting review:', error);
+        alert('Error submitting review. Please try again.');
+      });
+    });
+  }
+});
+</script>
