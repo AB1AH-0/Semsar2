@@ -61,7 +61,7 @@ def register_user(request):
         user.save()
         
         messages.success(request, 'Registration successful!')
-        return redirect('/login')  # Redirect to login page after registration
+        return redirect('/login/')  # Redirect to login page after registration
 
     return render(request, 'reg1.html')
 
@@ -391,7 +391,7 @@ def logout_user(request):
     messages.success(request, 'You have been successfully logged out.')
     
     # Redirect to login page
-    return redirect('/login')
+    return redirect('/login/')
 
 
 @csrf_exempt
