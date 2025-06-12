@@ -888,34 +888,84 @@
 <script src="{% static 'assets/js/plugins/Splitetext.js' %}"></script>
 <script src="{% static 'assets/js/main.js' %}"></script>
 <script>
-  document.addEventListener("DOMContentLoaded", function () {
-    const areas = {
-      cairo: ["Nasr City", "Maadi", "Heliopolis", "New Cairo", "Helwan"],
-      giza: ["Dokki", "Mohandessin", "Faisal", "Haram", "Agouza"]
-    };
-
-    const governorateSelect = document.getElementById("governorate");
-    const areaSelect = document.getElementById("area");
-
-    governorateSelect.addEventListener("change", function () {
-      const selectedGovernorate = this.value;
-      areaSelect.innerHTML = ""; // Clear old options
-
-      if (areas[selectedGovernorate]) {
-        areas[selectedGovernorate].forEach(function (area) {
-          const option = document.createElement("option");
-          option.value = area;
-          option.textContent = area;
-          areaSelect.appendChild(option);
+  $(function () {
+    // Initialize nice-select for all select elements
+    $('select.nice-select').niceSelect();
+    
+    // Store all area options for each dropdown
+    const allAreaOptions = {};
+    
+    // Function to store original options
+    function storeOriginalOptions(areaSelector) {
+        const $area = $(areaSelector);
+        allAreaOptions[areaSelector] = [];
+        
+        $area.find('option').each(function() {
+            const $option = $(this);
+            allAreaOptions[areaSelector].push({
+                value: $option.val(),
+                text: $option.text(),
+                city: $option.data('city'),
+                disabled: $option.prop('disabled'),
+                selected: $option.prop('selected')
+            });
         });
-      } else {
-        const option = document.createElement("option");
-        option.value = "";
-        option.textContent = "Select Area";
-        areaSelect.appendChild(option);
-      }
-    });
-  });
+    }
+    
+    // Function to link city and area dropdowns
+    function linkCityAreaDropdowns(citySelector, areaSelector) {
+        const $city = $(citySelector);
+        const $area = $(areaSelector);
+        
+        // Store original options
+        storeOriginalOptions(areaSelector);
+        
+        function filterAreasByCity() {
+            const selectedCity = $city.val();
+            
+            // Clear current options
+            $area.empty();
+            
+            // Add back filtered options
+            allAreaOptions[areaSelector].forEach(function(option) {
+                // Add option if it has no city data (default option) or matches selected city
+                if (!option.city || option.city === selectedCity) {
+                    const $newOption = $('<option>', {
+                        value: option.value,
+                        text: option.text,
+                        disabled: option.disabled && !option.city, // Keep default option disabled
+                        selected: false // Reset selection
+                    });
+                    
+                    if (option.city) {
+                        $newOption.data('city', option.city);
+                    }
+                    
+                    $area.append($newOption);
+                }
+            });
+            
+            // Reset to default selection
+            $area.val('');
+            
+            // Destroy and recreate nice-select
+            $area.niceSelect('destroy');
+            $area.niceSelect();
+        }
+        
+        // Initial filtering when page loads
+        filterAreasByCity();
+        
+        // Filter when city selection changes
+        $city.on('change', filterAreasByCity);
+    }
+    
+    // For RENT tab - link city-rent and area-rent
+    linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
+    
+    // For SALE tab - link city-sale and area-sale
+    linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
+});
 </script>
 
 <script>
