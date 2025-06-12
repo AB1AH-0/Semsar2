@@ -1253,12 +1253,7 @@ function acceptOffer(inquiryId) {
                 const registrationModal = new bootstrap.Modal(document.getElementById('brokerRegistrationModal'));
                 registrationModal.show();
 
-                // Schedule the review modal to appear after 1 minute (60000 ms)
-                setTimeout(() => {
-                    $('#deal-id-for-review').val(response.deal_id);
-                    const reviewModal = new bootstrap.Modal(document.getElementById('interviewReviewModal'));
-                    reviewModal.show();
-                }, 60000);
+
 
                 loadBrokerOffers();
             } else {
