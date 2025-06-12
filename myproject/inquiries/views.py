@@ -259,32 +259,35 @@ def accept_inquiry(request):
 @csrf_exempt
 def reject_inquiry(request):
     """
-    API endpoint to reject an inquiry
+    API endpoint to reject an inquiry (customer side).
+    Now deletes any associated BrokerPost and Deal to ensure the offer is removed from broker listings.
     """
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
             inquiry_id = data.get('inquiry_id')
-            
+            if not inquiry_id:
+                return JsonResponse({'success': False, 'error': 'Missing inquiry_id'}, status=400)
+
             inquiry = Inquiry.objects.get(id=inquiry_id)
-            # Delete the inquiry or mark as rejected
+
+            # Delete related deal first (if exists) so cascade constraints don't fail
+            if hasattr(inquiry, 'deal'):
+                inquiry.deal.delete()
+
+            # Delete related broker post (if exists)
+            if hasattr(inquiry, 'broker_post'):
+                inquiry.broker_post.delete()
+
+            # Finally delete the inquiry itself
             inquiry.delete()
-            
-            return JsonResponse({
-                'success': True,
-                'message': f'Inquiry #{inquiry_id} rejected successfully'
-            })
+
+            return JsonResponse({'success': True, 'message': f'Inquiry #{inquiry_id} rejected and removed successfully'})
         except Inquiry.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'error': 'Inquiry not found'
-            }, status=404)
+            return JsonResponse({'success': False, 'error': 'Inquiry not found'}, status=404)
         except Exception as e:
-            return JsonResponse({
-                'success': False,
-                'error': str(e)
-            }, status=400)
-    
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
@@ -759,63 +762,45 @@ def accept_broker_offer(request, inquiry_id=None):
 @csrf_exempt
 def reject_broker_offer(request, inquiry_id=None):
     """
-    Enhanced API endpoint for customers to reject broker offers
-    Creates a rejection record and notifies broker
+    API endpoint for a broker to reject/withdraw an offer they have made.
+    This action deletes the offer permanently.
     """
     if request.method == 'POST':
         try:
-            # Support both URL param and JSON body for inquiry_id
             if inquiry_id is None:
-                data = json.loads(request.body or '{}')
-                inquiry_id = data.get('inquiry_id')
-                customer_notes = data.get('customer_notes', '')
-            else:
-                data = json.loads(request.body or '{}')
-                customer_notes = data.get('customer_notes', '')
+                try:
+                    data = json.loads(request.body)
+                    inquiry_id = data.get('inquiry_id')
+                except (json.JSONDecodeError, AttributeError):
+                    return JsonResponse({'success': False, 'error': 'Invalid request body.'}, status=400)
 
             if not inquiry_id:
+                return JsonResponse({'success': False, 'error': 'Missing inquiry_id'}, status=400)
+
+            inquiry = Inquiry.objects.select_related('broker_post').get(id=inquiry_id)
+
+            # If a deal exists, it means the offer was accepted and should be deleted via the delete_deal endpoint.
+            if hasattr(inquiry, 'deal'):
                 return JsonResponse({
-                    'success': False,
-                    'error': 'Missing inquiry_id'
+                    'success': False, 
+                    'error': 'This offer has already been accepted. Please use the delete function instead.'
                 }, status=400)
-            
-            # Get the inquiry and its broker post
-            inquiry = Inquiry.objects.get(id=inquiry_id)
-            
-            try:
-                broker_post = inquiry.broker_post
-            except BrokerPost.DoesNotExist:
-                return JsonResponse({
-                    'success': False,
-                    'error': 'No broker offer found for this inquiry'
-                }, status=404)
-            
-            # Create rejection record
-            rejection = BrokerRejection.objects.create(
-                broker_post=broker_post,
-                customer_notes=customer_notes,
-                notified=False  # Will be set to True when broker is notified
-            )
-            
-            # Delete the broker post (as per original requirement)
+
+            # Find and delete the associated broker post
+            broker_post = inquiry.broker_post
             broker_post.delete()
             
             return JsonResponse({
                 'success': True,
-                'message': 'Broker offer rejected successfully',
-                'rejection_id': rejection.id
+                'message': 'Offer successfully withdrawn.'
             })
-            
+
         except Inquiry.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'error': 'Inquiry not found'
-            }, status=404)
+            return JsonResponse({'success': False, 'error': 'Inquiry not found.'}, status=404)
+        except BrokerPost.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'No broker offer found for this inquiry.'}, status=404)
         except Exception as e:
-            return JsonResponse({
-                'success': False,
-                'error': str(e)
-            }, status=400)
+            return JsonResponse({'success': False, 'error': f'An unexpected error occurred: {str(e)}'}, status=500)
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
 
@@ -896,6 +881,7 @@ def get_broker_rejections(request):
         
         rejections_data = []
         for rejection in rejections:
+            rejection.broker_post.delete()
             rejections_data.append({
                 'id': rejection.id,
                 'inquiry_id': rejection.broker_post.inquiry.id,
