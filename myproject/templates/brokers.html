@@ -601,7 +601,6 @@
 </div>
 </div>
 </div>
-</div>
 
 <!-- Broker Offers Section -->
 <div class="container my-5">
@@ -622,6 +621,7 @@
                       <th>Bedrooms</th>
                       <th>Bathrooms</th>
                       <th>Your Budget</th>
+                      <th>Size (m²)</th>
                       <th>Media</th>
                       <th>Broker Response</th>
                       <th>Actions</th>
@@ -630,20 +630,13 @@
               <tbody id="broker-offers-tbody">
                   <!-- Loaded via JavaScript -->
               </tbody>
-          </table>
-                      </tr>
-                  </thead>
-                  <tbody id="broker-offers-tbody">
-                      <!-- Loaded via JavaScript -->
-                  </tbody>
-              </table>
-              
-              <div id="no-broker-offers-message" class="text-center py-5" style="display: none;">
-                  <div class="alert alert-info">
-                      <i class="fa fa-handshake"></i>
-                      <h5>No Broker Offers Yet</h5>
-                      <p>When brokers respond to your requests, their offers will appear here.</p>
-                  </div>
+            </table>
+          </div>
+          <div id="no-broker-offers-message" class="text-center py-5" style="display: none;">
+              <div class="alert alert-info">
+                  <i class="fa fa-handshake"></i>
+                  <h5>No Broker Offers Yet</h5>
+                  <p>When brokers respond to your requests, their offers will appear here.</p>
               </div>
           </div>
       </div>
@@ -1104,6 +1097,15 @@ function loadBrokerOffers() {
                         priceRange = `Up to ${Number(inquiry.max_price).toLocaleString()} EGP`;
                     }
 
+                    let sizeRange = 'N/A';
+                    if (inquiry.min_size && inquiry.max_size) {
+                        sizeRange = `${inquiry.min_size} - ${inquiry.max_size} m²`;
+                    } else if (inquiry.min_size) {
+                        sizeRange = `From ${inquiry.min_size} m²`;
+                    } else if (inquiry.max_size) {
+                        sizeRange = `Up to ${inquiry.max_size} m²`;
+                    }
+
                     let actionsHtml = '';
                     switch (inquiry.deal_status) {
                         case 'offer_pending':
@@ -1146,6 +1148,7 @@ function loadBrokerOffers() {
                         <td>${inquiry.bedrooms || 'N/A'}</td>
                         <td>${inquiry.bathrooms || 'N/A'}</td>
                         <td>${priceRange}</td>
+                        <td>${sizeRange}</td>
                         <td>${mediaButtonHtml}</td>
                         <td>
                             <div class="small bg-light p-2 rounded">
