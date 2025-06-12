@@ -1012,6 +1012,10 @@
         $city.on('change', filterAreasByCity);
     }
     
+    // Call storeOriginalOptions for all relevant area dropdowns ONCE here
+    storeOriginalOptions('#area-rent');
+    storeOriginalOptions('#area-sale');
+
     // For RENT tab - link city-rent and area-rent
     linkCityAreaDropdowns('select[name="city-rent"]', '#area-rent');
     

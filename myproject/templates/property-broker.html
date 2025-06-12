@@ -708,10 +708,9 @@ inputmode="numeric">
     if ($('#broker-area-rent').length) {
         storeOriginalOptions('#broker-area-rent');
     }
-    // Example for 'For Sale' tab - uncomment and adjust selector if it exists
-    // if ($('#area-sale').length) {
-    //     storeOriginalOptions('#area-sale');
-    // }
+    if ($('#broker-area-sale').length) {
+        storeOriginalOptions('#broker-area-sale');
+    }
     
     // Function to link city and area dropdowns
     function linkCityAreaDropdowns(citySelector, areaSelector) {
@@ -757,11 +756,11 @@ inputmode="numeric">
     if ($('select[name="broker-city-rent"]').length && $('#broker-area-rent').length) {
         linkCityAreaDropdowns('select[name="broker-city-rent"]', '#broker-area-rent');
     }
-    
-    // Setup for SALE tab (example, uncomment and adjust if it exists)
-    // if ($('select[name="city-sale"]').length && $('#area-sale').length) {
-    //     linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
-    // }
+
+    // Setup for SALE tab
+    if ($('select[name="broker-city-sale"]').length && $('#broker-area-sale').length) {
+        linkCityAreaDropdowns('select[name="broker-city-sale"]', '#broker-area-sale');
+    }
   });
 
   // Capture form data and send including media files
