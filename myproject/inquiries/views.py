@@ -9,6 +9,7 @@ import random
 import string
 from django.core.files.storage import default_storage
 import os
+import re
 
 @csrf_exempt
 def register_user(request):
@@ -31,7 +32,19 @@ def register_user(request):
         # Check if national ID already exists
         if UserProfile.objects.filter(national_id=national_id).exists():
             errors.append("National ID already exists")
-            
+
+        # Validate national ID length and numeric
+        if not national_id.isdigit() or len(national_id) != 14:
+            errors.append("National ID must be exactly 14 digits")
+
+        # Validate full name (letters and spaces only)
+        if not re.match(r'^[A-Za-z ]+$', full_name):
+            errors.append("Full Name must contain letters and spaces only")
+
+        # Validate phone number length and numeric
+        if not phone.isdigit() or len(phone) != 11:
+            errors.append("Phone Number must be exactly 11 digits")
+
         # Check if passwords match
         if password != confirm_password:
             errors.append("Passwords do not match")
