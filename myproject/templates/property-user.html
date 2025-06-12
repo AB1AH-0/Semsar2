@@ -334,17 +334,69 @@
 <!--===== MOBILE HEADER STARTS =======-->
 
 <!--===== HERO AREA STARTS =======-->
-<div class="inner2-section-area">
+<div class="properties3-section-area sp1">
   <div class="container">
-      <div class="row">
-          <div class="col-lg-5 m-auto">
-              <div class="inner-header heading1 text-center">
-                  <a href="{% url 'home-user' %}">Home <i class="fa-solid fa-angle-right"></i> <span>Property </span></a>
-                  <div class="space20"></div>
-                  <h2>Property</h2>
-              </div>
-          </div>
+    <div class="row">
+      <div class="col-lg-4 m-auto">
+        <div class="property-header text-center heading6">
+          <h5 class="text-anim"><img src="{% static 'assets/img/icons/logo-icon2.svg' %}" alt="">Properties</h5>
+          <h2 class="text-anime-style-3">Our Properties</h2>
+        </div>
       </div>
+    </div>
+<div class="row">
+      <div class="col-lg-8 m-auto">
+        <div class="property-slider-area owl-carousel">
+          <div class="property-boxarea">
+            <div class="img1 image-anime reveal">
+              <img src="{% static 'assets/img/all-images/prime-residence-new-cairo.jpg' %}" alt=""  style="height: 430px;">
+            </div>
+
+            <div class="content-area">
+              <h2>Renting a new home?</h2>
+              <p>Look no further with our selection of all-tier properties</p>
+              <div class="space16"></div>
+              <p> Try Renting NOW!</p>
+              <div class="btn-area1">
+                <a href="#search-button" class="header-btn1">Rent Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="property-boxarea">
+            <div class="img1 image-anime reveal">
+              <img src="{% static 'assets/img/all-images/New-giza-compound.jpg' %}" alt="" style="height: 430px;">
+            </div>
+
+            <div class="content-area">
+              <h2>Buying a new home?</h2>
+              <p>Look no further with our selection of all-tier properties</p>
+              <div class="space16"></div>
+              <p>Try Buying NOW!</p>
+              <div class="btn-area1">
+                <a href="#search-button" class="header-btn1">Buy Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
+              </div>
+            </div>
+          </div>
+
+          <div class="property-boxarea">
+            <div class="img1 image-anime reveal">
+              <img src="{% static 'assets/img/all-images/home3.jpg' %}" alt=""  style="height: 430px;" >
+            </div>
+
+            <div class="content-area">
+              <h2>Can't find what you're looking for?</h2>
+              <p>Try our exceptional service that connects you with guranteed brokers</p>
+              <div class="space16"></div>
+              <p>Try Contacting our brokers NOW!</p>
+              <div class="btn-area1">
+                <a href="{% url 'brokers' %}" class="header-btn1">Contact Now <img src="{% static 'assets/img/icons/arrow-img5.svg' %}" alt=""></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 <!--===== HERO AREA ENDS =======-->
@@ -532,7 +584,7 @@
 <div class="space24"></div>
 
 <div class="btn-area1">
-  <button class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search Your Property</button>
+  <button id="search-button" class="header-btn1 send-to-brokers" type="submit" style="margin-top: 10px;"><img src="{% static 'assets/img/icons/search2.svg' %}" alt=""> Search Your Property</button>
 </div>
 </div>
 </div>
