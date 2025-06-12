@@ -438,15 +438,20 @@ def delete_deal(request, deal_id):
     """
     if request.method == 'POST':
         try:
-            deal = Deal.objects.select_related('broker_post').get(id=deal_id)
-            # Deleting the broker_post will also delete the deal if CASCADE is set,
-            # which is the desired behavior to fully remove the offer.
+            deal = Deal.objects.select_related('broker_post', 'inquiry').get(id=deal_id)
+            inquiry = deal.inquiry
+            
+            # Delete the broker_post first (which will also delete the deal due to CASCADE)
             if deal.broker_post:
                 deal.broker_post.delete()
             else:
                 # If there's no broker post for some reason, just delete the deal
                 deal.delete()
-            return JsonResponse({'success': True, 'message': 'Offer successfully deleted.'})
+            
+            # Now delete the inquiry to remove it from customers.html
+            inquiry.delete()
+            
+            return JsonResponse({'success': True, 'message': 'Offer and inquiry successfully deleted.'})
         except Deal.DoesNotExist:
             return JsonResponse({'success': False, 'error': 'Deal not found.'}, status=404)
         except Exception as e:
@@ -776,7 +781,7 @@ def accept_broker_offer(request, inquiry_id=None):
 def reject_broker_offer(request, inquiry_id=None):
     """
     API endpoint for a broker to reject/withdraw an offer they have made.
-    This action deletes the offer permanently.
+    This action deletes the offer and the inquiry permanently.
     """
     if request.method == 'POST':
         try:
@@ -803,9 +808,12 @@ def reject_broker_offer(request, inquiry_id=None):
             broker_post = inquiry.broker_post
             broker_post.delete()
             
+            # Delete the inquiry to remove it from customers.html
+            inquiry.delete()
+            
             return JsonResponse({
                 'success': True,
-                'message': 'Offer successfully withdrawn.'
+                'message': 'Offer and inquiry successfully withdrawn.'
             })
 
         except Inquiry.DoesNotExist:

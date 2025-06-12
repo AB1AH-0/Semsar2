@@ -611,6 +611,67 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Function to periodically check for changes and refresh the page
+function checkForUpdates() {
+    // Check if there are any accepted inquiries that might have been deleted
+    const acceptedRows = document.querySelectorAll('tr[style*="background-color: #d4edda"]');
+    if (acceptedRows.length > 0) {
+        // Fetch current inquiries to check if any accepted ones were deleted
+        fetch('/api/inquiries/')
+            .then(response => response.json())
+            .then(data => {
+                if (data.inquiries) {
+                    const currentAcceptedIds = new Set();
+                    const currentInquiryIds = new Set();
+                    
+                    data.inquiries.forEach(inquiry => {
+                        currentInquiryIds.add(inquiry.id);
+                        if (inquiry.is_accepted && inquiry.broker_post) {
+                            currentAcceptedIds.add(inquiry.id);
+                        }
+                    });
+                    
+                    // Check if any previously accepted inquiries are no longer accepted or deleted
+                    let needsRefresh = false;
+                    acceptedRows.forEach(row => {
+                        const inquiryId = parseInt(row.id.replace('inquiry-row-', ''));
+                        // If the inquiry was deleted entirely or is no longer accepted
+                        if (!currentInquiryIds.has(inquiryId) || !currentAcceptedIds.has(inquiryId)) {
+                            needsRefresh = true;
+                        }
+                    });
+                    
+                    // Also check if any inquiries were completely deleted
+                    const allCurrentRows = document.querySelectorAll('tr[id^="inquiry-row-"]');
+                    allCurrentRows.forEach(row => {
+                        const inquiryId = parseInt(row.id.replace('inquiry-row-', ''));
+                        if (!currentInquiryIds.has(inquiryId)) {
+                            needsRefresh = true;
+                        }
+                    });
+                    
+                    if (needsRefresh) {
+                        console.log('Changes detected, refreshing page...');
+                        location.reload();
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error checking for updates:', error);
+            });
+    }
+}
+
+// Check for updates every 10 seconds
+setInterval(checkForUpdates, 10000);
+
+// Also check when the page becomes visible again (user switches back to tab)
+document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+        setTimeout(checkForUpdates, 1000); // Check after 1 second delay
+    }
+});
 </script>
 
 </body>
