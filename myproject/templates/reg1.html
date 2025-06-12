@@ -306,7 +306,7 @@
                 </div>
             </div>
 
-            <form id="register-form" action="{% url 'register-user' %}" method="post" enctype="multipart/form-data">
+            <form id="register-form" action="{% url 'register_user' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 
                 {% if messages %}
