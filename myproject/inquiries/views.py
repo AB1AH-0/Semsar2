@@ -392,6 +392,54 @@ def logout_user(request):
 
 
 @csrf_exempt
+def submit_review(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            deal_id = data.get('deal_id')
+            rating = data.get('rating')
+
+            if not deal_id or rating is None:
+                return JsonResponse({'success': False, 'error': 'Missing deal_id or rating.'}, status=400)
+
+            deal = Deal.objects.get(id=deal_id)
+            deal.rating = int(rating)
+            deal.save()
+
+            return JsonResponse({'success': True, 'message': 'Review submitted successfully.'})
+        except Deal.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Deal not found.'}, status=404)
+        except (json.JSONDecodeError, ValueError, TypeError) as e:
+            return JsonResponse({'success': False, 'error': f'Invalid data: {str(e)}'}, status=400)
+
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
+def delete_deal(request, deal_id):
+    """
+    API endpoint to delete a deal, effectively reverting an accepted offer.
+    """
+    if request.method == 'POST':
+        try:
+            deal = Deal.objects.select_related('broker_post').get(id=deal_id)
+            # Deleting the broker_post will also delete the deal if CASCADE is set,
+            # which is the desired behavior to fully remove the offer.
+            if deal.broker_post:
+                deal.broker_post.delete()
+            else:
+                # If there's no broker post for some reason, just delete the deal
+                deal.delete()
+            return JsonResponse({'success': True, 'message': 'Offer successfully deleted.'})
+        except Deal.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'Deal not found.'}, status=404)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+@csrf_exempt
 def properties_api(request):
     """
     API endpoint for listing and creating properties.
