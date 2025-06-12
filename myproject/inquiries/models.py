@@ -289,6 +289,11 @@ class BrokerPost(models.Model):
         blank=True,
         help_text="Additional notes from the broker"
     )
+    media = models.JSONField(
+        default=list,
+        blank=True,
+        help_text="List of uploaded media file paths"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

@@ -529,21 +529,14 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('/api/inquiries/accept/', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
                 'X-CSRFToken': getCookie('csrftoken')
             },
-            body: JSON.stringify({
-                inquiry_id: inquiryId,
-                broker_name: brokerName,
-                broker_phone: brokerPhone,
-                commission: parseFloat(commission),
-                notes: notes
-            })
+            body: formData
         })
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                showMessage(`Inquiry accepted! Broker: ${brokerName}, Commission: ${commission}%`, 'success');
+                showMessage(`Inquiry accepted! Broker: ${formData.get('broker_name')}, Commission: ${formData.get('commission')}%`, 'success');
                 
                 // Update the row to show accepted status
                 const row = document.getElementById(`inquiry-row-${inquiryId}`);

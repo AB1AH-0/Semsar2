@@ -260,7 +260,6 @@
                             <!-- ===================== GIZA ===================== -->
                             <option value="imbaba"            data-city="giza">Imbaba</option>
                             <option value="boulaq-eldakrour"  data-city="giza">Boulaq El-Dakrour</option>
-                            <option value="elmarg"            data-city="giza">El Marg</option>
                             <option value="mohandessin"       data-city="giza">Mohandessin</option>
                             <option value="dokki"             data-city="giza">Dokki</option>
                             <option value="agouza"            data-city="giza">Agouza</option>
@@ -433,7 +432,6 @@
             <!-- ===================== GIZA ===================== -->
             <option value="imbaba"            data-city="giza">Imbaba</option>
             <option value="boulaq-eldakrour"  data-city="giza">Boulaq El-Dakrour</option>
-            <option value="elmarg"            data-city="giza">El Marg</option>
             <option value="mohandessin"       data-city="giza">Mohandessin</option>
             <option value="dokki"             data-city="giza">Dokki</option>
             <option value="agouza"            data-city="giza">Agouza</option>
@@ -624,7 +622,7 @@
                       <th>Bedrooms</th>
                       <th>Bathrooms</th>
                       <th>Your Budget</th>
-                      <th>Request Date</th>
+                      <th>Media</th>
                       <th>Broker Response</th>
                       <th>Actions</th>
                   </tr>
@@ -747,6 +745,33 @@
     </div>
   </div>
 </div>
+<!-- Media Modal -->
+<div class="modal fade" id="mediaModal" tabindex="-1" aria-labelledby="mediaModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="mediaModalLabel">Broker Media</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div id="mediaCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <!-- Carousel items will be inserted here -->
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#mediaCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#mediaCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Broker Review Modal -->
 <div class="modal fade" id="interviewReviewModal" tabindex="-1" aria-labelledby="interviewReviewModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
@@ -1105,6 +1130,13 @@ function loadBrokerOffers() {
                             actionsHtml = '<span class="text-muted">Processing...</span>';
                     }
 
+                    let mediaButtonHtml = '<span class="text-muted">No Media</span>';
+                    if (inquiry.broker_post.media && inquiry.broker_post.media.length > 0) {
+                        mediaButtonHtml = `<button class="btn btn-info btn-sm show-media-btn" data-media='${JSON.stringify(inquiry.broker_post.media)}' data-bs-toggle="modal" data-bs-target="#mediaModal">
+                                            <i class="fa-solid fa-photo-film"></i> Show Media
+                                          </button>`;
+                    }
+
                     row.innerHTML = `
                         <td>${inquiry.id}</td>
                         <td><span class="badge bg-${inquiry.transaction_type.toLowerCase() === 'rent' ? 'primary' : 'success'}">${inquiry.transaction_type}</span></td>
@@ -1114,7 +1146,7 @@ function loadBrokerOffers() {
                         <td>${inquiry.bedrooms || 'N/A'}</td>
                         <td>${inquiry.bathrooms || 'N/A'}</td>
                         <td>${priceRange}</td>
-                        <td>${new Date(inquiry.created_at).toLocaleDateString()}</td>
+                        <td>${mediaButtonHtml}</td>
                         <td>
                             <div class="small bg-light p-2 rounded">
                                 <div class="mb-1"><strong>Broker:</strong> ${inquiry.broker_post.broker_name}</div>
@@ -1143,6 +1175,33 @@ function loadBrokerOffers() {
 document.getElementById('broker-offers-tbody').addEventListener('click', function(event) {
     const target = event.target.closest('button');
     if (!target) return;
+
+    if (target.classList.contains('show-media-btn')) {
+        const mediaFiles = JSON.parse(target.dataset.media);
+        const carouselInner = document.querySelector('#mediaModal .carousel-inner');
+        carouselInner.innerHTML = ''; // Clear previous media
+
+        mediaFiles.forEach((file, index) => {
+            const carouselItem = document.createElement('div');
+            carouselItem.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+            
+            let mediaElement;
+            if (file.toLowerCase().endsWith('.mp4') || file.toLowerCase().endsWith('.mov')) {
+                mediaElement = document.createElement('video');
+                mediaElement.src = file;
+                mediaElement.className = 'd-block w-100';
+                mediaElement.controls = true;
+            } else {
+                mediaElement = document.createElement('img');
+                mediaElement.src = file;
+                mediaElement.className = 'd-block w-100';
+                mediaElement.alt = 'Broker media';
+            }
+            
+            carouselItem.appendChild(mediaElement);
+            carouselInner.appendChild(carouselItem);
+        });
+    }
 
     const inquiryId = target.dataset.inquiryId;
     if (target.classList.contains('accept-offer-btn')) {

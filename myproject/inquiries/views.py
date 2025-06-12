@@ -186,6 +186,7 @@ def get_inquiries_api(request):
                     'broker_name': broker_post.broker_name,
                     'commission': float(broker_post.commission),
                     'notes': broker_post.notes,
+                    'media': broker_post.media,
                     'accepted_at': broker_post.created_at.strftime('%Y-%m-%d %H:%M')
                 }
 
@@ -210,62 +211,49 @@ def get_inquiries_api(request):
 @csrf_exempt
 def accept_inquiry(request):
     """
-    API endpoint to accept an inquiry and create a broker post
+    API endpoint to accept an inquiry and create a broker post with media.
     """
     if request.method == 'POST':
         try:
-            data = json.loads(request.body)
-            inquiry_id = data.get('inquiry_id')
-            broker_name = data.get('broker_name')
-            broker_phone = data.get('broker_phone')
-            commission = data.get('commission')
-            notes = data.get('notes', '')
-            
-            # Validate required fields
-            if not inquiry_id or not broker_name or not broker_phone or commission is None:
-                return JsonResponse({
-                    'success': False,
-                    'error': 'Missing required fields: inquiry_id, broker_name, broker_phone, and commission'
-                }, status=400)
-            
+            inquiry_id = request.POST.get('inquiry_id')
+            broker_name = request.POST.get('broker_name')
+            broker_phone = request.POST.get('broker_phone')
+            commission = request.POST.get('commission')
+            notes = request.POST.get('notes', '')
+            media_files = request.FILES.getlist('media')
+
+            if not all([inquiry_id, broker_name, broker_phone, commission]):
+                return JsonResponse({'success': False, 'error': 'Missing required fields'}, status=400)
+
             inquiry = Inquiry.objects.get(id=inquiry_id)
-            
-            # Check if inquiry is already accepted
             if hasattr(inquiry, 'broker_post'):
-                return JsonResponse({
-                    'success': False,
-                    'error': 'This inquiry has already been accepted'
-                }, status=400)
-            
-            # Create broker post
+                return JsonResponse({'success': False, 'error': 'This inquiry has already been accepted'}, status=400)
+
+            media_paths = []
+            for f in media_files:
+                file_name = default_storage.save(f.name, f)
+                media_paths.append(default_storage.url(file_name))
+
             broker_post = BrokerPost.objects.create(
                 inquiry=inquiry,
                 broker_name=broker_name,
                 broker_phone=broker_phone,
                 commission=commission,
-                notes=notes
+                notes=notes,
+                media=media_paths
             )
-            
+
             return JsonResponse({
                 'success': True,
                 'message': f'Inquiry #{inquiry_id} accepted successfully by {broker_name}',
                 'broker_post_id': broker_post.id
             })
         except Inquiry.DoesNotExist:
-            return JsonResponse({
-                'success': False,
-                'error': 'Inquiry not found'
-            }, status=404)
+            return JsonResponse({'success': False, 'error': 'Inquiry not found'}, status=404)
         except Exception as e:
-            return JsonResponse({
-                'success': False,
-                'error': str(e)
-            }, status=400)
-    else:
-        return JsonResponse({
-            'success': False,
-            'error': 'Only POST method allowed'
-        }, status=405)
+            return JsonResponse({'success': False, 'error': str(e)}, status=400)
+
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
 
 
 @csrf_exempt
