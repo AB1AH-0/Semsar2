@@ -25,7 +25,7 @@ from inquiries.views import (
     accept_inquiry, reject_inquiry, login_user, payment_page, process_payment, 
     logout_user, properties_api, accept_broker_offer, 
     reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status,
-    broker_properties_api
+    broker_properties_api, home_broker_view
 )
 
 urlpatterns = [
@@ -51,7 +51,7 @@ urlpatterns = [
     path('brokers/', TemplateView.as_view(template_name='brokers.html'), name='brokers'),
     
     # Broker-specific pages
-    path('home-broker/', TemplateView.as_view(template_name='home-broker.html'), name='home-broker'),
+    path('home-broker/', home_broker_view, name='home-broker'),
     path('about-broker/', TemplateView.as_view(template_name='about-broker.html'), name='about-broker'),
     path('add-property/', TemplateView.as_view(template_name='property-broker.html'), name='add-property'),
     path('customer/', customers_view, name='customer'),

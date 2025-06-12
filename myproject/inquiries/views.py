@@ -939,3 +939,47 @@ def get_deals_status(request):
         })
     
     return JsonResponse({'error': 'Method not allowed'}, status=405)
+
+
+def home_broker_view(request):
+    """
+    Home page view for brokers with subscription days calculation
+    """
+    # Get current broker (for now using first broker, replace with session-based auth)
+    try:
+        broker = UserProfile.objects.filter(user_type=UserProfile.USER_TYPE_BROKER).first()
+        
+        subscription_days_left = 0
+        subscription_status = "No subscription"
+        
+        if broker:
+            if broker.has_paid:
+                subscription_status = "Paid subscription"
+                subscription_days_left = "∞"  # Unlimited for paid users
+            elif broker.trial_end_date:
+                # Calculate days left in trial
+                now = timezone.now()
+                if broker.trial_end_date > now:
+                    days_left = (broker.trial_end_date - now).days
+                    subscription_days_left = days_left
+                    subscription_status = f"Trial - {days_left} days left"
+                else:
+                    subscription_days_left = 0
+                    subscription_status = "Trial expired"
+            else:
+                subscription_status = "No trial started"
+        
+        context = {
+            'broker': broker,
+            'subscription_days_left': subscription_days_left,
+            'subscription_status': subscription_status,
+        }
+        
+    except Exception as e:
+        context = {
+            'broker': None,
+            'subscription_days_left': 0,
+            'subscription_status': "Error loading subscription info",
+        }
+    
+    return render(request, 'home-broker.html', context)
