@@ -1068,8 +1068,8 @@ function createPropertyCard(property) {
   return card;
 }
 
-// Function to render properties with optional filter
-async function renderProperties(filter = 'all') {
+// Function to render properties with optional filter and search criteria
+async function renderProperties(filter = 'all', searchFilters = null) {
   const container = document.getElementById('property-cards-container');
   const properties = await fetchProperties();
   
@@ -1084,14 +1084,45 @@ async function renderProperties(filter = 'all') {
     return;
   }
   
-  const filteredProperties = filter === 'all' 
+  // Filter by transaction type (rent / sale) if needed
+  const normFilter = filter.toString().toLowerCase();
+  let filteredProperties = normFilter === 'all' 
     ? properties 
-    : properties.filter(p => p.transaction_type === filter);
-    
+    : properties.filter(p => (p.transaction_type || '').toString().toLowerCase() === normFilter);
+
+  // Apply search filters if provided
+  if (searchFilters) {
+    filteredProperties = filteredProperties.filter(p => {
+      // City & Area
+      if (searchFilters.city && (p.city || '').toString().toLowerCase() !== searchFilters.city.toLowerCase()) return false;
+      if (searchFilters.area && (p.area || '').toString().toLowerCase() !== searchFilters.area.toLowerCase()) return false;
+      // Property Type
+      if (searchFilters.property_type && (p.property_type || '').toString().toLowerCase() !== searchFilters.property_type.toLowerCase()) return false;
+      // Furnished
+      if (typeof searchFilters.furnished !== 'undefined' && searchFilters.furnished !== null) {
+        const isFurnished = p.furnished ?? false; // backend should provide boolean
+        if (searchFilters.furnished !== isFurnished) return false;
+      }
+      // Numeric ranges
+      const numCheck = (val, min, max) => {
+        const numVal = Number(val);
+        if (Number.isNaN(numVal)) return false;
+        if (min !== null && numVal < min) return false;
+        if (max !== null && numVal > max) return false;
+        return true;
+      };
+      if (!numCheck(p.bedrooms, searchFilters.bedroomsMin, searchFilters.bedroomsMax)) return false;
+      if (!numCheck(p.bathrooms, searchFilters.bathroomsMin, searchFilters.bathroomsMax)) return false;
+      if (!numCheck(p.price, searchFilters.priceMin, searchFilters.priceMax)) return false;
+      if (!numCheck(p.size, searchFilters.sizeMin, searchFilters.sizeMax)) return false;
+      return true;
+    });
+  }
+  
   if (filteredProperties.length === 0) {
     container.innerHTML = `
       <div class="col-12 text-center">
-        <p>No ${filter.toLowerCase()} properties available.</p>
+        <p>No properties match your criteria.</p>
       </div>
     `;
     return;
@@ -1102,27 +1133,104 @@ async function renderProperties(filter = 'all') {
   });
 }
 
-// Initialize filter buttons
-function initializeFilters() {
-  const filterButtons = document.querySelectorAll('.btn-filter');
+// Function to fetch properties from the backend
+async function fetchProperties() {
+  try {
+    const response = await fetch('/api/properties/');
+    if (!response.ok) throw new Error('Failed to fetch properties');
+    const data = await response.json();
+    return data.properties;
+  } catch (error) {
+    console.error('Error fetching properties:', error);
+    return [];
+  }
+}
+
+// Function to create property card from template
+function createPropertyCard(property) {
+  const template = document.getElementById('property-card-template');
+  const card = template.content.cloneNode(true);
   
-  filterButtons.forEach(button => {
-    button.addEventListener('click', () => {
-      // Update active state
-      filterButtons.forEach(btn => btn.classList.remove('active'));
-      button.classList.add('active');
-      
-      // Apply filter
-      const filter = button.getAttribute('data-filter');
-      renderProperties(filter);
-    });
-  });
+  // Set property image from database
+  const img = card.querySelector('.property-img img');
+  if (property.images && property.images.length > 0) {
+    let src = property.images[0];
+    // If already absolute or starts with /media, keep as-is otherwise prefix
+    if (!src.startsWith('http') && !src.startsWith('/')) {
+      src = `/media/${src}`;
+    }
+    img.src = src;
+  } else {
+    img.src = '{% static "assets/img/placeholder-property.jpg" %}';
+  }
+  img.alt = property.title;
+  
+  // Set transaction type with appropriate styling
+  const transactionType = card.querySelector('.transaction-type');
+  transactionType.textContent = property.transaction_type;
+  transactionType.classList.add(property.transaction_type.toLowerCase().replace(' ', '-'));
+  
+  // Set property details
+  card.querySelector('.property-title').textContent = property.title;
+  card.querySelector('.location-text').textContent = `${property.city}, ${property.area}`;
+  card.querySelector('.bedrooms').textContent = property.bedrooms;
+  card.querySelector('.bathrooms').textContent = property.bathrooms;
+  card.querySelector('.area').textContent = property.size;
+  card.querySelector('.price').textContent = property.price + ' EGP';
+  card.querySelector('.broker-name').textContent = property.broker_name;
+  card.querySelector('.broker-phone').textContent = property.broker_phone;
+  card.querySelector('.property-type').textContent = property.property_type;
+  
+  // Add data attribute for filtering
+  const cardElement = card.querySelector('.col-lg-4');
+  cardElement.setAttribute('data-type', property.transaction_type);
+  
+  return card;
 }
 
 // Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   renderProperties('all');
-  initializeFilters();
+  
+  // Search button click handler
+  const searchBtn = document.getElementById('search-button');
+  if (searchBtn) {
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const activeTab = document.querySelector('.listing-tabs-area .nav-link.active');
+      const isRent = activeTab && activeTab.getAttribute('aria-controls') === 'pills-home';
+      // Define selectors according to tab
+      const prefix = isRent ? '-rent' : '-sale';
+      const getValue = (selector) => {
+        const el = document.querySelector(selector);
+        if (!el) return null;
+        return el.value && el.value !== '' ? el.value : null;
+      };
+      const filters = {
+        city: getValue(`select[name="city${prefix}"]`),
+        area: getValue(`#area${prefix}`),
+        property_type: getValue(`select[name="Type${prefix}"]`),
+        bedroomsMin: parseInt(getValue(`input[name="bedrooms${prefix}"]`)) || null,
+        bathroomsMin: parseInt(getValue(`input[name="bathrooms${prefix}"]`)) || null,
+        priceMin: parseInt(getValue(`input[name="min_price${prefix}"]`)) || null,
+        priceMax: parseInt(getValue(`input[name="max_price${prefix}"]`)) || null,
+        sizeMin: parseInt(getValue(`input[name="min_size${prefix}"]`)) || null,
+        sizeMax: parseInt(getValue(`input[name="max_size${prefix}"]`)) || null,
+        furnished: (() => {
+          const ch = document.querySelector(`input[name="Furnished"]:checked`);
+          if (!ch) return null;
+          return ch.value === 'yes';
+        })(),
+      };
+      // Clear undefined values
+      Object.keys(filters).forEach(k => {
+        if (filters[k] === null || Number.isNaN(filters[k])) delete filters[k];
+      });
+      // Render using filters; also ensure transaction type matches tab
+      const typeFilter = isRent ? 'rent' : 'sale';
+      renderProperties(typeFilter, filters);
+    });
+  }
 });
 </script>
 </body>
