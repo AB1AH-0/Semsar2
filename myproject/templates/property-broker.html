@@ -780,10 +780,55 @@ inputmode="numeric">
       return cookieValue;
     }
 
+        // --------------------------- VALIDATION --------------------------- //
+    function validateForm($panel){
+      let missing = [];
+
+      // Validate regular inputs and selects
+      $panel.find('input:not([type=\"file\"]):not([type=\"checkbox\"]), select').each(function(){
+        const $el = $(this);
+        const val = ($el.val() || '').toString().trim();
+
+        // Check for empty value or a disabled placeholder option in a select
+        if(val === '' || val === null || $el.find('option:selected').is(':disabled')){
+          let fieldName = $el.attr('placeholder') || $el.attr('name');
+          if (fieldName) {
+              // Clean up the name for a more readable alert
+              fieldName = fieldName.replace(/broker-|-rent|-sale/g, ' ').replace(/_/g, ' ').trim();
+              fieldName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1); // Capitalize
+              missing.push(fieldName);
+          }
+        }
+      });
+
+      // Validate file inputs to ensure at least one file is selected
+      $panel.find('input[type=\"file\"]').each(function(){
+        const minFiles = parseInt($(this).data('min-files')) || 1;
+        if(this.files.length < minFiles){
+          let fieldName = $(this).attr('placeholder') || $(this).attr('name');
+          missing.push(fieldName || 'Media files');
+        }
+      });
+
+      if(missing.length){
+        // Use a Set to remove any duplicate field names from the alert
+        const uniqueMissing = [...new Set(missing)];
+        alert('Please complete the following required fields:\n\n- ' + uniqueMissing.join('\n- '));
+        return false;
+      }
+      return true;
+    }
+
     $('.send-to-brokers').on('click', function(e){
       e.preventDefault();
       const $button = $(this);
       const $panel = $button.closest('.tab-pane');
+
+      // ---------- Run Validation ----------- //
+      if(!validateForm($panel)){
+        return; // Stop submission if validation fails
+      }
+
       // Use FormData for both text fields and files
       const formData = new FormData();
 

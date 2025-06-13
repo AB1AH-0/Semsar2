@@ -918,11 +918,49 @@
 
 // Capture search data and send to backend
 $(function(){
-  $('.send-to-brokers').on('click', function(e){
+      // --------------------------- INQUIRY FORM VALIDATION --------------------------- //
+    function validateInquiryForm($panel){
+      let missing = [];
+
+      // Validate all inputs and selects in the form
+      $panel.find('input, select').each(function(){
+        const $el = $(this);
+        // Skip validation for fields that are not visible or are part of a different form system
+        if (!$el.is(':visible') || $el.hasClass('select2-hidden-accessible')) {
+            return;
+        }
+
+        const val = ($el.val() || '').toString().trim();
+
+        // Check for empty value or a disabled placeholder option in a select
+        if(val === '' || val === null || ($el.is('select') && $el.find('option:selected').is(':disabled'))){
+          let fieldName = $el.closest('.listing-input').find('label').text() || $el.attr('placeholder') || $el.attr('name');
+          if (fieldName) {
+              fieldName = fieldName.replace(/\*/g, '').trim(); // Clean up label text
+              missing.push(fieldName);
+          }
+        }
+      });
+
+      if(missing.length){
+        const uniqueMissing = [...new Set(missing)];
+        alert('Please complete the following required fields:\n\n- ' + uniqueMissing.join('\n- '));
+        return false;
+      }
+      return true;
+    }
+
+    $('.send-to-brokers').on('click', function(e){
     e.preventDefault();
     const $button = $(this);
     const $panel = $button.closest('.tab-pane');
     const $tabContent = $panel.closest('.tab-content');
+
+    // ---------- Run Validation ----------- //
+    if(!validateInquiryForm($panel)){
+        return; // Stop submission if validation fails
+    }
+
     const data = {};
 
     // Determine transaction_type based on the active panel's ID
