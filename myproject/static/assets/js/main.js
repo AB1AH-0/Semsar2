@@ -127,7 +127,7 @@
     items:10,
     autoplay:true,
     smartSpeed:2000,
-    autoplayTimeout:3000,
+    autoplayTimeout:7000,
     responsiveClass:true,
     responsive:{
         0:{
