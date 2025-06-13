@@ -1056,7 +1056,11 @@ function createPropertyCard(property) {
   card.querySelector('.bedrooms').textContent = property.bedrooms;
   card.querySelector('.bathrooms').textContent = property.bathrooms;
   card.querySelector('.area').textContent = property.size;
-  card.querySelector('.price').textContent = property.price + ' EGP';
+  let priceText = property.price + ' EGP';
+  if (property.transaction_type && property.transaction_type.toLowerCase().includes('rent')) {
+    priceText += '/Month';
+  }
+  card.querySelector('.price').textContent = priceText;
   card.querySelector('.broker-name').textContent = property.broker_name;
   card.querySelector('.broker-phone').textContent = property.broker_phone;
   card.querySelector('.property-type').textContent = property.property_type;
@@ -1176,7 +1180,11 @@ function createPropertyCard(property) {
   card.querySelector('.bedrooms').textContent = property.bedrooms;
   card.querySelector('.bathrooms').textContent = property.bathrooms;
   card.querySelector('.area').textContent = property.size;
-  card.querySelector('.price').textContent = property.price + ' EGP';
+  let priceText2 = property.price + ' EGP';
+  if (property.transaction_type && property.transaction_type.toLowerCase().includes('rent')) {
+    priceText2 += '/Month';
+  }
+  card.querySelector('.price').textContent = priceText2;
   card.querySelector('.broker-name').textContent = property.broker_name;
   card.querySelector('.broker-phone').textContent = property.broker_phone;
   card.querySelector('.property-type').textContent = property.property_type;
