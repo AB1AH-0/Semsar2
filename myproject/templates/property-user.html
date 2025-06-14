@@ -98,7 +98,6 @@
   .property-title {
     font-size: 18px;
     font-weight: 600;
-    margin-bottom: 10px;
   }
   
   .property-location {
@@ -164,6 +163,24 @@
   .btn-filter.active {
     background: #007bff;
     color: white;
+  }
+  
+  .broker-action {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .accept-property-btn {
+    width: 100%;
+    padding: 10px 15px;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+  }
+  
+  .accept-property-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
   }
     </style>
 </head>
@@ -814,9 +831,10 @@
           </div>
           <div class="property-meta">
             <div class="price"></div>
-            <div class="broker-info">
-              <i class="fa-solid fa-user"></i> <span class="broker-name"></span><br>
-              <i class="fa-solid fa-phone"></i> <span class="broker-phone"></span>
+            <div class="broker-action">
+              <button class="btn btn-success btn-sm accept-property-btn" data-property-id="">
+                <i class="fa-solid fa-check"></i> <span class="transaction-type-btn-text"></span>
+              </button>
             </div>
           </div>
         </div>
@@ -1010,9 +1028,7 @@
     // For SALE tab - link city-sale and area-sale
     linkCityAreaDropdowns('select[name="city-sale"]', '#area-sale');
 });
-</script>
 
-<script>
 // Function to fetch properties from the backend
 async function fetchProperties() {
   try {
@@ -1061,8 +1077,8 @@ function createPropertyCard(property) {
     priceText += '/Month';
   }
   card.querySelector('.price').textContent = priceText;
-  card.querySelector('.broker-name').textContent = property.broker_name;
-  card.querySelector('.broker-phone').textContent = property.broker_phone;
+  card.querySelector('.transaction-type-btn-text').textContent = property.transaction_type;
+  card.querySelector('.accept-property-btn').setAttribute('data-property-id', property.id);
   card.querySelector('.property-type').textContent = property.property_type;
   
   // Add data attribute for filtering
@@ -1185,8 +1201,8 @@ function createPropertyCard(property) {
     priceText2 += '/Month';
   }
   card.querySelector('.price').textContent = priceText2;
-  card.querySelector('.broker-name').textContent = property.broker_name;
-  card.querySelector('.broker-phone').textContent = property.broker_phone;
+  card.querySelector('.transaction-type-btn-text').textContent = property.transaction_type;
+  card.querySelector('.accept-property-btn').setAttribute('data-property-id', property.id);
   card.querySelector('.property-type').textContent = property.property_type;
   
   // Add data attribute for filtering
@@ -1199,47 +1215,102 @@ function createPropertyCard(property) {
 // Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
   renderProperties('all');
-  
-  // Search button click handler
-  const searchBtn = document.getElementById('search-button');
-  if (searchBtn) {
-    searchBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const activeTab = document.querySelector('.listing-tabs-area .nav-link.active');
-      const isRent = activeTab && activeTab.getAttribute('aria-controls') === 'pills-home';
-      // Define selectors according to tab
-      const prefix = isRent ? '-rent' : '-sale';
-      const getValue = (selector) => {
-        const el = document.querySelector(selector);
-        if (!el) return null;
-        return el.value && el.value !== '' ? el.value : null;
-      };
-      const filters = {
-        city: getValue(`select[name="city${prefix}"]`),
-        area: getValue(`#area${prefix}`),
-        property_type: getValue(`select[name="Type${prefix}"]`),
-        bedroomsMin: parseInt(getValue(`input[name="bedrooms${prefix}"]`)) || null,
-        bathroomsMin: parseInt(getValue(`input[name="bathrooms${prefix}"]`)) || null,
-        priceMin: parseInt(getValue(`input[name="min_price${prefix}"]`)) || null,
-        priceMax: parseInt(getValue(`input[name="max_price${prefix}"]`)) || null,
-        sizeMin: parseInt(getValue(`input[name="min_size${prefix}"]`)) || null,
-        sizeMax: parseInt(getValue(`input[name="max_size${prefix}"]`)) || null,
-        furnished: (() => {
-          const ch = document.querySelector(`input[name="Furnished"]:checked`);
-          if (!ch) return null;
-          return ch.value === 'yes';
-        })(),
-      };
-      // Clear undefined values
-      Object.keys(filters).forEach(k => {
-        if (filters[k] === null || Number.isNaN(filters[k])) delete filters[k];
-      });
-      // Render using filters; also ensure transaction type matches tab
-      const typeFilter = isRent ? 'rent' : 'sale';
-      renderProperties(typeFilter, filters);
-    });
+});
+
+// Search button click handler
+document.getElementById('search-button').addEventListener('click', (e) => {
+  e.preventDefault();
+  const activeTab = document.querySelector('.listing-tabs-area .nav-link.active');
+  const isRent = activeTab && activeTab.getAttribute('aria-controls') === 'pills-home';
+  // Define selectors according to tab
+  const prefix = isRent ? '-rent' : '-sale';
+  const getValue = (selector) => {
+    const el = document.querySelector(selector);
+    if (!el) return null;
+    return el.value && el.value !== '' ? el.value : null;
+  };
+  const filters = {
+    city: getValue(`select[name="city${prefix}"]`),
+    area: getValue(`#area${prefix}`),
+    property_type: getValue(`select[name="Type${prefix}"]`),
+    bedroomsMin: parseInt(getValue(`input[name="bedrooms${prefix}"]`)) || null,
+    bathroomsMin: parseInt(getValue(`input[name="bathrooms${prefix}"]`)) || null,
+    priceMin: parseInt(getValue(`input[name="min_price${prefix}"]`)) || null,
+    priceMax: parseInt(getValue(`input[name="max_price${prefix}"]`)) || null,
+    sizeMin: parseInt(getValue(`input[name="min_size${prefix}"]`)) || null,
+    sizeMax: parseInt(getValue(`input[name="max_size${prefix}"]`)) || null,
+    furnished: (() => {
+      const ch = document.querySelector(`input[name="Furnished"]:checked`);
+      if (!ch) return null;
+      return ch.value === 'yes';
+    })(),
+  };
+  // Clear undefined values
+  Object.keys(filters).forEach(k => {
+    if (filters[k] === null || Number.isNaN(filters[k])) delete filters[k];
+  });
+  // Render using filters; also ensure transaction type matches tab
+  const typeFilter = isRent ? 'rent' : 'sale';
+  renderProperties(typeFilter, filters);
+});
+
+// Accept property button click handler (using event delegation)
+document.addEventListener('click', function(event) {
+  if (event.target.closest('.accept-property-btn')) {
+    event.preventDefault();
+    const button = event.target.closest('.accept-property-btn');
+    const propertyId = button.getAttribute('data-property-id');
+    console.log('Button clicked, Property ID:', propertyId); // Debug log
+    if (propertyId) {
+      acceptProperty(propertyId);
+    } else {
+      console.error('No property ID found on button');
+    }
   }
 });
+
+// Function to accept property (similar to acceptOffer in brokers page)
+function acceptProperty(propertyId) {
+  const csrfToken = getCookie('csrftoken');
+  
+  fetch(`/api/properties/accept/${propertyId}/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrfToken
+    },
+    body: JSON.stringify({ property_id: propertyId })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      alert('Property request sent successfully!');
+      // Optionally refresh the properties or update UI
+    } else {
+      alert('Error: ' + (data.error || 'Failed to send property request'));
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('An error occurred while processing your request.');
+  });
+}
+
+// Function to get CSRF token
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === (name + '=')) {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
 </script>
 </body>
 </html>

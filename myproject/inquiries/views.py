@@ -511,7 +511,7 @@ def properties_api(request):
             # Support both JSON (application/json) and file uploads (multipart/form-data)
             if request.content_type and request.content_type.startswith('multipart'):
                 data = request.POST
-                uploaded_files = request.FILES.getlist('media_files')
+                uploaded_files = request.FILES.getlist('media')
             else:
                 data = json.loads(request.body.decode('utf-8'))
                 uploaded_files = []
@@ -1004,3 +1004,65 @@ def home_broker_view(request):
         }
     
     return render(request, 'home-broker.html', context)
+
+
+@csrf_exempt
+def accept_property(request, property_id=None):
+    """
+    API endpoint for users to accept/request a property listing.
+    Creates an inquiry record for the property.
+    """
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            property_id = property_id or data.get('property_id')
+            
+            if not property_id:
+                return JsonResponse({'success': False, 'error': 'Property ID is required.'}, status=400)
+            
+            # Get the property
+            try:
+                property_obj = Property.objects.get(id=property_id, is_active=True)
+            except Property.DoesNotExist:
+                return JsonResponse({'success': False, 'error': 'Property not found or inactive.'}, status=404)
+            
+            # Create an inquiry for this property
+            inquiry = Inquiry.objects.create(
+                transaction_type=property_obj.transaction_type,
+                city=property_obj.city,
+                area=property_obj.area,
+                property_type=property_obj.property_type,
+                bedrooms=property_obj.bedrooms,
+                bathrooms=property_obj.bathrooms,
+                min_price=property_obj.price,
+                max_price=property_obj.price,
+                min_size=property_obj.size,
+                max_size=property_obj.size,
+                furnished=property_obj.furnished == 'Furnished',  # Convert string to boolean
+                created_at=timezone.now()
+            )
+            
+            # Create a broker post automatically for this property
+            broker_post = BrokerPost.objects.create(
+                inquiry=inquiry,
+                broker_name=property_obj.broker.full_name,
+                broker_phone=property_obj.broker.phone_number,
+                commission=5.0,  # Default commission
+                notes=f"Property listing request for {property_obj.property_type} in {property_obj.city}",
+                created_at=timezone.now()
+            )
+            
+            return JsonResponse({
+                'success': True,
+                'message': 'Property request sent successfully!',
+                'inquiry_id': inquiry.id,
+                'broker_name': broker_post.broker_name,
+                'broker_phone': broker_post.broker_phone
+            })
+            
+        except json.JSONDecodeError:
+            return JsonResponse({'success': False, 'error': 'Invalid JSON data.'}, status=400)
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)}, status=500)
+    
+    return JsonResponse({'error': 'Method not allowed'}, status=405)
