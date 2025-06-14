@@ -25,7 +25,7 @@ from inquiries.views import (
     accept_inquiry, reject_inquiry, login_user, payment_page, process_payment, 
     logout_user, properties_api, accept_broker_offer, 
     reject_broker_offer, submit_broker_review, get_broker_rejections, get_deals_status,
-    broker_properties_api, home_broker_view
+    broker_properties_api, home_broker_view, accept_property
 )
 
 urlpatterns = [
@@ -71,6 +71,7 @@ urlpatterns = [
     path('api/deals/review/<int:deal_id>/', submit_broker_review, name='submit_broker_review'),
     path('api/deals/rejections/', get_broker_rejections, name='get_broker_rejections'),
     path('api/deals/status/', get_deals_status, name='get_deals_status'),
+    path('api/properties/accept/<int:property_id>/', accept_property, name='accept_property'),
 ]
 
 # Serve static files during development when DEBUG is True
