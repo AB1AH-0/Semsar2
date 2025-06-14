@@ -15,7 +15,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'user_type', 'phone', 'has_paid', 'is_trial_active')
     list_filter = ('user_type', 'has_paid')
     search_fields = ('full_name', 'email', 'phone', 'national_id')
-    readonly_fields = ('created_at', 'trial_start_date', 'trial_end_date', 'password')
+    readonly_fields = ('created_at', 'password')
     fieldsets = (
         ('Personal Info', {'fields': ('full_name', 'email', 'phone', 'national_id')}),
         ('Account Type', {'fields': ('user_type', 'license_image')}),
