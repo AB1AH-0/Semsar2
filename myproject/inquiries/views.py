@@ -330,7 +330,7 @@ def login_user(request):
                 return JsonResponse({
                     'success': True,
                     'user_type': user.user_type,
-                    'redirect_url': '/payment'  # Redirect to payment view
+                    'redirect_url': '/payment/'  # Redirect to payment view
                 })
                 
         return JsonResponse({
@@ -359,7 +359,7 @@ def process_payment(request):
         required_fields = [user_email, card_holder_name, card_number, exp_month, exp_year, cvv]
         if not all(required_fields):
             messages.error(request, 'All payment fields are required')
-            return redirect('/payment')
+            return redirect('/payment/')
         
         try:
             user = UserProfile.objects.get(email=user_email)
@@ -382,15 +382,15 @@ def process_payment(request):
             payment_info.save()
             
             messages.success(request, 'Payment successful! Your account has been activated.')
-            return redirect('/home-broker')
+            return redirect('/home-broker/')
         except UserProfile.DoesNotExist:
             messages.error(request, 'User not found')
         except Exception as e:
             messages.error(request, f'Payment processing failed: {str(e)}')
         
-        return redirect('/payment')
-    
-    return redirect('/payment')
+        return redirect('/payment/')
+
+    return render(request, 'payment.html')
 
 
 def logout_user(request):
