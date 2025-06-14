@@ -253,8 +253,13 @@
         const data = await response.json();
         
         if (response.ok) {
-          // Redirect based on user type
-          window.location.href = data.redirect_url;
+          if (data.redirect_url) {
+            window.location.href = data.redirect_url;
+          } else if (data.user_type === 'broker') {
+            window.location.href = '/home-broker/';
+          } else {
+            window.location.href = '/home-user/';
+          }
         } else {
           // Show error message from server
           alert(data.error || 'Invalid login credentials.');

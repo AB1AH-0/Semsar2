@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property, Deal, BrokerRegistration, BrokerRejection
+from .models import UserProfile, Inquiry, BrokerPost, Deal, Property, PaymentInfo, PaymentLog, BrokerRegistration, BrokerRejection
 from django.utils import timezone
 import random
 import string
@@ -322,15 +322,26 @@ def login_user(request):
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
     
     if user.check_password(password):
+        # Store email in session for use across pages
+        request.session['user_email'] = user.email
+
         from django.utils import timezone
         
-        # For brokers: check trial status
+        # For brokers, check for expired subscriptions
         if user.user_type == 'broker':
-            if not user.has_paid and (not user.trial_end_date or timezone.now() > user.trial_end_date):
+            is_expired = False
+            if not user.has_paid:
+                # If there's no trial end date or it's in the past, they are expired
+                if not user.trial_end_date or timezone.now() > user.trial_end_date:
+                    is_expired = True
+            
+            if is_expired:
+                # Still log them in so we can pre-fill email on payment page
+                request.session['user_email'] = user.email
                 return JsonResponse({
                     'success': True,
                     'user_type': user.user_type,
-                    'redirect_url': '/payment/'  # Redirect to payment view
+                    'redirect_url': '/payment/'
                 })
                 
         return JsonResponse({
@@ -354,43 +365,58 @@ def process_payment(request):
         exp_month = request.POST.get('exp_month')
         exp_year = request.POST.get('exp_year')
         cvv = request.POST.get('cvv')
-        
-        # Validate required fields
-        required_fields = [user_email, card_holder_name, card_number, exp_month, exp_year, cvv]
-        if not all(required_fields):
+
+        if not all([user_email, card_holder_name, card_number, exp_month, exp_year, cvv]):
             messages.error(request, 'All payment fields are required')
-            return redirect('/payment/')
-        
+            return render(request, 'payment.html', {'email': user_email})
+
         try:
             user = UserProfile.objects.get(email=user_email)
-            
-            # For brokers: extend trial period after payment
+
             if user.user_type == user.USER_TYPE_BROKER:
                 user.has_paid = True
-                user.trial_end_date = timezone.now() + timezone.timedelta(days=365)  # 1 year access
+                user.trial_end_date = timezone.now() + timezone.timedelta(days=365)
                 user.save()
-            
-            # Save payment information
-            payment_info = PaymentInfo(
-                user=user,
-                card_holder_name=card_holder_name,
-                card_number=card_number[-4:],  # Only store last 4 digits
-                exp_month=exp_month,
-                exp_year=exp_year,
-                payment_date=timezone.now()
-            )
-            payment_info.save()
-            
+
+                # Encrypt and save payment information
+                cipher_suite = PaymentInfo._get_cipher_suite()
+                expiry_date_str = f'{exp_month}/{exp_year}'
+                encrypted_card = cipher_suite.encrypt(card_number.encode())
+                encrypted_expiry = cipher_suite.encrypt(expiry_date_str.encode())
+                encrypted_cvv_val = cipher_suite.encrypt(cvv.encode())
+
+                PaymentInfo.objects.create(
+                    user=user,
+                    card_holder_name=card_holder_name,
+                    encrypted_card_number=encrypted_card,
+                    encrypted_expiry_date=encrypted_expiry,
+                    encrypted_cvv=encrypted_cvv_val
+                )
+
+                # Create a payment log
+                payment_method_from_form = request.POST.get('payment_method', 'other')
+                payment_method_for_db = PaymentLog.PAYMENT_METHOD_CARD if payment_method_from_form == 'visa' else PaymentLog.PAYMENT_METHOD_OTHER
+
+                PaymentLog.objects.create(
+                    broker=user,
+                    amount=200.00,  # Assuming a fixed amount
+                    payment_method=payment_method_for_db,
+                    status=PaymentLog.PAYMENT_STATUS_COMPLETED,
+                    notes=f"Subscription payment via {payment_method_from_form}."
+                )
+
             messages.success(request, 'Payment successful! Your account has been activated.')
             return redirect('/home-broker/')
         except UserProfile.DoesNotExist:
             messages.error(request, 'User not found')
+            return render(request, 'payment.html', {'email': user_email})
         except Exception as e:
-            messages.error(request, f'Payment processing failed: {str(e)}')
-        
-        return redirect('/payment/')
+            messages.error(request, f'An unexpected error occurred: {e}')
+            return render(request, 'payment.html', {'email': user_email})
 
-    return render(request, 'payment.html')
+    # Pre-fill email from session if available
+    user_email = request.session.get('user_email', '')
+    return render(request, 'payment.html', {'email': user_email})
 
 
 def logout_user(request):
@@ -963,47 +989,43 @@ def get_deals_status(request):
 
 
 def home_broker_view(request):
-    """
-    Home page view for brokers with subscription days calculation
-    """
-    # Get current broker (for now using first broker, replace with session-based auth)
+    user_email = request.session.get('user_email')
+    if not user_email:
+        return redirect('/login/')
+
     try:
-        broker = UserProfile.objects.filter(user_type=UserProfile.USER_TYPE_BROKER).first()
+        user = UserProfile.objects.get(email=user_email)
+        if user.user_type != 'broker':
+            return redirect('/login/')
+
+        # Check for expired subscription
+        is_expired = False
+        if not user.has_paid:
+            if not user.trial_end_date or timezone.now() > user.trial_end_date:
+                is_expired = True
         
-        subscription_days_left = 0
-        subscription_status = "No subscription"
-        
-        if broker:
-            if broker.has_paid:
-                subscription_status = "Paid subscription"
-                subscription_days_left = "∞"  # Unlimited for paid users
-            elif broker.trial_end_date:
-                # Calculate days left in trial
-                now = timezone.now()
-                if broker.trial_end_date > now:
-                    days_left = (broker.trial_end_date - now).days
-                    subscription_days_left = days_left
-                    subscription_status = f"Trial - {days_left} days left"
-                else:
-                    subscription_days_left = 0
-                    subscription_status = "Trial expired"
-            else:
-                subscription_status = "No trial started"
-        
+        if is_expired:
+            return redirect('/payment/')
+
+        # Calculate subscription status for display
+        days_left = None
+        if user.has_paid:
+            subscription_status = 'premium'
+        elif user.trial_end_date:
+            delta = user.trial_end_date - timezone.now()
+            days_left = delta.days
+            subscription_status = 'trial' if days_left >= 0 else 'expired'
+        else:
+            subscription_status = 'no_trial'
+
         context = {
-            'broker': broker,
-            'subscription_days_left': subscription_days_left,
+            'user': user,
             'subscription_status': subscription_status,
+            'days_left': days_left,
         }
-        
-    except Exception as e:
-        context = {
-            'broker': None,
-            'subscription_days_left': 0,
-            'subscription_status': "Error loading subscription info",
-        }
-    
-    return render(request, 'home-broker.html', context)
+        return render(request, 'home-broker.html', context)
+    except UserProfile.DoesNotExist:
+        return redirect('/login/')
 
 
 @csrf_exempt
