@@ -58,7 +58,7 @@
                     </div>
                     <div class="inputbox">
                         <span>Email</span>
-                        <input type="email" placeholder="example@example.com" name="email">
+                        <input type="email" placeholder="example@example.com" name="email" value="{{ user_email }}" readonly>
                     </div>
                     <div class="inputbox">
                         <span>Address</span>
@@ -89,6 +89,10 @@
                             <label>
                                 <input type="radio" name="payment_method" value="visa" checked>
                                 Visa
+                            </label>
+                            <label>
+                                <input type="radio" name="payment_method" value="instapay">
+                                instapay
                             </label>
                         </div>
                     </div>

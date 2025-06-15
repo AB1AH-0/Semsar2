@@ -3,6 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile, PaymentInfo, Inquiry, BrokerPost, Property, Deal, BrokerRegistration, BrokerRejection
 from django.utils import timezone
 import random
@@ -322,6 +323,9 @@ def login_user(request):
         return JsonResponse({'error': 'Invalid email or password'}, status=400)
     
     if user.check_password(password):
+        # Set user ID in session to persist login
+        request.session['user_id'] = user.id
+
         from django.utils import timezone
         
         # For brokers: check trial status
@@ -330,7 +334,7 @@ def login_user(request):
                 return JsonResponse({
                     'success': True,
                     'user_type': user.user_type,
-                    'redirect_url': '/payment'  # Redirect to payment view
+                    'redirect_url': '/payment/'  # Redirect to payment view
                 })
                 
         return JsonResponse({
@@ -343,7 +347,22 @@ def login_user(request):
 
 
 def payment_page(request):
-    return render(request, 'payment.html')
+    user_id = request.session.get('user_id')
+    if not user_id:
+        return redirect('/login/')
+    
+    try:
+        user = UserProfile.objects.get(id=user_id)
+        user_email = user.email
+    except UserProfile.DoesNotExist:
+        # If user from session doesn't exist, clear session and redirect to login
+        request.session.flush()
+        return redirect('/login/')
+
+    context = {
+        'user_email': user_email
+    }
+    return render(request, 'payment.html', context)
 
 
 def process_payment(request):
@@ -359,7 +378,7 @@ def process_payment(request):
         required_fields = [user_email, card_holder_name, card_number, exp_month, exp_year, cvv]
         if not all(required_fields):
             messages.error(request, 'All payment fields are required')
-            return redirect('/payment')
+            return redirect('/payment/')
         
         try:
             user = UserProfile.objects.get(email=user_email)
@@ -388,22 +407,17 @@ def process_payment(request):
         except Exception as e:
             messages.error(request, f'Payment processing failed: {str(e)}')
         
-        return redirect('/payment')
+        return redirect('/payment/')
     
-    return redirect('/payment')
+    return redirect('/payment/')
 
 
 def logout_user(request):
     """
     Logout view that clears session data and redirects to login page
     """
-    # Clear any session data
     request.session.flush()
-    
-    # Add a success message
     messages.success(request, 'You have been successfully logged out.')
-    
-    # Redirect to login page
     return redirect('/login/')
 
 
